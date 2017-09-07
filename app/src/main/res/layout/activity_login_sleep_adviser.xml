@@ -6,37 +6,46 @@
     android:layout_height="match_parent"
     tools:context="com.santiagoapps.sleepadviser.LoginSleepAdviser">
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress" />
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText5"
-        android:layout_alignStart="@+id/editText5"
-        android:layout_below="@+id/editText5"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        <EditText
+            android:inputType="textEmailAddress"
+            android:hint="Enter your Email"
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText6"
-        android:layout_alignStart="@+id/editText6"
-        android:layout_below="@+id/editText6"
-        android:text="@string/action_sign_in_short" />
+        <EditText
+            android:inputType="textPassword"
+            android:hint="Enter your password"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:text="SIGN IN"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:onClick="onClick_btnEnter"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Already Registered? Sign in here."
+            android:id="@+id/txtSignin"
+            android:layout_width="match_parent"
+            android:onClick="onClick_signin"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 </RelativeLayout>
