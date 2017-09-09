@@ -4,11 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.santiagoapps.sleepadviser.LoginSleepAdviser">
+    tools:context="com.santiagoapps.sleepadviser.RegisterActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="Please input required fields"
+        android:textAllCaps="true" />
 
     <LinearLayout
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -33,19 +43,25 @@
 
         <Button
             android:id="@+id/btnEnter"
-            android:text="SIGN IN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
             android:onClick="onClick_btnEnter"
-            android:layout_height="wrap_content" />
+            android:text="register" />
 
         <TextView
-            android:text="Already Registered? Sign in here."
             android:id="@+id/txtSignin"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClick_signin"
-            android:layout_height="match_parent" />
+            android:text="Already Registered? Sign in here."
+            android:textAlignment="center" />
 
     </LinearLayout>
+
 </RelativeLayout>

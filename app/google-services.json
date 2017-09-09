@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "501966306987-jp9fsmao1b2ocbb7vjolgp3uk4gq3gqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.santiagoapps.sleepadviser",
+            "certificate_hash": "2f106187e265ce0a97b0f721f626b8230e93c388"
+          }
+        },
+        {
           "client_id": "501966306987-7713bk59afe5a6seo9g800k33aooeukt.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -22,6 +30,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyAbUpfi2Qp5dZVJ2kgWcuKc9mBTV6GoWHY"
+        },
+        {
+          "current_key": "AIzaSyCO0W3GsUN7cTVvinqfzX3bDqwXhpo2NwI"
         }
       ],
       "services": {
@@ -29,8 +40,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501966306987-7713bk59afe5a6seo9g800k33aooeukt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
