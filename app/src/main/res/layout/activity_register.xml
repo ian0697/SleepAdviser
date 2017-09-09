@@ -10,11 +10,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:layout_marginTop="67dp"
+        android:text="REGISTER NOW TO SleAd"
+        android:textAllCaps="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
-        android:text="Please input required fields"
-        android:textAllCaps="true" />
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:layout_centerHorizontal="true"

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_sleep_adviser);
+        setContentView(R.layout.activity_register);
         init();
     }
 
@@ -81,11 +82,13 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            String user_id  = firebaseAuth.getCurrentUser().getUid();
                             Toast.makeText(RegisterActivity.this,"ACCOUNT REGISTERED!", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(RegisterActivity.this,"Error", Toast.LENGTH_LONG).show();
@@ -101,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void onClick_signin(View v){
-
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     public void onClick_btnEnter(View v){

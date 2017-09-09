@@ -48,11 +48,11 @@
             android:onClick="onClick_signin"/>
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Account? Register here."
-            android:onClick="onClick_register"/>
-
+            android:onClick="onClick_register"
+            android:text="No Account? Register here." />
 
 
     </LinearLayout>
