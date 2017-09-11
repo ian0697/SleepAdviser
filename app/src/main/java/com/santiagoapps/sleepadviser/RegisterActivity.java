@@ -20,8 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnEnter;
+    private EditText txtName;
     private EditText txtEmail;
-    private EditText txtPassword;
+    private EditText txtPassword,txtPassword2;
     private TextView txtView_Signin;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -36,8 +37,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void init(){
         btnEnter = (Button)findViewById(R.id.btnEnter);
+
+        txtName = (EditText)findViewById(R.id.txtName);
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         txtPassword = (EditText)findViewById(R.id.txtPassword);
+        txtPassword2 = (EditText)findViewById(R.id.txtPassword2);
         txtView_Signin = (TextView) findViewById(R.id.txtSignin);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -46,8 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
                     startActivity(new Intent(RegisterActivity.this, Account.class));
-                } else{
-                    Toast.makeText(getApplicationContext(),"Log-in failed",Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -68,27 +70,41 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(){
+        String name = txtName.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
+        String password2 = txtPassword2.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Please enter name",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email address",Toast.LENGTH_LONG).show();
             return;
-
         }
 
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter password address",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
             return;
         }
 
+        if(TextUtils.isEmpty(password2)){
+            Toast.makeText(this,"Please enter confirm password",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(!password.equalsIgnoreCase(password2)){
+            Toast.makeText(this,"Passwords do not match!",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            String user_id  = firebaseAuth.getCurrentUser().getUid();
                             Toast.makeText(RegisterActivity.this,"ACCOUNT REGISTERED!", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(RegisterActivity.this,"Error", Toast.LENGTH_LONG).show();
@@ -97,11 +113,6 @@ public class RegisterActivity extends AppCompatActivity {
                 });
 
     }
-
-    private void openAnotherActivity(){
-
-    }
-
 
     public void onClick_signin(View v){
         startActivity(new Intent(this, LoginActivity.class));

@@ -10,36 +10,57 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:layout_marginTop="67dp"
-        android:text="REGISTER NOW TO SleAd"
-        android:textAllCaps="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:text="@string/sign_up"
+        android:textAllCaps="true"
+        android:textSize="24sp" />
 
     <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="14dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/prompt_name" />
 
         <EditText
             android:inputType="textEmailAddress"
-            android:hint="Enter your Email"
+            android:hint="@string/prompt_email"
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
         <EditText
             android:inputType="textPassword"
-            android:hint="Enter your password"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:hint="@string/prompt_password"
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="textPassword"
+            android:hint="@string/confirm_password"
+            android:id="@+id/txtPassword2"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
         <Button
@@ -48,8 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/common_google_signin_btn_text_light_pressed"
             android:onClick="onClick_btnEnter"
-            android:text="register" />
+            android:text="@string/btn_register"
+            android:textColor="@color/common_google_signin_btn_text_light" />
 
         <TextView
             android:id="@+id/txtSignin"
@@ -60,7 +84,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:onClick="onClick_signin"
-            android:text="Already Registered? Sign in here."
+            android:text="@string/already_registered"
             android:textAlignment="center" />
 
     </LinearLayout>

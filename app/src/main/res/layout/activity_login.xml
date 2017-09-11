@@ -6,25 +6,39 @@
     android:layout_height="match_parent"
     tools:context="com.santiagoapps.sleepadviser.LoginActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1.57"
+            app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAlignment="center"
-            android:text="Please log-in"/>
+            android:text="@string/sign_in"
+            android:textSize="24sp"
+            android:layout_marginTop="30dp"
+            android:textAlignment="center" />
 
         <EditText
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Input email address"
+            android:inputType="textEmailAddress"
+            android:hint="@string/prompt_email"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:id="@+id/emailField" />
@@ -32,7 +46,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input password"
+            android:layout_marginTop="10dp"
+            android:hint="@string/prompt_password"
             android:inputType="textPassword"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -42,8 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="SIGN-IN"
+            android:text="@string/sign_in"
             android:id="@+id/btnSignin"
             android:onClick="onClick_signin"/>
 
@@ -51,8 +67,13 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
             android:onClick="onClick_register"
-            android:text="No Account? Register here." />
+            android:text="@string/new_account" />
 
 
     </LinearLayout>
