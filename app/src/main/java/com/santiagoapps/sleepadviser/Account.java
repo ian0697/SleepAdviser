@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Account extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference database;
     TextView txtName;
@@ -36,20 +37,16 @@ public class Account extends AppCompatActivity {
 
         txtName = (TextView)findViewById(R.id.txtName);
 
-
         firebaseAuth= FirebaseAuth.getInstance();
-
+        user =  FirebaseAuth.getInstance().getCurrentUser();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    Toast.makeText(getApplicationContext(),"WELCOME TO THE PROGRAM",Toast.LENGTH_LONG).show();
-                    FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
-                    txtName.setText("Welcome, " + user.getDisplayName() + "!");
-
+                    txtName.setText("Welcome, "+ user.getEmail());
                 } else{
                     Toast.makeText(getApplicationContext(),"Logging-out",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(Account.this, RegisterActivity.class));
+                    startActivity(new Intent(Account.this, LoginActivity.class));
                 }
             }
         };
