@@ -43,7 +43,7 @@ public class Account extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    txtName.setText("Welcome, "+ user.getEmail());
+                    txtName.setText(String.format("Welcome %s" , user.getEmail()));
                 } else{
                     Toast.makeText(getApplicationContext(),"Logging-out",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(Account.this, LoginActivity.class));
