@@ -18,7 +18,7 @@
         android:textSize="24sp" />
 
     <LinearLayout
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="18dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
