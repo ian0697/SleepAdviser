@@ -1,5 +1,6 @@
 package com.santiagoapps.sleepadviser;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -45,16 +46,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void init(){
         btnEnter = (Button)findViewById(R.id.btnEnter);
-
         txtName = (EditText)findViewById(R.id.txtName);
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         txtPassword = (EditText)findViewById(R.id.txtPassword);
         txtPassword2 = (EditText)findViewById(R.id.txtPassword2);
         txtView_Signin = (TextView) findViewById(R.id.txtSignin);
 
-
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -80,66 +80,74 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(){
+        //User Inputs
         final String name = txtName.getText().toString().trim();
         final String email = txtEmail.getText().toString().trim();
         final String password = txtPassword.getText().toString().trim();
         final String password2 = txtPassword2.getText().toString().trim();
 
+        //ProgressBar
+        final ProgressDialog mDialog = new ProgressDialog(RegisterActivity.this);
+        mDialog.setMessage("Please wait...");
+
+
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Please enter name",Toast.LENGTH_LONG).show();
+            txtName.setError("This field is required.");
+            txtName.requestFocus();
             return;
         }
 
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter email address",Toast.LENGTH_LONG).show();
+            txtEmail.setError("This field is required.");
+            txtEmail.requestFocus();
             return;
         }
 
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            txtPassword.setError("Please enter password");
+            txtPassword.requestFocus();
             return;
         }
 
         if(TextUtils.isEmpty(password2)){
-            Toast.makeText(this,"Please enter confirm password",Toast.LENGTH_LONG).show();
+            txtPassword2.setError("Please enter confirm password");
+            txtPassword2.requestFocus();
             return;
         }
 
         if(!password.equalsIgnoreCase(password2)){
-            Toast.makeText(this,"Passwords do not match!",Toast.LENGTH_LONG).show();
+            txtPassword.setError("Password doesn't match!");
+            txtPassword.requestFocus();
             return;
         }
+        //Start progress dialog
+        mDialog.show();
 
-
-
+        //Firebase Authentication
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            mDialog.dismiss();
+
+                            //save to Firebase Database
                             saveToDatabase(name,email,password);
+
                             Toast.makeText(RegisterActivity.this,"ACCOUNT REGISTERED!", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(RegisterActivity.this,"Error", Toast.LENGTH_LONG).show();
+                            mDialog.dismiss();
+                            Toast.makeText(RegisterActivity.this,"Register Error", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-
     }
 
     public void saveToDatabase(String name, String email, String password){
-        UserInformation userInformation = new UserInformation(name,email,password);
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        User _user = new User(email,password,name);
 
-        user.updateProfile(new UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .setPhotoUri(Uri.parse("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnB5nwQQfxJigSlgJdppnCZ9CEVxjgi78_jhOMPg5Z1PRJgwxUwg"))
-                .build()
-        );
-
-        database.child(user.getUid()).setValue(userInformation);
-
-
+        database.child(user.getUid()).setValue(_user);
     }
 
     public void onClick_signin(View v){
