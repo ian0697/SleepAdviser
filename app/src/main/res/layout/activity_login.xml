@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"
             android:layout_weight="1.57"
-            app:srcCompat="@drawable/final_icon" />
+            app:srcCompat="@drawable/icon" />
 
         <TextView
             android:layout_width="match_parent"
@@ -65,19 +65,34 @@
             android:onClick="onClick_signin"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:textSize="18sp"
+            android:layout_weight="1.57"
             android:onClick="onClick_register"
-            android:text="@string/new_account" />
+            android:text="@string/new_account"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="onClick_register"
+        android:text="SKIP FOR NOW"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp" />
 
 
 </RelativeLayout>

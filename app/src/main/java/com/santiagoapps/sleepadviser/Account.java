@@ -44,15 +44,20 @@ public class Account extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         user =  FirebaseAuth.getInstance().getCurrentUser();
 
-        tbl_user = FirebaseDatabase.getInstance().getReference("User");
+        tbl_user = FirebaseDatabase.getInstance().getReference("Users");
 
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 if(dataSnapshot.child(user.getUid()).exists()){
-                     _user = dataSnapshot.child(user.getUid()).getValue(User.class);
-                     txtName.setText(String.format("Welcome %s" , _user.getName()));
-                 }
+                if (dataSnapshot.child(user.getUid()).exists()) {
+                    _user = dataSnapshot.child(user.getUid()).getValue(User.class);
+                    try {
+                        txtName.setText(String.format("Welcome %s", _user.getName()));
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }
             }
 
             @Override
@@ -60,7 +65,9 @@ public class Account extends AppCompatActivity {
 
             }
         });
-        txtName.setText(String.format("Welcome %s" , _user.getName()));
+
+
+
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -84,5 +91,9 @@ public class Account extends AppCompatActivity {
 
     public void onClick_btnLogout(View v){
         firebaseAuth.getInstance().signOut();
+    }
+
+    public void mAccelerometer(View v){
+        startActivity(new Intent(this, SensorActivity.class));
     }
 }

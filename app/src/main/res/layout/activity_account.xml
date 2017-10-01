@@ -11,13 +11,24 @@
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button2"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:onClick="onClick_btnLogout"
-        android:text="LOG-OUT"
-        android:layout_marginTop="41dp"
+        android:onClick="mAccelerometer"
+        android:text="TEST ACCELEROMETER" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="41dp"
+        android:onClick="onClick_btnLogout"
+        android:text="LOG-OUT" />
 
     <TextView
         android:id="@+id/txtName"
