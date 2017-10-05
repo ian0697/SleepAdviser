@@ -31,9 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init(){
+
+        //Init Components
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         txtPassword = (EditText)findViewById(R.id.txtPassword);
 
+        //Firebase Initialization
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -89,6 +92,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onClick_register(View v){
         startActivity(new Intent(this, RegisterActivity.class));
+    }
+
+    public void onClick_skip(View v){
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void onClick_signin(View v){

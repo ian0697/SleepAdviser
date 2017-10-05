@@ -81,12 +81,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/lblSkip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:onClick="onClick_register"
+        android:onClick="onClick_skip"
         android:text="SKIP FOR NOW"
         android:textAlignment="center"
         android:textSize="18sp"

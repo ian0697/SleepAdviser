@@ -38,14 +38,15 @@ public class Account extends AppCompatActivity {
     }
 
     private void init(){
-
+        //Init components
         txtName = (TextView)findViewById(R.id.txtName);
 
+        //Init Firebase
         firebaseAuth= FirebaseAuth.getInstance();
         user =  FirebaseAuth.getInstance().getCurrentUser();
 
+        //Init Database
         tbl_user = FirebaseDatabase.getInstance().getReference("Users");
-
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,10 +66,6 @@ public class Account extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -94,6 +91,5 @@ public class Account extends AppCompatActivity {
     }
 
     public void mAccelerometer(View v){
-        startActivity(new Intent(this, SensorActivity.class));
     }
 }

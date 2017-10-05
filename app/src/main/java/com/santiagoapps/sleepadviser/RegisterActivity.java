@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
         final ProgressDialog mDialog = new ProgressDialog(RegisterActivity.this);
         mDialog.setMessage("Please wait...");
 
-
+        //Error handling
         if (TextUtils.isEmpty(name)){
             txtName.setError("This field is required.");
             txtName.requestFocus();
@@ -133,11 +133,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                             //save to Firebase Database
                             saveToDatabase(name,email,password);
-
                             Toast.makeText(RegisterActivity.this,"ACCOUNT REGISTERED!", Toast.LENGTH_SHORT).show();
                         }else{
                             mDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this,"Register Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this,"Register faild!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
