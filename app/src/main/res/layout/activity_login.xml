@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="10dp"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress" />
@@ -48,8 +48,8 @@
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="10dp"
             android:hint="@string/prompt_password"
             android:inputType="textPassword" />
@@ -57,9 +57,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="@string/sign_in"
             android:id="@+id/btnSignin"
             android:onClick="onClick_signin"/>
@@ -75,7 +75,7 @@
             android:onClick="onClick_register"
             android:text="@string/new_account"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
     </LinearLayout>
@@ -84,15 +84,15 @@
         android:id="@+id/lblSkip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:onClick="onClick_skip"
-        android:text="SKIP FOR NOW"
         android:textAlignment="center"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="11dp" />
+        android:text="@string/skip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
 </RelativeLayout>

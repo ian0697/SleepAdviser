@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClick_skip(View v){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, NavigationMain.class));
     }
 
     public void onClick_signin(View v){

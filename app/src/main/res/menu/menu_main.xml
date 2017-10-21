@@ -1,19 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.santiagoapps.sleepadviser.MainActivity">
+    tools:context="com.santiagoapps.sleepadviser.DashboardFragment">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings" />
+        android:orderInCategory="1"
+        android:title="@string/first_option_menu" />
 
     <item
         android:id="@+id/log_out"
-        android:orderInCategory="300"
-        android:title="Log-out" />
+        android:orderInCategory="2"
+        android:title="@string/second_option_menu" />
 
     <item
         android:id="@+id/about_settings"
-        android:orderInCategory="200"
-        android:title="About us"/>
+        android:orderInCategory="3"
+        android:title="@string/third_option_menu"/>
 </menu>

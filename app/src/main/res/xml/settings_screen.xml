@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RingtonePreference
+        android:title="Alarm "
+        android:summary="Enter your alarm"/>
+    <SwitchPreference
+        android:title="Notification"
+        android:key="switch_active"
+        android:summary="Enable notification"/>
+    <EditTextPreference
+        android:title="ENTER TITLE"
+        android:summary="Enter desired title "/>
+    <CheckBoxPreference
+        android:title="Repeat alarm"/>
+    <MultiSelectListPreference
+        android:icon="@android:drawable/ic_menu_compass"
+
+        android:title="MultiSelect preference" />
+</PreferenceScreen>

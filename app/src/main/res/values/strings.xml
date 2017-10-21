@@ -8,23 +8,38 @@
     <string name="btn_register">REGISTER</string>
     <string name="sign_in">SIGN-IN</string>
     <string name="sign_up">SIGN UP</string>
-    <string name="confirm_password">Confirm Password</string>
+    <string name="skip">SKIP FOR NOW</string>
     <string name="new_account">No Account? Register here.</string>
-    <string name="already_registered">Already Registered? Sign in here.</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+
+    <!-- registration -->
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_registered">Already Registered? Sign in here.</string>
+    <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
 
-    <string name="title_activity_main">MainActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <!-- menu -->
+    <string name="first_option_menu">Settings</string>
+    <string name="second_option_menu">About us</string>
+    <string name="third_option_menu">Exit</string>
+
+
+    <!-- navbar menu -->
+    <string name="nav_item_1">Dashboard</string>
+    <string name="nav_item_2">Statistics</string>
+    <string name="nav_item_3">Sleep music library</string>
+    <string name="nav_item_4">Sleep music library</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_main">Sleep Adviser</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>
