@@ -2,39 +2,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.santiagoapps.sleepadviser.NavigationMain">
+    tools:context="com.santiagoapps.sleepadviser.main_activity.NavigationMain">
     <group
         android:checkableBehavior="single"
         android:orderInCategory="100">
         <item
             android:id="@+id/first_nav_item"
-            android:icon="@drawable/ic_notifications_black_24dp"
-            android:orderInCategory="100"
+            android:icon="@drawable/logo_home"
+            android:orderInCategory="200"
             android:title="@string/nav_item_1" />
 
         <item
             android:id="@+id/second_nav_item"
-            android:orderInCategory="200"
+            android:orderInCategory="300"
+            android:icon="@drawable/logo_datas"
             android:title="@string/nav_item_2" />
 
         <item
             android:id="@+id/third_nav_item"
-            android:orderInCategory="300"
+            android:orderInCategory="400"
+            android:icon="@drawable/music"
             android:title="@string/nav_item_3"/>
     </group>
+
+    <!--
     <item
         android:title="Communicate"
-        android:orderInCategory="200">
+        android:orderInCategory="500">
 
-        <menu>
+        <menu
+            android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_item_4"
-                android:orderInCategory="400"
+                android:orderInCategory="600"
                 android:icon="@drawable/logo_information"
                 android:title="@string/nav_item_3"/>
         </menu>
     </item>
-
+    -->
 
 
 </menu>

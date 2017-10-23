@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.santiagoapps.sleepadviser.NavigationMain">
+    tools:context="com.santiagoapps.sleepadviser.main_activity.NavigationMain">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -21,7 +21,10 @@
             android:background="?attr/colorPrimary"
             android:title="Dashboard"
             app:popupTheme="@style/PopupOverlay"/>
+
     </android.support.design.widget.AppBarLayout>
+
     <include
-        layout="@layout/sample"/>
+        layout="@layout/content_main" />
+
 </android.support.design.widget.CoordinatorLayout>

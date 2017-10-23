@@ -16,15 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".Splashscreen"
+            android:name=".main_activity.Splashscreen"
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".Account" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".main_activity.Account" />
+        <activity android:name=".main_activity.LoginActivity" />
+        <activity android:name=".main_activity.RegisterActivity" />
         <activity
-            android:name=".NavigationMain"
+            android:name=".main_activity.NavigationMain"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".main_activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
     </application>
 
