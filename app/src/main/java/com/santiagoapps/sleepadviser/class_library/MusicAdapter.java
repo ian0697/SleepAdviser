@@ -10,9 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.class_library.Music;
 
 import java.util.ArrayList;
 
@@ -23,11 +23,18 @@ import java.util.ArrayList;
 public class MusicAdapter extends BaseAdapter {
 
     private Context context;
+
     private int layout;
     private ArrayList<Music> arraylist;
-
-    Boolean flag = true;
     private MediaPlayer player;
+    private View currentView;
+    private ViewHolder newView;
+    private int currentPos;
+
+
+
+    Boolean isPaused = true;
+    int PAUSE_VALUE = 0;
 
     public MusicAdapter(Context context, int layout, ArrayList<Music> arraylist) {
         this.context = context;
@@ -57,8 +64,9 @@ public class MusicAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
+
 
         if(convertView==null){
             viewHolder = new ViewHolder();
@@ -88,18 +96,49 @@ public class MusicAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                if(flag){
+
+                if(isPaused){
                     player= MediaPlayer.create(context, music.getSong());
-                    flag=false;
+                    isPaused = false;
+                    currentPos = position;
+                    currentView = view;
+                    //currentViewHolder = viewHolder;
+                    //currentPos = 1
                 }
+
                 if(player.isPlaying()){
-                    player.pause();
-                    viewHolder.ivPlay.setImageResource(R.drawable.ic_play);
-                    flag=true;
+
+                    if(currentPos!=position && currentView!=view){
+                        player.stop();
+                        player.release();
+                        player = MediaPlayer.create(context, music.getSong());
+                        currentPos = position;
+                        player.start();
+
+
+                    }
+                    else{
+                        player.pause();
+                        PAUSE_VALUE = player.getCurrentPosition();
+                        isPaused=true;
+
+
+                        viewHolder.ivPlay.setImageResource(R.drawable.ic_play);
+                    }
+
+
+
                 } else{
+                    //Continue
+                    if(player!=null) {
+                        player.seekTo(PAUSE_VALUE);
+                    }
                     player.start();
+                    Toast.makeText(context, "you reached this context", Toast.LENGTH_SHORT).show();
+
                     viewHolder.ivPlay.setImageResource(R.drawable.ic_pause);
                 }
+
 
             }
         });
@@ -107,11 +146,15 @@ public class MusicAdapter extends BaseAdapter {
         viewHolder.ivPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!flag){
+                if(!isPaused){
                     player.stop();
                     player.release();
-                    flag=true;
+                    PAUSE_VALUE = 0;
+                    isPaused =true;
                 }
+
+
+
                 viewHolder.ivPlay.setImageResource(R.drawable.ic_play);
             }
         });
@@ -119,4 +162,7 @@ public class MusicAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
+
 }

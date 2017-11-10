@@ -20,11 +20,34 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:title="Dashboard"
-            app:popupTheme="@style/PopupOverlay"/>
+            app:popupTheme="@style/PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include
-        layout="@layout/content_main" />
+        layout="@layout/content_main"
+        android:id="@+id/include" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:tint="@color/cardview_light_background"
+            app:backgroundTint="@android:color/holo_green_dark"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/night" />
+
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
