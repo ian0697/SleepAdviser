@@ -7,17 +7,6 @@
     android:orientation="vertical"
     tools:context="com.santiagoapps.sleepadviser.nav_section.DashboardSection">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"></android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

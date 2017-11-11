@@ -44,7 +44,7 @@ public class MusicSection extends Fragment {
     }
 
     private void addMusic(){
-        musicArrayList.add(new Music("Piano Meditation", "Piano",R.raw.piano_music));
+        musicArrayList.add(new Music("Piano Meditation", "Piano", R.raw.piano_music));
         musicArrayList.add(new Music("Piano Meditation 2", "Piano", R.raw.piano_music_2));
     }
 

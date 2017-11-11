@@ -1,7 +1,9 @@
 package com.santiagoapps.sleepadviser.main_activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +15,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.santiagoapps.sleepadviser.SleepingActivity;
+import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
 import com.santiagoapps.sleepadviser.nav_section.MusicSection;
 import com.santiagoapps.sleepadviser.R;
@@ -23,6 +28,8 @@ public class NavigationMain extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView navigationView;
     DrawerLayout drawer;
+    DatabaseHelper myDb;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +47,23 @@ public class NavigationMain extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dashboard");
 
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NavigationMain.this, SleepingActivity.class));
+            }
+        });
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+        myDb = new DatabaseHelper(this);
 
     }
 
@@ -100,7 +119,7 @@ public class NavigationMain extends AppCompatActivity {
     public void setFragment(Fragment fragment){
         if(fragment!=null){
             FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.main_content,fragment);
+            ft.replace(R.id.content_main,fragment);
             ft.commit();
         }
         drawer.closeDrawer(GravityCompat.START);
