@@ -30,7 +30,7 @@ public class MusicSection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         context= this.getContext();
-        rootView = inflater.inflate(R.layout.fragment_page4, container, false);
+        rootView = inflater.inflate(R.layout.fragment_playlist, container, false);
 
         songList = (ListView) rootView.findViewById(R.id.songList);
         musicArrayList = new ArrayList<>();

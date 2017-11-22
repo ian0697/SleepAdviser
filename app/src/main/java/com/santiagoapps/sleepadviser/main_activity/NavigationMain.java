@@ -1,7 +1,6 @@
 package com.santiagoapps.sleepadviser.main_activity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,8 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.santiagoapps.sleepadviser.SleepingActivity;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
+import com.santiagoapps.sleepadviser.class_library.dbHelper;
 import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
 import com.santiagoapps.sleepadviser.nav_section.MusicSection;
 import com.santiagoapps.sleepadviser.R;
@@ -30,6 +29,7 @@ public class NavigationMain extends AppCompatActivity {
     DrawerLayout drawer;
     DatabaseHelper myDb;
     FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,20 +98,33 @@ public class NavigationMain extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                if (id == R.id.first_nav_item){
-                    setFragment(new DashboardSection());
-                    toolbar.setTitle("Dashboard");
-                } else if (id == R.id.second_nav_item){
-                    setFragment(new StatisticSection());
-                    toolbar.setTitle("Statistics");
-                } else if (id == R.id.third_nav_item){
-                    setFragment(new MusicSection());
-                    toolbar.setTitle("Sleep Music Library");
+                switch(id) {
+                    case R.id.first_nav_item:
+                        setFragment(new DashboardSection());
+                        toolbar.setTitle("Dashboard");
+                        break;
+
+                    case R.id.second_nav_item:
+                        setFragment(new StatisticSection());
+                        toolbar.setTitle("Statistics");
+                        break;
+
+                    case R.id.third_nav_item:
+                        setFragment(new MusicSection());
+                        toolbar.setTitle("Sleep Music Library");
+                        break;
+
+                    case R.id.nav_log_out:
+                        finish();
+                        startActivity(new Intent(NavigationMain.this, LoginActivity.class));
+                        break;
                 }
 
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
+
+
         });
     }
 

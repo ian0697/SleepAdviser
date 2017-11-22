@@ -19,10 +19,16 @@
             android:title="@string/nav_item_2" />
 
         <item
-            android:id="@+id/third_nav_item"
+        android:id="@+id/third_nav_item"
+        android:orderInCategory="400"
+        android:icon="@drawable/music"
+        android:title="@string/nav_item_3"/>
+
+        <item
+            android:id="@+id/nav_log_out"
             android:orderInCategory="400"
-            android:icon="@drawable/music"
-            android:title="@string/nav_item_3"/>
+            android:icon="@drawable/logout"
+            android:title="@string/nav_log_out"/>
     </group>
 
     <!--

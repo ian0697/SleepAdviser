@@ -58,20 +58,20 @@
 
             <ImageView
                 android:id="@+id/play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
 
+                android:layout_marginRight="10dp"
                 android:layout_toStartOf="@+id/pause"
-                app:srcCompat="@drawable/ic_play"
                 android:tint="#fff"
-                android:layout_marginRight="10dp"/>
+                app:srcCompat="@drawable/play" />
 
             <ImageView
                 android:id="@+id/pause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_stop"
-                android:tint="#fff"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:tint="#fff"
+                app:srcCompat="@drawable/stop" />
 
         </LinearLayout>
 

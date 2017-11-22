@@ -60,10 +60,10 @@ public class DashboardSection extends Fragment {
 
             switch (position){
                 case 0:
-                    Page1Fragment page1 = new Page1Fragment();
+                    DashboardFragment page1 = new DashboardFragment();
                     return page1;
                 case 1:
-                    Page2Fragment page2 = new Page2Fragment();
+                    MotionSensorTestFragment page2 = new MotionSensorTestFragment();
                     return page2;
                 case 2:
                     Page3Fragment page3 = new Page3Fragment();

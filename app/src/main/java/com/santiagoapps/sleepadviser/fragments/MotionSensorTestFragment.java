@@ -7,22 +7,21 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.santiagoapps.sleepadviser.R;
 
-import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.Math.sqrt;
 
 /**
  * Created by Ian on 10/2/2017.
  */
 
-public class Page2Fragment extends Fragment implements SensorEventListener{
+public class MotionSensorTestFragment extends Fragment implements SensorEventListener{
 
     View rootView;
 
@@ -39,7 +38,7 @@ public class Page2Fragment extends Fragment implements SensorEventListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_page2, container, false);
+        rootView = inflater.inflate(R.layout.fragment_sleeptest, container, false);
         init();
 
         return rootView;
@@ -87,11 +86,8 @@ public class Page2Fragment extends Fragment implements SensorEventListener{
         float mAbs = Math.abs(mAccel);
 
         if (mAbs > 2   &&  (yAbs > 4 || xAbs >4) ) {
-            Toast.makeText(this.getContext(), "Oops you picked the phone", LENGTH_SHORT).show();
+            Log.d("TESTING", "You picked your phone - Accel: " + mAbs);
         }
-
-
-
     }
 
     @Override

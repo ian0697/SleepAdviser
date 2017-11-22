@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.santiagoapps.sleepadviser.R;
+import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -32,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference database;
-
+    private DatabaseHelper myDb;
+    private final static String TAG = "SleepAdviser";
 
 
     @Override
@@ -40,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         init();
+
     }
 
     public void init(){
@@ -50,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         txtPassword2 = (EditText)findViewById(R.id.txtPassword2);
         txtView_Signin = (TextView) findViewById(R.id.txtSignin);
 
+        myDb = new DatabaseHelper(this);
         database = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -57,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(RegisterActivity.this, Account.class));
+                    startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
                 }
             }
         };
@@ -87,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         //ProgressBar
         final ProgressDialog mDialog = new ProgressDialog(RegisterActivity.this);
         mDialog.setMessage("Please wait...");
+        Log.d(TAG, "Checking log-in credentials");
 
         //Error handling
         if (TextUtils.isEmpty(name)){
@@ -129,22 +135,45 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             mDialog.dismiss();
 
-                            //save to Firebase Database
+                            //save to Database
                             saveToDatabase(name,email,password);
-                            Toast.makeText(RegisterActivity.this,"ACCOUNT REGISTERED!", Toast.LENGTH_SHORT).show();
+
                         }else{
+                            Log.e(TAG,"REGISTRATION FAILED");
                             mDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this,"Register faild!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+
     }
 
     public void saveToDatabase(String name, String email, String password){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         User _user = new User(email,password,name);
 
+        //Users table
         database.child(user.getUid()).setValue(_user);
+        //TODO: id(parent) -> user_details(child)
+
+
+        //save to local database
+        long id = myDb.registerUser(_user);
+
+        if(id!=-1){
+            Log.d(TAG,"Data inserted: " + _user);
+            startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
+
+        } else {
+            Log.e(TAG,"Error inserting data");
+        }
+
+
+        //TODO: Sleep data table
+        //id(parent) -> sleep_id(parent) -> details(child)
+
+
+
+
     }
 
     public void onClick_signin(View v){

@@ -103,7 +103,7 @@
                 android:tint="@color/white" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/flashDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

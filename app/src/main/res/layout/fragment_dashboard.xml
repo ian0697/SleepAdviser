@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.santiagoapps.sleepadviser.nav_section.DashboardSection">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="28dp"
+        android:text="Welcome, Ian Santiago!"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lblWelcome" />
+
+    <Button
+        android:id="@+id/btnViewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:onClick="ocView"
+        android:text="VIEW user by id"
+        android:layout_below="@+id/txtUserId"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtRecords"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:onClick="ocView"
+        android:text="VIEW ALL RECORDS" />
+
+    <EditText
+        android:id="@+id/txtUserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:ems="10"
+        android:hint="Enter User_id"
+        android:inputType="number"
+        android:layout_below="@+id/btnView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/txtRecords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="0 records found!"
+        android:layout_below="@+id/lblWelcome"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnDeleteAll"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="93dp"
+        android:text="Delete all records" />
+
+</RelativeLayout>

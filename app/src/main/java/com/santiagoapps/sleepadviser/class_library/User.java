@@ -2,6 +2,7 @@ package com.santiagoapps.sleepadviser.class_library;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Ian on 9/26/2017.
@@ -19,7 +20,8 @@ public class User {
 
     public User(){
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         dateRegistered = dateFormat.format(date);
     }
 
@@ -44,6 +46,16 @@ public class User {
         dateRegistered = dateFormat.format(date);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dateRegistered='" + dateRegistered + '\'' +
+                '}';
+    }
 
     public String getName() {
         return name;

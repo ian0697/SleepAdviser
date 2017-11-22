@@ -123,7 +123,7 @@ public class MusicAdapter extends BaseAdapter {
                         isPaused=true;
 
 
-                        viewHolder.ivPlay.setImageResource(R.drawable.ic_play);
+                        viewHolder.ivPlay.setImageResource(R.drawable.play);
                     }
 
 
@@ -136,7 +136,7 @@ public class MusicAdapter extends BaseAdapter {
                     player.start();
                     Toast.makeText(context, "you reached this context", Toast.LENGTH_SHORT).show();
 
-                    viewHolder.ivPlay.setImageResource(R.drawable.ic_pause);
+                    viewHolder.ivPlay.setImageResource(R.drawable.pause);
                 }
 
 

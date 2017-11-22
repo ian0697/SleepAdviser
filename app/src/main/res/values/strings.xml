@@ -31,7 +31,7 @@
     <string name="nav_item_1">Dashboard</string>
     <string name="nav_item_2">Statistics</string>
     <string name="nav_item_3">Sleep music library</string>
-    <string name="nav_item_4">Sleep music library</string>
+    <string name="nav_log_out">Log-out</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
