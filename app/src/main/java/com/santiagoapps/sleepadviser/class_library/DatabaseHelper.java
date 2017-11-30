@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -21,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "SleepAdviserDB";
 
     //Db version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     //Db name:
     public static final String DATABASE_NAME = "SleepAdviserDB.db";
@@ -31,11 +33,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_DATA ="tbl_data";
     private static final String TABLE_SLEEP_USER = "tbl_data_user";
 
+    /* COLUMN NAMES */
     //Common column names;
     private static final String KEY_ID = "ID";
     private static final String KEY_CREATED_AT = "CREATED_AT";
 
     //USER TABLE - column names
+    private static final String KEY_FIREBASE_ID = "FIREBASE_ID";
     private static final String KEY_FULLNAME = "FULL_NAME";
     private static final String KEY_EMAIL = "EMAIL";
     private static final String KEY_PASSWORD = "PASSWORD";
@@ -49,11 +53,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_SLEEP_ID = "sleep_id";
 
-    //TABLE CREATE STATEMENTS
+    /* TABLE CREATE STATEMENTS */
     //USER TABLE create statement
     private static final String CREATE_TABLE_USERS = String.format("CREATE TABLE %s " +
-                    "(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s DATETIME)",
-                    TABLE_USER,KEY_ID, KEY_FULLNAME,KEY_EMAIL, KEY_PASSWORD, KEY_CREATED_AT);
+                    "(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s DATETIME)",
+                    TABLE_USER, KEY_ID, KEY_FIREBASE_ID, KEY_FULLNAME,KEY_EMAIL, KEY_PASSWORD, KEY_CREATED_AT);
 
     //DATA TABLE create statement
     private static final String CREATE_TABLE_DATA = String.format("CREATE TABLE %s " +
@@ -64,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USERDATA = String.format("CREATE TABLE %s " +
                     "(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, %s INTEGER, %s DATETIME)",
             TABLE_SLEEP_USER, KEY_ID, KEY_USER_ID, KEY_SLEEP_ID, KEY_CREATED_AT);
+
 
     //CONSTRUCTOR
     public DatabaseHelper(Context context) {
@@ -85,23 +90,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /*
+    /************** INSERT METHODS ******************/
+
+    /**
      * REGISTERING USER
      */
     public long registerUser(User user){
+        Log.d(TAG,user.toString());
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
+        values.put(KEY_FIREBASE_ID, user.getFirebaseId());
         values.put(KEY_FULLNAME, user.getName());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_CREATED_AT, getDateTime());
-        long result = db.insert(TABLE_USER, null, values);
 
+        long result = db.insert(TABLE_USER, null, values);
+        Log.d(TAG, "Value of database result is : " + result);
         return result;
     }
 
-    /*
-     * FETCH SINGLE USER
+
+    /**************** FETCH METHODS ******************/
+
+    /**
+     * FETCH SINGLE USER by id
      */
     public User getUser(long userId){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -118,10 +132,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         User user = new User();
         try{
-            user.setName(c.getString(1));
-            user.setEmail(c.getString(2));
-            user.setPassword(c.getString(3));
-            user.setDateRegistered(c.getString(4));
+            user.setFirebaseId(c.getString(c.getColumnIndex(KEY_FIREBASE_ID)));
+            user.setName(c.getString(c.getColumnIndex(KEY_FULLNAME)));
+            user.setEmail(c.getString(c.getColumnIndex(KEY_EMAIL)));
+            user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
+            user.setDateRegistered(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
         } catch(Exception e){
             Log.e(TAG , "User not found");
         }
@@ -130,7 +145,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
-    /*
+    /**
+     * RETURN ALL USER DATA AS LISTS
+     */
+    public List<User> getAllUsers(){
+        List<User> userList = new ArrayList<User>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_USER;
+        Log.e(TAG,query);
+
+        Cursor res = db.rawQuery(query, null);
+
+        while(res.moveToNext()){
+            User user = new User();
+            user.setFirebaseId(res.getString(res.getColumnIndex(KEY_FIREBASE_ID)));
+            user.setName(res.getString(res.getColumnIndex(KEY_FULLNAME)));
+            user.setEmail(res.getString(res.getColumnIndex(KEY_EMAIL)));
+            user.setPassword(res.getString(res.getColumnIndex(KEY_PASSWORD)));
+            user.setDateRegistered(res.getString(res.getColumnIndex(KEY_CREATED_AT)));
+            userList.add(user);
+        }
+
+        return userList;
+    }
+
+
+    /**
      * RETURN ALL TABLE USER DATA
      */
     public Cursor getAllData(){
@@ -139,8 +181,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    /*
-     * RETURN USER RECORD COUNTS
+    /**
+     * RETURN USER RECORD COUNT
      */
     public int getUserCount(){
         SQLiteDatabase x = this.getReadableDatabase();
@@ -150,6 +192,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "User record count: " + count);
         return count;
     }
+
+    /************* DELETE METHODS *****************/
+
+    /**
+     * DELETE ALL USER
+     */
+    public boolean resetUserTable(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int rowsAffected = db.delete(TABLE_USER,"1",null);
+        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_USER});
+
+        Log.d(TAG, "All user records deleted! Rows affected: " + rowsAffected);
+        return rowsAffected > 0;
+    }
+
+    /**
+     * DELETE USER BY ID
+     */
+    public boolean deleteUserById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.d(TAG,"DELETING " + getUser(id).toString());
+
+        int rowsAffected = db.delete(TABLE_USER, "WHERE " + KEY_ID + " = " + id, null);
+        Log.d(TAG, "Rows affected: " + rowsAffected);
+        return rowsAffected > 0;
+    }
+
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(

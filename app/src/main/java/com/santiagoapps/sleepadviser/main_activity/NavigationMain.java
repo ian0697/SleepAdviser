@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.dbHelper;
 import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
@@ -116,6 +117,7 @@ public class NavigationMain extends AppCompatActivity {
 
                     case R.id.nav_log_out:
                         finish();
+                        FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(NavigationMain.this, LoginActivity.class));
                         break;
                 }

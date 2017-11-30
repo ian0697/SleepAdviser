@@ -16,8 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
+import com.santiagoapps.sleepadviser.class_library.User;
 
 
 public class DashboardFragment extends Fragment{
@@ -31,19 +39,46 @@ public class DashboardFragment extends Fragment{
     private Button btnDelete;
     private EditText etUserId;
 
+    private DatabaseReference tbl_user;
+    private FirebaseUser user;
+    private User current_user;
+
     private TextView tvWelcome, tvRecords;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        tvWelcome = (TextView)rootView.findViewById(R.id.lblWelcome);
-        tvRecords = (TextView)rootView.findViewById(R.id.txtRecords);
-        etUserId = (EditText)rootView.findViewById(R.id.txtUserId);
-
         context = getActivity();
+
+        //components
+        tvWelcome = rootView.findViewById(R.id.lblWelcome);
+        tvRecords = rootView.findViewById(R.id.txtRecords);
+        etUserId = rootView.findViewById(R.id.txtUserId);
+
+        //Database
         myDb = new DatabaseHelper(context);
+        user =  FirebaseAuth.getInstance().getCurrentUser();
+        tbl_user = FirebaseDatabase.getInstance().getReference("Users");
+        tbl_user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(user.getUid()).exists()) {
+                    current_user = dataSnapshot.child(user.getUid()).getValue(User.class);
+                    try {
+                        tvWelcome.setText(String.format("Welcome %s", current_user.getName()));
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         tvRecords.setText(myDb.getUserCount() + " records found!");
 
@@ -56,6 +91,7 @@ public class DashboardFragment extends Fragment{
                 if(res.getCount() == 0){
                     Log.d(TAG,"Database is empty!");
                     showMessage("Error", "No entry!");
+                    return;
                 }
 
                 StringBuffer buffer = new StringBuffer();
@@ -65,7 +101,6 @@ public class DashboardFragment extends Fragment{
                     buffer.append("Email: " + res.getString(2) + "\n");
                     buffer.append("Password: " + res.getString(3) + "\n");
                     buffer.append("Date Created: " + res.getString(4) + "\n\n");
-
                 }
 
                 showMessage("Data", buffer.toString());
@@ -90,6 +125,10 @@ public class DashboardFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 //TODO: DELETE DATABASE RECORDS
+                myDb.resetUserTable();
+                tvRecords.setText(myDb.getUserCount() + " records found!");
+                showMessage("Record Deletion" , "ALL RECORDS DELETED");
+
             }
         });
 

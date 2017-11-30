@@ -144,17 +144,24 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     public void saveToDatabase(String name, String email, String password){
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        User _user = new User(email,password,name);
+        User _user;
 
-        //Users table
+        //firebase is connected
+        if (user != null) {
+            _user = new User(user.getUid(), email, password, name);
+            Log.d(TAG, "Current user is: " + user.getUid());
+        }
+
+        else{
+            _user = new User(email, password, name);
+            Log.d(TAG, "User is null");
+        }
+
         database.child(user.getUid()).setValue(_user);
-        //TODO: id(parent) -> user_details(child)
-
 
         //save to local database
         long id = myDb.registerUser(_user);
@@ -162,7 +169,6 @@ public class RegisterActivity extends AppCompatActivity {
         if(id!=-1){
             Log.d(TAG,"Data inserted: " + _user);
             startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
-
         } else {
             Log.e(TAG,"Error inserting data");
         }
@@ -170,10 +176,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         //TODO: Sleep data table
         //id(parent) -> sleep_id(parent) -> details(child)
-
-
-
-
     }
 
     public void onClick_signin(View v){

@@ -15,46 +15,51 @@ public class User {
     private String name;
     private String gender;
     private String dateRegistered;
+    private String firebaseId;
 
-
-
+    /**
+     *
+     * Default Constructor
+     */
     public User(){
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        dateRegistered = dateFormat.format(date);
+        setDateRegistered();
     }
 
-    public User(String email, String password,String name){
+    /**
+     *
+     * @param email_address
+     * @param password
+     * @param name
+     */
+    public User(String email, String password, String name){
         this.email= email;
         this.password=password;
         this.name=name;
-
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateRegistered = dateFormat.format(date);
+        setDateRegistered();
     }
 
-    public User(String email, String password, String name, String gender){
+    /**
+     *
+     * @param firebaseId
+     * @param email
+     * @param password
+     * @param name
+     */
+    public User(String firebaseId, String email, String password, String name){
+        this.firebaseId = firebaseId;
         this.email= email;
-        this.password = password;
-        this.name = name;
-        this.gender = gender;
-
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateRegistered = dateFormat.format(date);
+        this.password=password;
+        this.name=name;
+        setDateRegistered();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dateRegistered='" + dateRegistered + '\'' +
-                '}';
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String id){
+        firebaseId = id;
     }
 
     public String getName() {
@@ -69,7 +74,15 @@ public class User {
         return dateRegistered;
     }
 
-    public void setDateRegistered(String dateRegistered) {
+    public void setDateRegistered() {
+
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateRegistered = dateFormat.format(date);
+
+    }
+
+    public void setDateRegistered(String dateRegistered){
         this.dateRegistered = dateRegistered;
     }
 
@@ -95,5 +108,16 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User '" + firebaseId + "'"+
+                "\nName: " + name +
+                "\nEmail: " + email +
+                "\nPassword: " + password +
+                "\nGender: " + gender +
+                "\nDate Registered: " + dateRegistered +"\n";
+
     }
 }
