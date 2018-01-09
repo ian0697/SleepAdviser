@@ -143,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                             mDialog.dismiss();
                         }
                     }
-                });
+                }); 
     }
 
     public void saveToDatabase(String name, String email, String password){

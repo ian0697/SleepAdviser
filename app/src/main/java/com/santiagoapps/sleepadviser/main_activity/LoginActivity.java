@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (mAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(LoginActivity.this, Account.class));
+                    startActivity(new Intent(LoginActivity.this, NavigationMain.class));
                 } else {
                     //TODO: log-out activity
                 }

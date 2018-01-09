@@ -27,7 +27,7 @@ public class User {
 
     /**
      *
-     * @param email_address
+     * @param email
      * @param password
      * @param name
      */
@@ -39,7 +39,6 @@ public class User {
     }
 
     /**
-     *
      * @param firebaseId
      * @param email
      * @param password

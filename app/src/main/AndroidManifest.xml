@@ -30,7 +30,6 @@
         <activity
             android:name=".main_activity.Splashscreen"
             android:label="@string/app_name" />
-        <activity android:name=".main_activity.Account" />
         <activity android:name=".main_activity.LoginActivity" />
         <activity android:name=".main_activity.RegisterActivity">
             <intent-filter>

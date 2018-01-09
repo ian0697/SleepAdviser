@@ -26,7 +26,7 @@ public class SleepingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleeping);
-        myDialog = new Dialog(this);
+        myDialog = new Dialog(getApplicationContext());
 
         txtTime = (TextView)findViewById(R.id.txtTime);
         txtAm = (TextView)findViewById(R.id.txtAm);
