@@ -1,17 +1,25 @@
 package com.santiagoapps.sleepadviser.class_library;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Ian on 11/20/2017.
  */
 
 public class SleepData {
 
+    private String sleep_time;
+    private String wake_time;
+    private String sleep_quality;
+
+    final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 
     public SleepData(String sleep_time, String wake_time, String sleep_quality){
         this.sleep_time = sleep_time;
         this.wake_time = wake_time;
         this.sleep_quality = sleep_quality;
+
 
     }
 
@@ -46,8 +54,6 @@ public class SleepData {
         this.sleep_quality = sleep_quality;
     }
 
-    private String sleep_time;
-    private String wake_time;
-    private String sleep_quality;
+
 
 }

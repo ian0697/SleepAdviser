@@ -4,4 +4,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryDark">#2f333f</color>
     <color name="white">#ffffff</color>
+
+
+    <color name="app_color">#0084b4</color>
+
+    <color name="blue_dark1">#006387</color>
+
 </resources>

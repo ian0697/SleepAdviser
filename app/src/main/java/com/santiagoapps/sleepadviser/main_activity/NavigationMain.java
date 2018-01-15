@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santiagoapps.sleepadviser.CreateRecord;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.User;
 import com.santiagoapps.sleepadviser.class_library.dbHelper;
@@ -40,15 +41,17 @@ public class NavigationMain extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private DatabaseHelper myDb;
-    private FloatingActionButton fab;
-    View headerView;
-    TextView tvUser;
-    TextView tvEmail;
+    private View headerView;
 
+    private TextView tvUser;
+    private TextView tvEmail;
+
+    private DatabaseHelper myDb;
     private DatabaseReference tbl_user;
     private FirebaseUser user;
     private User current_user;
+
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +69,14 @@ public class NavigationMain extends AppCompatActivity {
         //initialization
         setNavigation();
         setFragment(new DashboardSection());
-
-
-        //set floating action button
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NavigationMain.this, SleepingActivity.class));
             }
         });
+
 
 
         initDatabase();
@@ -136,10 +137,6 @@ public class NavigationMain extends AppCompatActivity {
 
     }
 
-    public void setHeader(){
-
-    }
-
     public void setNavigation(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dashboard");
@@ -162,13 +159,17 @@ public class NavigationMain extends AppCompatActivity {
 
                     case R.id.third_nav_item:
                         setFragment(new MusicSection());
-                        toolbar.setTitle("Sleep Music Library");
+                        toolbar.setTitle("Sleep Aids");
                         break;
 
                     case R.id.nav_log_out:
                         finish();
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(NavigationMain.this, LoginActivity.class));
+                        break;
+
+                    case R.id.nav_item_create:
+                        startActivity(new Intent(NavigationMain.this , CreateRecord.class));
                         break;
                 }
 

@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.santiagoapps.sleepadviser.R;
 
@@ -15,7 +13,7 @@ import com.santiagoapps.sleepadviser.R;
  * Created by Ian on 10/2/2017.
  */
 
-public class Page3Fragment extends Fragment{
+public class TestFragment extends Fragment{
 
     private ImageButton btnSleep;
     private View rootView;
@@ -25,7 +23,7 @@ public class Page3Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_page3, container, false);
+        rootView = inflater.inflate(R.layout.fragment_test, container, false);
         init();
         mode = 1;
         return rootView;

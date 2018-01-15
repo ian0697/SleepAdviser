@@ -52,7 +52,7 @@
         android:textSize="20dp"
         android:fontFamily="sans-serif-smallcaps"
         android:textAlignment="center"
-        android:text="WAKE UP TIME"
+        android:text="Wake me up at 8:00am"
         android:layout_below="@+id/linear"
         android:layout_alignParentStart="true" />
 

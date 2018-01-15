@@ -1,10 +1,12 @@
 package com.santiagoapps.sleepadviser.nav_section;
 
+import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ public class DashboardSection extends Fragment {
     private Boolean exit = false;
     TabLayout tabLayout;
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.sample, container, false);
@@ -31,20 +34,33 @@ public class DashboardSection extends Fragment {
         mViewPager.setAdapter(new SectionsPagerAdapter(getChildFragmentManager()));
 
         tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        setUpTabIcons();
+
+        return view;
+    }
+
+    private void setUpTabIcons(){
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(mViewPager);
                 tabLayout.getTabAt(0).setIcon(R.drawable.logo_home);
                 tabLayout.getTabAt(1).setIcon(R.drawable.logo_datas);
-                tabLayout.getTabAt(2).setIcon(R.drawable.logo_alarm);
+                tabLayout.getTabAt(2).setIcon(R.drawable.logo_information);
                 tabLayout.getTabAt(3).setIcon(R.drawable.logo_videos);
+
+                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
+                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(3).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
             }
         });
-/*
 
-*/
-        return view;
+
+
+
     }
 
 
@@ -66,7 +82,7 @@ public class DashboardSection extends Fragment {
                     MotionSensorTestFragment page2 = new MotionSensorTestFragment();
                     return page2;
                 case 2:
-                    Page3Fragment page3 = new Page3Fragment();
+                    TestFragment page3 = new TestFragment();
                     return page3;
                 case 3:
                     MusicSection page4 = new MusicSection();

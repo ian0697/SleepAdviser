@@ -28,7 +28,7 @@ import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.User;
 
 
-public class DashboardFragment extends Fragment{
+public class DatabaseFragment extends Fragment{
 
     private final static String TAG = "SleepAdviser";
 
@@ -48,7 +48,7 @@ public class DashboardFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        rootView = inflater.inflate(R.layout.fragment_database, container, false);
         context = getActivity();
 
         //components

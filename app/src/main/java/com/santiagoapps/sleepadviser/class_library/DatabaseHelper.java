@@ -48,6 +48,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_SLEEP_TIME = "SLEEP_TIME";
     private static final String KEY_WAKE_TIME = "WAKE_TIME";
     private static final String KEY_SLEEP_QUALITY = "SLEEP_QUALITY";
+    private static final String KEY_TIME_ASLEEP = "TIME_ASLEEP";
+    private static final String KEY_TIME_IN_BED = "TIME_IN_BED";
+    private static final String KEY_TIME_TO_SLEEP = "TIME_TO_SLEEP";
+    private static final String KEY_MOOD = "SLEEP_MOOD";
 
     //DATA_USER TABLE - column names
     private static final String KEY_USER_ID = "user_id";
@@ -61,8 +65,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //DATA TABLE create statement
     private static final String CREATE_TABLE_DATA = String.format("CREATE TABLE %s " +
-                    "(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s DATETIME)",
-            TABLE_DATA, KEY_ID, KEY_SLEEP_TIME, KEY_WAKE_TIME, KEY_SLEEP_QUALITY, KEY_CREATED_AT);
+                    "(%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "%s TEXT, " +   //KEY_SLEEP_TIME
+                    "%s TEXT, " +   //KEY_WAKE_TIME
+                    "%s TEXT, " +   //KEY_SLEEP_QUALITY
+                    "%s TEXT, " +   //KEY_TIME_ASLEEP
+                    "%s TEXT, " +   //KEY_TIME_IN_BED
+                    "%s TEXT, " +   //KEY_TIME_TO_SLEEP
+                    "%s TEXT, " +   //KEY_MOOD
+                    "%s DATETIME)", //KEY_CREATED_AT
+            TABLE_DATA, KEY_ID, KEY_SLEEP_TIME, KEY_WAKE_TIME,
+            KEY_SLEEP_QUALITY, KEY_TIME_ASLEEP, KEY_TIME_IN_BED,
+            KEY_TIME_TO_SLEEP, KEY_MOOD, KEY_CREATED_AT);
 
     //DATA_USER TABLE create statement
     private static final String CREATE_TABLE_USERDATA = String.format("CREATE TABLE %s " +

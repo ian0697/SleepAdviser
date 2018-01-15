@@ -10,24 +10,34 @@
             android:id="@+id/first_nav_item"
             android:icon="@drawable/logo_home"
             android:orderInCategory="200"
-            android:title="@string/nav_item_1" />
+            android:iconTint="@color/app_color"
+            android:title="@string/nav_dashboard" />
 
         <item
             android:id="@+id/second_nav_item"
             android:orderInCategory="300"
             android:icon="@drawable/logo_datas"
-            android:title="@string/nav_item_2" />
+            android:iconTint="@color/app_color"
+            android:title="@string/nav_stat" />
+
+        <item
+            android:id="@+id/nav_item_create"
+            android:orderInCategory="400"
+            android:icon="@drawable/add"
+            android:title="@string/nav_create_record"/>
 
         <item
         android:id="@+id/third_nav_item"
         android:orderInCategory="400"
         android:icon="@drawable/music"
-        android:title="@string/nav_item_3"/>
+        android:iconTint="@color/app_color"
+        android:title="@string/nav_music"/>
 
         <item
             android:id="@+id/nav_log_out"
             android:orderInCategory="400"
             android:icon="@drawable/logout"
+            android:iconTint="@color/app_color"
             android:title="@string/nav_log_out"/>
     </group>
 

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:fillViewport="true"
-    tools:context="com.santiagoapps.sleepadviser.DashboardActivity">
+    tools:context="com.santiagoapps.sleepadviser.main_activity.NavigationMain">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="25dp">
+        <!-- profile header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="325dp">
@@ -81,7 +84,7 @@
                             android:fontFamily="sans-serif-condensed"
                             android:paddingTop="5dp"
                             android:text="125"
-                            android:textColor="#0084b4"
+                            android:textColor="@color/app_color"
                             android:textSize="24dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -107,7 +110,7 @@
                             android:fontFamily="sans-serif-condensed"
                             android:paddingTop="5dp"
                             android:text="0"
-                            android:textColor="#0084b4"
+                            android:textColor="@color/app_color"
                             android:textSize="24dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -133,7 +136,7 @@
                             android:fontFamily="sans-serif-condensed"
                             android:paddingTop="5dp"
                             android:text="90.3"
-                            android:textColor="#0084b4"
+                            android:textColor="@color/app_color"
                             android:textSize="24dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -145,195 +148,139 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="30dp"
             android:layout_gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- sleep insights -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_height="wrap_content"
-                android:text= "Average sleeping time"
-                android:textSize="14dp"
-                android:textColor="#fff"
-                android:textStyle="italic"/>
-            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="?android:attr/colorBackground"
+                app:cardCornerRadius="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue_dark1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="SLEEP INSIGHTS"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/white"
+                            android:text="Dormie's recommended sleep time is:" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="11:00PM"
+                            android:textAlignment="center"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- Dormie advise -->
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="?android:attr/colorBackground"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/sleeping" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:textSize="14dp"
-                    android:text="No sleep record found"/>
-            </LinearLayout>
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue_dark1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/dormie_card"
+                            android:textAllCaps="true"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="sans-serif"
+                            android:text="If you can, avoid eating large meals for two to three hours before bedtime. Avoid alcohol, cigarettes, and heavy meals in the evening. Alcohol, cigarettes and caffeine can disrupt sleep. "
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text= "Average waking time"
-                android:textSize="14dp"
-                android:textColor="#fff"
-                android:textStyle="italic"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/wakeup" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="No sleep record found"
-                    android:textSize="14dp" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text= "Average waking time"
-                android:textSize="14dp"
-                android:textColor="#fff"
-                android:textStyle="italic"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/wakeup" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="No sleep record found"
-                    android:textSize="14dp" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text= "Average waking time"
-                android:textSize="14dp"
-                android:textColor="#fff"
-                android:textStyle="italic"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/wakeup" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="No sleep record found"
-                    android:textSize="14dp" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text= "Average waking time"
-                android:textSize="14dp"
-                android:textColor="#fff"
-                android:textStyle="italic"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/wakeup" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="No sleep record found"
-                    android:textSize="14dp" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
 
 
     </LinearLayout>
 
-</ScrollView>
+
+</android.support.v4.widget.NestedScrollView>

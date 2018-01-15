@@ -52,7 +52,7 @@ public class StatisticSection extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            DashboardFragment page1 = new DashboardFragment();
+            DatabaseFragment page1 = new DatabaseFragment();
             switch (position){
                 case 0:
                     return page1;

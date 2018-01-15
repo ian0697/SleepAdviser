@@ -28,9 +28,11 @@
 
 
     <!-- navbar menu -->
-    <string name="nav_item_1">Dashboard</string>
-    <string name="nav_item_2">Statistics</string>
-    <string name="nav_item_3">Sleep music library</string>
+    <string name="nav_dashboard">Dashboard</string>
+
+    <string name="nav_create_record">Create a sleep record</string>
+    <string name="nav_stat">Statistics</string>
+    <string name="nav_music">Sleep Aids</string>
     <string name="nav_log_out">Log-out</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -42,7 +44,8 @@
     <string name="action_settings">Sleep Adviser</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Dormie -->
+    <string name="dormie_card">Dormie\'s daily advise</string>
+
 
 </resources>
