@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() != null) {
                     startActivity(new Intent(LoginActivity.this, NavigationMain.class));
                 } else {
-                    //TODO: log-out activity
+
                 }
             }
         };

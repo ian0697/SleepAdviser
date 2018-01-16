@@ -124,11 +124,9 @@ public class DatabaseFragment extends Fragment{
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: DELETE DATABASE RECORDS
                 myDb.resetUserTable();
                 tvRecords.setText(myDb.getUserCount() + " records found!");
                 showMessage("Record Deletion" , "ALL RECORDS DELETED");
-
             }
         });
 

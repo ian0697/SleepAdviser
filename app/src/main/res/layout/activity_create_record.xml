@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:navigationIcon="@drawable/drawer_shadow"
             android:title="Create sleep record"
             app:popupTheme="@style/PopupOverlay" />
 
@@ -155,11 +156,13 @@
             android:layout_alignParentBottom="true">
 
             <Button
+                android:id="@+id/btnCancel"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="CANCEL"/>
             <Button
+                android:id="@+id/btnAdd"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

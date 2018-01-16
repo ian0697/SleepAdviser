@@ -103,7 +103,8 @@ public class SleepingActivity extends AppCompatActivity {
     public void wakeUp(View v){
         //TODO: for time record (Sleep time)
 
-        //for dialogBox
+
+        //DialogBox set-up
         TextView txtClose;
         final TextView flashDesc;
         CardView btnWake;

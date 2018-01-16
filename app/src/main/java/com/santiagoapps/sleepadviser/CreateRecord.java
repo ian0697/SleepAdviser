@@ -2,32 +2,40 @@ package com.santiagoapps.sleepadviser;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.icu.util.Calendar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+import android.widget.*;
+
+import com.santiagoapps.sleepadviser.class_library.SleepSession;
+import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar;
+
 
 public class CreateRecord extends AppCompatActivity {
+
+    private final String TAG = "TimeRecord";
 
     private Toolbar toolbar;
 
     //components
-    private TextView tvSleepTime;
-    private TextView tvWakeTime;
-    private TextView tvDuration;
-    private TextView tvWakeDate;
+    private TextView tvSleepTime,tvWakeTime, tvWakeDate ,tvDuration;
+    private Button btnCancel, btnAdd;
     private TimePickerDialog mTimePicker;
     private DatePickerDialog mDatePicker;
+
+    private SleepSession session;
+    SimpleDateFormat inputFormat = new SimpleDateFormat("E M/dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,9 @@ public class CreateRecord extends AppCompatActivity {
         setContentView(R.layout.activity_create_record);
         setToolbar();
 
+        session = new SleepSession();
+
+        //textView for sleeping time
         tvSleepTime = (TextView)findViewById(R.id.tvSleepTime);
         tvSleepTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +54,8 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
+
+        //textView for waking time
         tvWakeTime = (TextView)findViewById(R.id.tvWakeupTime);
         tvWakeTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +64,11 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
+
+        //textView for sleep session date
         tvWakeDate = (TextView)findViewById(R.id.tvWakeDate);
+        Date now = new Date();
+        tvWakeDate.setText(inputFormat.format(now));
         tvWakeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,29 +76,28 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
+
         tvDuration = (TextView) findViewById(R.id.tvDuration);
 
 
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+        //Buttons
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addOnClick();
+            }
+        });
 
-            Calendar c1 = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-            c1.setTime(format.parse("2018-1-15 11:00 pm"));
-            c2.setTime(format.parse("2018-1-16 6:30 am"));
+        btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backToDashboard();
+            }
+        });
 
 
-
-            long mills = c2.getTimeInMillis() - c1.getTimeInMillis();
-            int hours = (int) (mills/(1000 * 60 * 60));
-            int mins = (int) (mills/(1000*60)) % 60;
-
-            String diff = hours + " hours " + mins + " minutes"; // updated value every1 second
-            tvDuration.setText(diff);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     private void setDate(){
@@ -92,8 +108,31 @@ public class CreateRecord extends AppCompatActivity {
 
         mDatePicker = new DatePickerDialog(CreateRecord.this, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                try {
+                    SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
 
+                    String date1 = year + "-" + (month+1) + "-" + day + " " + session.getSleep_time();
+                    String date2 = year + "-" + (month+1) + "-" + day + " " + session.getWake_time();
+
+                    Log.d(TAG, "Sleep time: " + date1 + "\nWake up time: " + date2);
+
+                    Calendar temp = Calendar.getInstance();
+                    temp.setTime(sdf.parse(date1));
+
+                    if((temp.get(Calendar.AM_PM)) == Calendar.PM){
+                        temp.add(Calendar.DAY_OF_YEAR, -1);
+                        date1 = year + "-" + (month+1) + "-" + (day-1) + " " + session.getSleep_time();
+                    }
+
+                    session.setSleep_date(sdf.parse(date1));
+                    session.setWake_date(sdf.parse(date2));
+                    tvDuration.setText(session.sleepDuration());
+                    tvWakeDate.setText(inputFormat.format(session.getWake_date().getTime()));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }, year, month, day);
 
@@ -104,7 +143,7 @@ public class CreateRecord extends AppCompatActivity {
     private void setSleepingTime(){
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
+        int minute = 0;
         mTimePicker = new TimePickerDialog(CreateRecord.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
@@ -125,8 +164,9 @@ public class CreateRecord extends AppCompatActivity {
                     AM_PM = "PM";
                 }
 
+                tvSleepTime.setText( hour + ":" + minute + " " + AM_PM );
+                session.setSleep_time( hour + ":" + minute + " " + AM_PM );
 
-                tvSleepTime.setText( hour + ":" + minute + " " + AM_PM);
             }
         }, hour, minute, false);
         mTimePicker.setTitle("Select Sleeping Time");
@@ -158,15 +198,18 @@ public class CreateRecord extends AppCompatActivity {
                     AM_PM = "PM";
                 }
 
-                tvWakeTime.setText( hour + ":" + minute + " " + AM_PM);
+                tvWakeTime.setText( hour + ":" + minute + " " + AM_PM );
+                session.setWake_time( hour + ":" + minute + " " + AM_PM );
+
             }
         }, hour, minute, false);
+
+
+
+
         mTimePicker.setTitle("Select Wake Time");
         mTimePicker.show();
     }
-
-
-
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar2);
@@ -180,10 +223,18 @@ public class CreateRecord extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                Toast.makeText(CreateRecord.this, "Clicked", Toast.LENGTH_SHORT).show();
+                backToDashboard();
             }
         });
+    }
+
+    private void backToDashboard(){
+        finish();
+        startActivity(new Intent(CreateRecord.this, DashboardSection.class));
+    }
+
+    private void addOnClick(){
+        //TODO : Add methods here
     }
 
 }

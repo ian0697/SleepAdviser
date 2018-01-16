@@ -48,12 +48,12 @@ public class DashboardSection extends Fragment {
                 tabLayout.getTabAt(1).setIcon(R.drawable.logo_datas);
                 tabLayout.getTabAt(2).setIcon(R.drawable.logo_information);
                 tabLayout.getTabAt(3).setIcon(R.drawable.logo_videos);
-
-                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
-                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                tabLayout.getTabAt(3).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+//
+//                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
+//                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+//                tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+//                tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+//                tabLayout.getTabAt(3).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
             }
         });
