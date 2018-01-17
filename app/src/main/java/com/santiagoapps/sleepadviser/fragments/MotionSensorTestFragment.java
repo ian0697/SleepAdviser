@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.santiagoapps.sleepadviser.R;
 
@@ -33,12 +34,13 @@ public class MotionSensorTestFragment extends Fragment implements SensorEventLis
     private float mAccelCurrent;
     private float mAccelLast;
 
+    private Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_sleeptest, container, false);
+        rootView = inflater.inflate(R.layout.activity_motion_sensor_test, container, false);
         init();
 
         return rootView;
@@ -49,6 +51,8 @@ public class MotionSensorTestFragment extends Fragment implements SensorEventLis
         yText = (TextView)rootView.findViewById(R.id.yText);
         zText = (TextView)rootView.findViewById(R.id.zText);
         mText = (TextView)rootView.findViewById(R.id.mText);
+
+
 
         sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

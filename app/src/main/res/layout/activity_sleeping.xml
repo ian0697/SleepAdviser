@@ -1,73 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    tools:context="com.santiagoapps.sleepadviser.main_activity.SleepingActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/linear"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="08:00"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="100dp"
-            tools:layout_editor_absoluteX="162dp"
-            tools:layout_editor_absoluteY="62dp" />
-
-        <TextView
-            android:id="@+id/txtAm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="sans-serif-condensed"
-
-            android:text="AM"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            tools:layout_editor_absoluteX="162dp"
-            tools:layout_editor_absoluteY="62dp" />
-
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/textView3"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textAlignment="center"
-        android:text="Wake me up at 8:00am"
-        android:layout_below="@+id/linear"
-        android:layout_alignParentStart="true" />
+        android:theme="@style/AppBarOverlay">
 
-    <Button
-        android:id="@+id/wakeBtn"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/button_outline"
-        android:elevation="0dp"
-        android:onClick="wakeUp"
-        android:text="START SLEEPING"
-        android:textColor="@color/white" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:navigationIcon="@drawable/drawer_shadow"
+            android:title="Create sleep record"
+            app:popupTheme="@style/PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
 
 
-</RelativeLayout>
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:context="com.santiagoapps.sleepadviser.main_activity.SleepingActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/linear"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="08:00"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="100dp"
+                tools:layout_editor_absoluteX="162dp"
+                tools:layout_editor_absoluteY="62dp" />
+
+            <TextView
+                android:id="@+id/txtAm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-condensed"
+
+                android:text="AM"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                tools:layout_editor_absoluteX="162dp"
+                tools:layout_editor_absoluteY="62dp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAlignment="center"
+            android:text="Wake me up at 8:00am"
+            android:layout_below="@+id/linear"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/wakeBtn"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/button_outline"
+            android:elevation="0dp"
+            android:onClick="wakeUp"
+            android:text="START SLEEPING"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

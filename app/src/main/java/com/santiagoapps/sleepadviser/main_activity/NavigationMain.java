@@ -1,6 +1,5 @@
 package com.santiagoapps.sleepadviser.main_activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -26,10 +25,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.santiagoapps.sleepadviser.CreateRecord;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.User;
-import com.santiagoapps.sleepadviser.class_library.dbHelper;
+import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
 import com.santiagoapps.sleepadviser.nav_section.MusicSection;
 import com.santiagoapps.sleepadviser.R;
@@ -68,7 +66,7 @@ public class NavigationMain extends AppCompatActivity {
 
         //initialization
         setNavigation();
-        setFragment(new DashboardSection());
+        setFragment(new ProfileFragment());
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,19 +145,31 @@ public class NavigationMain extends AppCompatActivity {
                 int id = item.getItemId();
 
                 switch(id) {
-                    case R.id.first_nav_item:
-                        setFragment(new DashboardSection());
-                        toolbar.setTitle("Dashboard");
+                    case R.id.nav_dashboard:
+                        setFragment(new ProfileFragment());
+                        toolbar.setTitle("Profile");
                         break;
 
-                    case R.id.second_nav_item:
+                    case R.id.nav_statistic:
                         setFragment(new StatisticSection());
                         toolbar.setTitle("Statistics");
                         break;
 
-                    case R.id.third_nav_item:
+                    case R.id.nav_sleep_aid:
                         setFragment(new MusicSection());
                         toolbar.setTitle("Sleep Aids");
+                        break;
+
+                    case R.id.nav_sleep:
+                        startActivity(new Intent(NavigationMain.this,SleepingActivity.class));
+                        break;
+
+                    case R.id.nav_item_create:
+                        startActivity(new Intent(NavigationMain.this , CreateRecord.class));
+                        break;
+
+                    case R.id.nav_motion_sensor:
+                        startActivity(new Intent(NavigationMain.this , MotionSensorActivity.class));
                         break;
 
                     case R.id.nav_log_out:
@@ -168,9 +178,7 @@ public class NavigationMain extends AppCompatActivity {
                         startActivity(new Intent(NavigationMain.this, LoginActivity.class));
                         break;
 
-                    case R.id.nav_item_create:
-                        startActivity(new Intent(NavigationMain.this , CreateRecord.class));
-                        break;
+
                 }
 
                 drawer.closeDrawer(GravityCompat.START);

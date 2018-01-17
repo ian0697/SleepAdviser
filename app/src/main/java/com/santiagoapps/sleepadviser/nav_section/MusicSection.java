@@ -20,8 +20,6 @@ public class MusicSection extends Fragment {
 
     private View rootView;
     private Context context;
-    private MediaPlayer mediaPlayer;
-
     private MusicAdapter musicAdapter;
     private ArrayList<Music> musicArrayList;
     private ListView songList;
@@ -31,21 +29,31 @@ public class MusicSection extends Fragment {
                              Bundle savedInstanceState) {
         context= this.getContext();
         rootView = inflater.inflate(R.layout.fragment_playlist, container, false);
-
         songList = (ListView) rootView.findViewById(R.id.songList);
-        musicArrayList = new ArrayList<>();
+        songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
 
         addMusic();
-
-        musicAdapter = new MusicAdapter(context,R.layout.music_view, musicArrayList);
-        songList.setAdapter(musicAdapter);
 
         return rootView;
     }
 
     private void addMusic(){
-        musicArrayList.add(new Music("Piano Meditation", "Piano", R.raw.piano_music));
-        musicArrayList.add(new Music("Piano Meditation 2", "Piano", R.raw.piano_music_2));
+        musicArrayList = new ArrayList<>();
+        musicArrayList.add(new Music("Piano Meditation", "Piano Music", R.raw.piano_music));
+        musicArrayList.add(new Music("Piano Meditation 2", "Piano Music", R.raw.piano_music_2));
+        musicArrayList.add(new Music("Clair de Lune", "Classical piano music", R.raw.clairdelune));
+        musicArrayList.add(new Music("Wisps of Whorls", "Meditation/Sleep relief music", R.raw.wispofwhorls));
+        musicArrayList.add(new Music("Sleep Music", "Meditation/Sleep relief music", R.raw.sleepmusic));
+
+        musicAdapter = new MusicAdapter(context, R.layout.music_view, musicArrayList);
+        songList.setAdapter(musicAdapter);
     }
+
+
 
 }

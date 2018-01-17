@@ -9,6 +9,7 @@ import android.support.v7.app.*;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import com.santiagoapps.sleepadviser.R;
 
@@ -29,11 +30,9 @@ public class MotionSensorActivity extends AppCompatActivity implements SensorEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_sleeptest);
+        setContentView(R.layout.activity_motion_sensor_test);
 
         init();
-
-
     }
 
     private void init(){
@@ -50,6 +49,12 @@ public class MotionSensorActivity extends AppCompatActivity implements SensorEve
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         sensorManager = (SensorManager)getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

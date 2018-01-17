@@ -1,4 +1,4 @@
-package com.santiagoapps.sleepadviser;
+package com.santiagoapps.sleepadviser.main_activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,9 +15,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.*;
 
+import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.class_library.SleepSession;
-import com.santiagoapps.sleepadviser.main_activity.NavigationMain;
-import com.santiagoapps.sleepadviser.nav_section.DashboardSection;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,7 +82,6 @@ public class CreateRecord extends AppCompatActivity {
 
         tvDuration = (TextView) findViewById(R.id.tvDuration);
 
-
         //Buttons
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +99,7 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
-
-
+        setSleepingTime();
         setSleepQuality();
 
     }
@@ -209,10 +206,14 @@ public class CreateRecord extends AppCompatActivity {
                 tvSleepTime.setText( hour + ":" + minute + " " + AM_PM );
                 session.setSleep_time( hour + ":" + minute + " " + AM_PM );
 
+                setWakeUpTime();
             }
         }, hour, minute, false);
         mTimePicker.setTitle("Select Sleeping Time");
         mTimePicker.show();
+
+
+
 }
 
     private void setWakeUpTime(){
@@ -242,7 +243,7 @@ public class CreateRecord extends AppCompatActivity {
 
                 tvWakeTime.setText( hour + ":" + minute + " " + AM_PM );
                 session.setWake_time( hour + ":" + minute + " " + AM_PM );
-
+                setDate();
             }
         }, hour, minute, false);
 
@@ -252,6 +253,7 @@ public class CreateRecord extends AppCompatActivity {
         mTimePicker.setTitle("Select Wake Time");
         mTimePicker.show();
     }
+
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar2);

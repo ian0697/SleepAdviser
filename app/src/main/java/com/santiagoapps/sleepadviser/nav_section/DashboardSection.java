@@ -45,10 +45,9 @@ public class DashboardSection extends Fragment {
             public void run() {
                 tabLayout.setupWithViewPager(mViewPager);
                 tabLayout.getTabAt(0).setIcon(R.drawable.logo_home);
-                tabLayout.getTabAt(1).setIcon(R.drawable.logo_datas);
-                tabLayout.getTabAt(2).setIcon(R.drawable.logo_information);
-                tabLayout.getTabAt(3).setIcon(R.drawable.logo_videos);
-//
+                tabLayout.getTabAt(1).setIcon(R.drawable.logo_information);
+                tabLayout.getTabAt(2).setIcon(R.drawable.logo_videos);
+
 //                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
 //                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 //                tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
@@ -57,16 +56,14 @@ public class DashboardSection extends Fragment {
 
             }
         });
-
-
-
-
     }
 
 
 
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -79,12 +76,9 @@ public class DashboardSection extends Fragment {
                     ProfileFragment page1 = new ProfileFragment();
                     return page1;
                 case 1:
-                    MotionSensorTestFragment page2 = new MotionSensorTestFragment();
-                    return page2;
-                case 2:
                     TestFragment page3 = new TestFragment();
                     return page3;
-                case 3:
+                case 2:
                     MusicSection page4 = new MusicSection();
                     return page4;
                 default:
@@ -95,8 +89,8 @@ public class DashboardSection extends Fragment {
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
-            return 4;
+            // Show 3 total pages.
+            return 3;
         }
 
     }

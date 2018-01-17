@@ -30,6 +30,7 @@ public class MusicAdapter extends BaseAdapter {
     private View currentView;
     private ViewHolder newView;
     private int currentPos;
+    private Music[] musicList;
 
 
 
@@ -92,6 +93,56 @@ public class MusicAdapter extends BaseAdapter {
 
 
 
+
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               if(isPaused){
+//                    player= MediaPlayer.create(context, music.getSong());
+//                    isPaused = false;
+//                    currentPos = position;
+//                    currentView = view;
+//                    //currentViewHolder = viewHolder;
+//                    //currentPos = 1
+//                }
+//
+//                if(player.isPlaying()){
+//
+//                    if(currentPos!=position && currentView!=view){
+//                        player.stop();
+//                        player.release();
+//                        player = MediaPlayer.create(context, music.getSong());
+//                        currentPos = position;
+//                        player.start();
+//
+//
+//                    }
+//                    else{
+//                        player.pause();
+//                        PAUSE_VALUE = player.getCurrentPosition();
+//                        isPaused=true;
+//
+//
+//                        viewHolder.ivPlay.setImageResource(R.drawable.play);
+//                    }
+//
+//
+//
+//                } else{
+//                    //Continue
+//                    if(player!=null) {
+//                        player.seekTo(PAUSE_VALUE);
+//                    }
+//                    player.start();
+//                    Toast.makeText(context, "you reached this context", Toast.LENGTH_SHORT).show();
+//
+//                    viewHolder.ivPlay.setImageResource(R.drawable.pause);
+//                }
+//
+//
+//            }
+//        });
+
         viewHolder.ivPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,20 +165,13 @@ public class MusicAdapter extends BaseAdapter {
                         player = MediaPlayer.create(context, music.getSong());
                         currentPos = position;
                         player.start();
-
-
                     }
                     else{
                         player.pause();
                         PAUSE_VALUE = player.getCurrentPosition();
                         isPaused=true;
-
-
                         viewHolder.ivPlay.setImageResource(R.drawable.play);
                     }
-
-
-
                 } else{
                     //Continue
                     if(player!=null) {
@@ -138,8 +182,6 @@ public class MusicAdapter extends BaseAdapter {
 
                     viewHolder.ivPlay.setImageResource(R.drawable.pause);
                 }
-
-
             }
         });
 
@@ -152,9 +194,6 @@ public class MusicAdapter extends BaseAdapter {
                     PAUSE_VALUE = 0;
                     isPaused =true;
                 }
-
-
-
                 viewHolder.ivPlay.setImageResource(R.drawable.ic_play);
             }
         });

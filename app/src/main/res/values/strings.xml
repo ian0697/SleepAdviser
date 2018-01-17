@@ -28,12 +28,14 @@
 
 
     <!-- navbar menu -->
-    <string name="nav_dashboard">Dashboard</string>
-
+    <string name="nav_dashboard">Home</string>
     <string name="nav_create_record">Create a sleep record</string>
-    <string name="nav_stat">Statistics</string>
-    <string name="nav_music">Sleep Aids</string>
+    <string name="nav_motion_sensor">Test motion sensor</string>
+    <string name="nav_stat">Sleep Data</string>
+    <string name="nav_music">Sleeping Music Library</string>
+    <string name="nav_sleep">Sleep now</string>
     <string name="nav_log_out">Log-out</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

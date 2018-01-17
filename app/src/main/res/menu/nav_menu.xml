@@ -3,44 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.santiagoapps.sleepadviser.main_activity.NavigationMain">
-    <group
-        android:checkableBehavior="single"
-        android:orderInCategory="100">
-        <item
-            android:id="@+id/first_nav_item"
-            android:icon="@drawable/logo_home"
-            android:orderInCategory="200"
-            android:iconTint="@color/app_color"
-            android:title="@string/nav_dashboard" />
 
-        <item
-            android:id="@+id/second_nav_item"
-            android:orderInCategory="300"
-            android:icon="@drawable/logo_datas"
-            android:iconTint="@color/app_color"
-            android:title="@string/nav_stat" />
+    <!-- general -->
+    <item
+        android:title="General"
+        android:orderInCategory="1">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_dashboard"
+                    android:icon="@drawable/logo_home"
+                    android:orderInCategory="1"
+                    android:title="@string/nav_dashboard" />
 
-        <item
-            android:id="@+id/nav_item_create"
-            android:orderInCategory="400"
-            android:icon="@drawable/add"
-            android:title="@string/nav_create_record"/>
+                <item
+                    android:id="@+id/nav_sleep"
+                    android:orderInCategory="2"
+                    android:icon="@drawable/sleeping"
+                    android:title="@string/nav_sleep"/>
 
-        <item
-        android:id="@+id/third_nav_item"
+                <item
+                    android:id="@+id/nav_item_create"
+                    android:orderInCategory="3"
+                    android:icon="@drawable/add"
+                    android:title="@string/nav_create_record"/>
+
+
+            </group>
+        </menu>
+    </item>
+
+    <!-- show -->
+    <item
+        android:title="Show"
+        android:orderInCategory="2">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_statistic"
+                    android:orderInCategory="1"
+                    android:icon="@drawable/logo_datas"
+                    android:title="@string/nav_stat" />
+                <item
+                    android:id="@+id/nav_sleep_aid"
+                    android:orderInCategory="2"
+                    android:icon="@drawable/music"
+                    android:title="@string/nav_music"/>
+                <item
+                    android:id="@+id/nav_motion_sensor"
+                    android:orderInCategory="3"
+                    android:icon="@drawable/smartphone_01"
+                    android:title="@string/nav_motion_sensor"/>
+
+
+
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_log_out"
         android:orderInCategory="400"
-        android:icon="@drawable/music"
-        android:iconTint="@color/app_color"
-        android:title="@string/nav_music"/>
-
-        <item
-            android:id="@+id/nav_log_out"
-            android:orderInCategory="400"
-            android:icon="@drawable/logout"
-            android:iconTint="@color/app_color"
-            android:title="@string/nav_log_out"/>
-    </group>
-
+        android:icon="@drawable/logout"
+        android:title="@string/nav_log_out"/>
     <!--
     <item
         android:title="Communicate"
