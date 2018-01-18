@@ -38,7 +38,11 @@ public class CreateRecord extends AppCompatActivity {
     private CardView card1, card2, card3;
 
     private SleepSession session;
+    private String sleep_time;
+    private String wake_time;
     SimpleDateFormat inputFormat = new SimpleDateFormat("E M/dd");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,17 +155,19 @@ public class CreateRecord extends AppCompatActivity {
                 try {
                     SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
 
-                    String date1 = year + "-" + (month+1) + "-" + day + " " + session.getSleep_time();
-                    String date2 = year + "-" + (month+1) + "-" + day + " " + session.getWake_time();
+                    String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
+                    String date2 = year + "-" + (month+1) + "-" + day + " " + wake_time;
 
                     Log.d(TAG, "Sleep time: " + date1 + "\nWake up time: " + date2);
 
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(sdf.parse(date1));
 
+                    // If sleeping time is PM = treat
+                    // it as the day before waking time
                     if((temp.get(Calendar.AM_PM)) == Calendar.PM){
                         temp.add(Calendar.DAY_OF_YEAR, -1);
-                        date1 = year + "-" + (month+1) + "-" + (day-1) + " " + session.getSleep_time();
+                        date1 = year + "-" + (month+1) + "-" + (day-1) + " " + sleep_time;
                     }
 
                     session.setSleep_date(sdf.parse(date1));
@@ -178,6 +184,7 @@ public class CreateRecord extends AppCompatActivity {
         mDatePicker.setTitle("Select sleep date");
         mDatePicker.show();
     }
+
 
     private void setSleepingTime(){
         Calendar mcurrentTime = Calendar.getInstance();
@@ -204,16 +211,15 @@ public class CreateRecord extends AppCompatActivity {
                 }
 
                 tvSleepTime.setText( hour + ":" + minute + " " + AM_PM );
-                session.setSleep_time( hour + ":" + minute + " " + AM_PM );
+                sleep_time = hour + ":" + minute + " " + AM_PM;
+
+//                session.setSleep_time( hour + ":" + minute + " " + AM_PM );
 
                 setWakeUpTime();
             }
         }, hour, minute, false);
         mTimePicker.setTitle("Select Sleeping Time");
         mTimePicker.show();
-
-
-
 }
 
     private void setWakeUpTime(){
@@ -242,7 +248,10 @@ public class CreateRecord extends AppCompatActivity {
                 }
 
                 tvWakeTime.setText( hour + ":" + minute + " " + AM_PM );
-                session.setWake_time( hour + ":" + minute + " " + AM_PM );
+                wake_time = hour + ":" + minute + " " + AM_PM;
+
+//                session.setWake_time( hour + ":" + minute + " " + AM_PM );
+
                 setDate();
             }
         }, hour, minute, false);

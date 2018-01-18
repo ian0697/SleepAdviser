@@ -75,10 +75,7 @@ public class NavigationMain extends AppCompatActivity {
             }
         });
 
-
-
         initDatabase();
-
 
     }
 

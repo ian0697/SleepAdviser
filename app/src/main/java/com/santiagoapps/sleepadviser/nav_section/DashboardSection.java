@@ -75,9 +75,6 @@ public class DashboardSection extends Fragment {
                 case 0:
                     ProfileFragment page1 = new ProfileFragment();
                     return page1;
-                case 1:
-                    TestFragment page3 = new TestFragment();
-                    return page3;
                 case 2:
                     MusicSection page4 = new MusicSection();
                     return page4;

@@ -1,6 +1,7 @@
 package com.santiagoapps.sleepadviser.main_activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.*;
 import android.widget.TimePicker;
 
 import com.santiagoapps.sleepadviser.R;
+import com.santiagoapps.sleepadviser.class_library.SleepService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +23,12 @@ public class SleepingActivity extends AppCompatActivity {
     private Dialog myDialog;
     private TextView txtTime;
     private TextView txtAm;
+    private TextView tvDescription;
+    private Button btnSleep;
+
+    Intent sleep_service;
+
+    private String wake_time = "";
     private Toolbar toolbar;
     public static Camera cam;
     private static final String TAG = "SleepAdviser";
@@ -30,13 +38,19 @@ public class SleepingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleeping);
-        myDialog = new Dialog(SleepingActivity.this);
-        txtTime = (TextView)findViewById(R.id.txtTime);
-        txtAm = (TextView)findViewById(R.id.txtAm);
 
+        initComponents();
         setUpAlarm();
         setUpToolbar();
         showAlarmDialog();
+    }
+
+    public void initComponents(){
+        myDialog = new Dialog(SleepingActivity.this);
+        txtTime = (TextView)findViewById(R.id.txtTime);
+        txtAm = (TextView)findViewById(R.id.txtAm);
+        tvDescription = (TextView) findViewById(R.id.tvDescription);
+        btnSleep = (Button) findViewById(R.id.btnStartSleep);
 
 
     }
@@ -64,6 +78,11 @@ public class SleepingActivity extends AppCompatActivity {
                 showAlarmDialog();
             }
         });
+    }
+
+    public void startSleeping(){
+        sleep_service = new Intent(SleepingActivity.this, SleepService.class);
+        startService(sleep_service);
     }
 
     public void showAlarmDialog(){
@@ -99,6 +118,8 @@ public class SleepingActivity extends AppCompatActivity {
                 txtTime.setText(hour + ":" + minute);
                 txtAm.setText(AM_PM);
 
+                wake_time = hour + ":" + minute + " " + AM_PM;
+                tvDescription.setText("Wake me up at " + wake_time);
                 myDialog.dismiss();
             }
         });
@@ -116,7 +137,7 @@ public class SleepingActivity extends AppCompatActivity {
 
     public void wakeUp(View v){
         //TODO: for time record (Sleep time)
-
+        startSleeping();
 
         //DialogBox set-up
         TextView txtClose;
@@ -127,7 +148,6 @@ public class SleepingActivity extends AppCompatActivity {
 
         txtClose = (TextView) myDialog.findViewById(R.id.txtClose);
         flashDesc = (TextView) myDialog.findViewById(R.id.flashDesc);
-        btnWake = (CardView) myDialog.findViewById(R.id.btnWake);
         btnFlash = (CardView) myDialog.findViewById(R.id.btnFlash);
 
         txtClose.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +165,15 @@ public class SleepingActivity extends AppCompatActivity {
                     Log.d(TAG, "FLASHLIGHT IS OFF!");
                 }
                 myDialog.dismiss();
+            }
+        });
+
+
+        btnWake = (CardView) myDialog.findViewById(R.id.btnWake);
+        btnWake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(sleep_service);
             }
         });
 
