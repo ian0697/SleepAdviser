@@ -1,4 +1,4 @@
-package com.santiagoapps.sleepadviser.class_library;
+package com.santiagoapps.sleepadviser;
 
 
 import android.app.Service;
@@ -14,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
+
 import static java.lang.Math.sqrt;
 
 /**
@@ -27,7 +29,7 @@ import static java.lang.Math.sqrt;
  */
 
 public class SleepService extends Service implements SensorEventListener {
-    public static final String TAG = "SleepAdviser";
+    private final static String TAG = "Dormie (" + SleepService.class.getSimpleName() + ") ";
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
@@ -52,8 +54,9 @@ public class SleepService extends Service implements SensorEventListener {
         Toast.makeText(this, "Service is destroyed!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Sleep service destroyed");
 
-
+        //Unregister listener when service destroyed
         sensorManager.unregisterListener(this,sensor);
+        Log.d(TAG, "SensorManager listener unregistered");
     }
 
     @Override
@@ -62,6 +65,7 @@ public class SleepService extends Service implements SensorEventListener {
         Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Sleep service started");
 
+        //Register listener
         sensorManager = (SensorManager)getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this,sensor,sensorManager.SENSOR_DELAY_NORMAL);

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,10 +21,10 @@ import java.util.Locale;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //logCat TAG
-    private static final String TAG = "SleepAdviserDB";
+    private final static String TAG = "Dormie (" + DatabaseHelper.class.getSimpleName() + ") ";
 
     //Db version
-    private static final int DATABASE_VERSION = 2;
+        private static final int DATABASE_VERSION = 3;
 
     //Db name:
     public static final String DATABASE_NAME = "SleepAdviserDB.db";
@@ -44,14 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "EMAIL";
     private static final String KEY_PASSWORD = "PASSWORD";
 
-    //DATA TABLE - column names
-    private static final String KEY_SLEEP_TIME = "SLEEP_TIME";
-    private static final String KEY_WAKE_TIME = "WAKE_TIME";
-    private static final String KEY_SLEEP_QUALITY = "SLEEP_QUALITY";
-    private static final String KEY_TIME_ASLEEP = "TIME_ASLEEP";
-    private static final String KEY_TIME_IN_BED = "TIME_IN_BED";
-    private static final String KEY_TIME_TO_SLEEP = "TIME_TO_SLEEP";
-    private static final String KEY_MOOD = "SLEEP_MOOD";
+    //SLEEP SESSION TABLE - column names
+    private static final String KEY_SLEEP_DATE = "SLEEP_TIME";
+    private static final String KEY_WAKE_DATE = "WAKE_TIME";
+    private static final String KEY_SLEEP_RATING = "SLEEP_RATING";
+    private static final String KEY_SLEEP_DURATION = "SLEEP_DURATION";
 
     //DATA_USER TABLE - column names
     private static final String KEY_USER_ID = "user_id";
@@ -66,17 +64,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //DATA TABLE create statement
     private static final String CREATE_TABLE_DATA = String.format("CREATE TABLE %s " +
                     "(%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "%s TEXT, " +   //KEY_SLEEP_TIME
-                    "%s TEXT, " +   //KEY_WAKE_TIME
-                    "%s TEXT, " +   //KEY_SLEEP_QUALITY
-                    "%s TEXT, " +   //KEY_TIME_ASLEEP
-                    "%s TEXT, " +   //KEY_TIME_IN_BED
-                    "%s TEXT, " +   //KEY_TIME_TO_SLEEP
-                    "%s TEXT, " +   //KEY_MOOD
+                    "%s TEXT, " +   //KEY_SLEEP_DATE
+                    "%s TEXT, " +   //KEY_WAKE_DATE
+                    "%s TEXT, " +   //KEY_SLEEP_RATING
+                    "%s TEXT, " +   //KEY_SLEEP_DURATION
                     "%s DATETIME)", //KEY_CREATED_AT
-            TABLE_DATA, KEY_ID, KEY_SLEEP_TIME, KEY_WAKE_TIME,
-            KEY_SLEEP_QUALITY, KEY_TIME_ASLEEP, KEY_TIME_IN_BED,
-            KEY_TIME_TO_SLEEP, KEY_MOOD, KEY_CREATED_AT);
+            TABLE_DATA, KEY_ID, KEY_SLEEP_DATE, KEY_WAKE_DATE,
+            KEY_SLEEP_RATING, KEY_SLEEP_DURATION, KEY_CREATED_AT);
 
     //DATA_USER TABLE create statement
     private static final String CREATE_TABLE_USERDATA = String.format("CREATE TABLE %s " +
@@ -106,11 +100,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /************** INSERT METHODS ******************/
 
+
     /**
-     * REGISTERING USER
+     * @param user - a User object that contains name, email, password etc.
+     * @return Result - will return -1 if user fail to insert user to db
      */
     public long registerUser(User user){
-        Log.d(TAG,user.toString());
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -120,16 +115,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_CREATED_AT, getDateTime());
 
+
         long result = db.insert(TABLE_USER, null, values);
-        Log.d(TAG, "Value of database result is : " + result);
+
+
+        if(result!=-1){
+            Log.d(TAG,"User '" + user.getFirebaseId() + "' successfully registered!");
+        } else {
+            Log.e(TAG,"Error inserting data");
+        }
+
         return result;
     }
 
 
+    /**
+     * Insert sleep session to the database
+     *
+     * @param session This is the sleepSession object containing all sleep-related dates
+     * @return result : -1 if failed else; success
+     */
+    public long insertSession(SleepSession session){
+
+        SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_SLEEP_DATE, sdf.format(session.getSleep_date().getTime()));
+        values.put(KEY_WAKE_DATE, sdf.format(session.getWake_date().getTime()));
+        values.put(KEY_SLEEP_DURATION, session.getSleep_duration());
+        values.put(KEY_SLEEP_RATING, session.getSleep_rating());
+
+        long result = db.insert(TABLE_DATA, null, values);
+
+        if(result!=-1){
+
+            Log.d(TAG,"Sleep session successfully registered!");
+        } else {
+            Log.e(TAG,"Error inserting data");
+        }
+
+        return result;
+    }
+
+
+
+
     /**************** FETCH METHODS ******************/
 
+
+
     /**
-     * FETCH SINGLE USER by id
+     * Fetch user using userId
+     * @param userId the Primary key from the database table of User_tbl
+     *
      */
     public User getUser(long userId){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * RETURN ALL USER DATA AS LISTS
+     * @return userList - all users from the database
      */
     public List<User> getAllUsers(){
         List<User> userList = new ArrayList<User>();
@@ -186,6 +225,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public List<SleepSession> getAllSession(){
+        SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
+        List<SleepSession> session_list = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_DATA;
+        Log.e(TAG, query);
+
+        Cursor res = db.rawQuery(query,null);
+
+        while(res.moveToNext()){
+            SleepSession session = new SleepSession();
+            session.setSession_id(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
+            Log.d(TAG,res.getString(res.getColumnIndex(KEY_SLEEP_DATE)));
+            try {
+                session.setSleep_date(sdf.parse(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+                session.setWake_date(sdf.parse(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
+            } catch(ParseException e){
+                e.printStackTrace();
+            }
+
+            session_list.add(session);
+        }
+
+        return session_list;
+    }
+
+
     /**
      * RETURN ALL TABLE USER DATA
      */
@@ -203,9 +270,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = x.rawQuery("select * from " + TABLE_USER, null);
         int count = res.getCount();
         res.close();
-        Log.d(TAG, "User record count: " + count);
+
         return count;
     }
+
+
+    /**
+     * return session count
+     */
+    public int getSessionCount(){
+        SQLiteDatabase x = this.getReadableDatabase();
+        Cursor res = x.rawQuery("select * from " + TABLE_DATA, null);
+        int count = res.getCount();
+        res.close();
+        return count;
+    }
+
+
 
     /************* DELETE METHODS *****************/
 
@@ -218,6 +299,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_USER});
 
         Log.d(TAG, "All user records deleted! Rows affected: " + rowsAffected);
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Delete all sleep sessions
+     * @return true if rowsAffected is > 0
+     */
+    public boolean resetSessionTable(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int rowsAffected = db.delete(TABLE_DATA,"1",null);
+        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_DATA});
+
+        Log.d(TAG, "All sessions deleted! Rows affected: " + rowsAffected);
         return rowsAffected > 0;
     }
 
@@ -236,7 +330,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "yyyy-MM-dd H:mm a", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }

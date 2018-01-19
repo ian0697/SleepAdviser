@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * SleepSession class
  *
@@ -22,7 +24,9 @@ public class SleepSession {
 
     private Calendar sleep_date;
     private Calendar wake_date;
-    private String sleep_quality;
+    private int sleep_rating;
+    private int session_id;
+    private String sleep_duration;
 
     public static final SimpleDateFormat SLEEP_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd h:mm a");
     public static final SimpleDateFormat SLEEP_TIME_FORMAT = new SimpleDateFormat("HH:mm a");
@@ -31,7 +35,7 @@ public class SleepSession {
 
 //    Required empty Constructor
     public SleepSession(){
-        sleep_quality = "";
+        sleep_rating = 0;
         sleep_date = Calendar.getInstance();
         wake_date = Calendar.getInstance();
     }
@@ -42,19 +46,20 @@ public class SleepSession {
      * @param wake_date accepts wake date as Calendar object
      */
     public SleepSession(Calendar sleep_date, Calendar wake_date){
-        sleep_quality = "";
+        sleep_rating = 0;
         this.sleep_date = sleep_date;
         this.wake_date = wake_date;
     }
+
 
     /**
      * accepts THREE parameters:
      * @param sleep_date accepts Sleeping date as Calendar object
      * @param wake_date accepts wake date as Calendar object
-     * @param sleep_quality Describes how the user feels as they woke up
+     * @param sleep_rating Describes how the user feels as they woke up
      */
-    public SleepSession(Calendar sleep_date, Calendar wake_date, String sleep_quality){
-        this.sleep_quality = sleep_quality;
+    public SleepSession(Calendar sleep_date, Calendar wake_date, int sleep_rating){
+        this.sleep_rating = sleep_rating;
         this.sleep_date = sleep_date;
         this.wake_date = wake_date;
     }
@@ -67,6 +72,7 @@ public class SleepSession {
     public Calendar getSleep_date(){
         return sleep_date;
     }
+
 
 
     /**
@@ -102,25 +108,44 @@ public class SleepSession {
      * the sleeping time and the waking time
      * by converting it to milliseconds
      */
-    public String sleepDuration(){
+    public String getSleep_duration(){
         long mills = wake_date.getTimeInMillis() - sleep_date.getTimeInMillis();
         int hours = (int) (mills/(1000 * 60 * 60));
         int mins = (int) (mills/(1000 * 60)) % 60;
 
-        String diff = hours + " hours " + mins + " minutes";
-        return diff;
+        sleep_duration = hours + " hours " + mins + " minutes";
+        return sleep_duration;
     }
 
-
-
-    public String getSleep_quality() {
-        return sleep_quality;
+    public void setSleep_duration(String sleep_duration){
+        this.sleep_duration = sleep_duration;
     }
 
-    public void setSleep_quality(String sleep_quality) {
-        this.sleep_quality = sleep_quality;
+    public int getSession_id() {
+        return session_id;
     }
 
+    public void setSession_id(int session_id) {
+        this.session_id = session_id;
+    }
 
+    public int getSleep_rating() {
+        return sleep_rating;
+    }
 
+    public void setSleep_quality(int sleep_rating) {
+        this.sleep_rating = sleep_rating;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sleep id: " + session_id);
+        sb.append("\nSleep date: " + SLEEP_DATE_FORMAT.format(sleep_date.getTime()));
+        sb.append("\nWake date: " + SLEEP_DATE_FORMAT.format(wake_date.getTime()));
+        sb.append("\nSleep duration: " + getSleep_duration());
+
+        Log.d(TAG, sb.toString());
+        return sb.toString();
+    }
 }

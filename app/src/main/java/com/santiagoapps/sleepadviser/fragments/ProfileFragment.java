@@ -1,7 +1,6 @@
 package com.santiagoapps.sleepadviser.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -24,8 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
+import com.santiagoapps.sleepadviser.class_library.SleepSession;
 import com.santiagoapps.sleepadviser.class_library.User;
-import com.santiagoapps.sleepadviser.main_activity.SleepingActivity;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    private final static String TAG = "SleepAdviser";
+    private final static String TAG = "Dormie (" + ProfileFragment.class.getSimpleName() + ") ";
 
     private Context context;
     private View rootView;
@@ -46,7 +45,7 @@ public class ProfileFragment extends Fragment {
     private User current_user;
 
     /* components */
-    private TextView tvName, tvUserRecords;
+    private TextView tvName, tvUserRecords, tvSessions;
     private LinearLayout llUsers;
     private FloatingActionButton fab;
 
@@ -58,9 +57,7 @@ public class ProfileFragment extends Fragment {
         context = getActivity();
 
         initDatabase();
-        setLabelText();
-
-
+        setTextView();
 
 
         return rootView;
@@ -70,7 +67,7 @@ public class ProfileFragment extends Fragment {
         /* database set-up */
         myDb = new DatabaseHelper(context);
         user =  FirebaseAuth.getInstance().getCurrentUser();
-        tbl_user = FirebaseDatabase.getInstance().getReference("Users");
+        tbl_user = FirebaseDatabase.getInstance().getReference("users");
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -94,21 +91,36 @@ public class ProfileFragment extends Fragment {
 
 
 
-    public void setLabelText(){
+    public void setTextView(){
         /* components */
         tvName = rootView.findViewById(R.id.tvUserName);
 
         tvUserRecords = rootView.findViewById(R.id.tvUserRecords);
         tvUserRecords.setText(myDb.getUserCount()+"");
 
-        llUsers = rootView.findViewById(R.id.linearUser);
+        tvSessions = rootView.findViewById(R.id.tvSessions);
+        tvSessions.setText(myDb.getSessionCount()+ "");
+
+        llUsers = rootView.findViewById(R.id.linearSessions);
         llUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                StringBuffer buffer = new StringBuffer();
+//                List<User> allUsers = myDb.getAllUsers();
+//                for(int x = 0; x< allUsers.size(); x++){
+//                    buffer.append(allUsers.get(x).toString()+ "\n");
+//                }
+
+//                StringBuffer buffer = new StringBuffer();
+//                buffer.append()
+//
+//                showMessage("Data", buffer.toString());
+//                Log.d(TAG, buffer.toString());
+
                 StringBuffer buffer = new StringBuffer();
-                List<User> allUsers = myDb.getAllUsers();
-                for(int x = 0; x< allUsers.size(); x++){
-                    buffer.append(allUsers.get(x).toString()+ "\n");
+                List<SleepSession> sessions = myDb.getAllSession();
+                for(int x = 0; x < sessions.size(); x++){
+                    buffer.append(sessions.get(x).toString()+ "\n\n");
                 }
 
                 showMessage("Data", buffer.toString());
@@ -126,6 +138,4 @@ public class ProfileFragment extends Fragment {
         builder.setMessage(message);
         builder.show();
     }
-
-
 }

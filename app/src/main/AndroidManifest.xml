@@ -46,8 +46,11 @@
         <activity android:name=".main_activity.MotionSensorActivity"/>
 
         <!-- services -->
-        <service android:name=".class_library.SleepService" android:exported="false"/>
+        <service android:name=".SleepService" android:exported="false"/>
 
+
+        <!-- receiver -->
+        <receiver android:name=".AlarmNotificationReceiver"/>
     </application>
 
 </manifest>

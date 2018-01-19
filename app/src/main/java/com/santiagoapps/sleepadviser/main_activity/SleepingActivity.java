@@ -1,8 +1,13 @@
 package com.santiagoapps.sleepadviser.main_activity;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
+import android.icu.util.Calendar;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -12,12 +17,9 @@ import android.view.View;
 import android.widget.*;
 import android.widget.TimePicker;
 
+import com.santiagoapps.sleepadviser.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.class_library.SleepService;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.santiagoapps.sleepadviser.SleepService;
 
 public class SleepingActivity extends AppCompatActivity {
     private Dialog myDialog;
@@ -33,6 +35,8 @@ public class SleepingActivity extends AppCompatActivity {
     public static Camera cam;
     private static final String TAG = "SleepAdviser";
     Boolean isOpen = false;
+
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +86,18 @@ public class SleepingActivity extends AppCompatActivity {
 
     public void startSleeping(){
         sleep_service = new Intent(SleepingActivity.this, SleepService.class);
+        startAlarm();
         startService(sleep_service);
+    }
+
+    public void startAlarm(){
+        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(SleepingActivity.this, AlarmNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,myIntent,0);
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+
+
     }
 
     public void showAlarmDialog(){
@@ -117,6 +132,14 @@ public class SleepingActivity extends AppCompatActivity {
 
                 txtTime.setText(hour + ":" + minute);
                 txtAm.setText(AM_PM);
+                calendar.set(
+                        Calendar.YEAR,
+                        Calendar.MONTH,
+                        Calendar.DAY_OF_MONTH,
+                        timePicker.getHour(),
+                        timePicker.getMinute(),
+                        0
+                );
 
                 wake_time = hour + ":" + minute + " " + AM_PM;
                 tvDescription.setText("Wake me up at " + wake_time);

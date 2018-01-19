@@ -3,6 +3,7 @@ package com.santiagoapps.sleepadviser.main_activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.*;
 
 import com.santiagoapps.sleepadviser.R;
+import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.SleepSession;
 
 import java.text.ParseException;
@@ -26,7 +28,7 @@ import java.util.Calendar;
 
 public class CreateRecord extends AppCompatActivity {
 
-    private final String TAG = "TimeRecord";
+    private final static String TAG = "Dormie (" + CreateRecord.class.getSimpleName() + ") ";
 
     private Toolbar toolbar;
 
@@ -41,6 +43,8 @@ public class CreateRecord extends AppCompatActivity {
     private String sleep_time;
     private String wake_time;
     SimpleDateFormat inputFormat = new SimpleDateFormat("E M/dd");
+
+    SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
 
 
 
@@ -99,6 +103,9 @@ public class CreateRecord extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                new DatabaseHelper(getApplicationContext())
+                        .resetSessionTable();
                 backToDashboard();
             }
         });
@@ -153,7 +160,6 @@ public class CreateRecord extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 try {
-                    SimpleDateFormat sdf = SleepSession.SLEEP_DATE_FORMAT;
 
                     String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
                     String date2 = year + "-" + (month+1) + "-" + day + " " + wake_time;
@@ -172,7 +178,8 @@ public class CreateRecord extends AppCompatActivity {
 
                     session.setSleep_date(sdf.parse(date1));
                     session.setWake_date(sdf.parse(date2));
-                    tvDuration.setText(session.sleepDuration());
+                    tvDuration.setText(session.getSleep_duration());
+                    session.setSleep_duration(session.getSleep_duration());
                     tvWakeDate.setText(inputFormat.format(session.getWake_date().getTime()));
 
                 } catch (ParseException e) {
@@ -287,16 +294,11 @@ public class CreateRecord extends AppCompatActivity {
     }
 
     private void addOnClick(){
-        //TODO : Add methods here
-        Snackbar.make(findViewById(R.id.content), "Added sleep session", Snackbar.LENGTH_LONG)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                    }
-                })
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
-                .show();
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        DatabaseHelper db = new DatabaseHelper(this);
+        Log.d(TAG, sdf.format(session.getSleep_date().getTime()));
+        db.insertSession(session);
     }
 
 }

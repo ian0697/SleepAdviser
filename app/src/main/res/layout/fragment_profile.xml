@@ -63,7 +63,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
-                        android:id="@+id/linearUser"
+                        android:id="@+id/linearSessions"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -73,12 +73,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Records"
+                            android:text="Sessions"
                             android:textColor="#fff"
                             android:textSize="18dp" />
 
                         <TextView
-                            android:id="@+id/tvUserRecords"
+                            android:id="@+id/tvSessions"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-condensed"
@@ -125,12 +125,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sleep count"
+                            android:text="Users"
                             android:textColor="#fff"
                             android:textSize="18dp" />
 
                         <TextView
-                            android:id="@+id/tvSleepScore"
+                            android:id="@+id/tvUserRecords"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-condensed"

@@ -26,17 +26,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 import com.santiagoapps.sleepadviser.class_library.User;
+import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
 
 
-public class DatabaseFragment extends Fragment{
+    public class DatabaseFragment extends Fragment{
 
-    private final static String TAG = "SleepAdviser";
-
+    private final static String TAG = "Dormie (" + DatabaseFragment.class.getSimpleName() + ") ";
     private DatabaseHelper myDb;
     private Context context;
     private View rootView;
     private Button btnView, btnViewUser;
-    private Button btnDelete;
+    private Button btnDelete, btnDeleteAll;
     private EditText etUserId;
 
     private DatabaseReference tbl_user;
@@ -125,6 +125,8 @@ public class DatabaseFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 myDb.resetUserTable();
+
+
                 tvRecords.setText(myDb.getUserCount() + " records found!");
                 showMessage("Record Deletion" , "ALL RECORDS DELETED");
             }

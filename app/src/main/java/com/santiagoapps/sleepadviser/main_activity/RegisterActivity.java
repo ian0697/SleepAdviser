@@ -14,10 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.santiagoapps.sleepadviser.R;
@@ -35,7 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference database;
     private DatabaseHelper myDb;
-    private final static String TAG = "SleepAdviser";
+    private final static String TAG = "Dormie (" + RegisterActivity.class.getSimpleName() + ") ";
+
+
 
 
     @Override
@@ -55,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         txtView_Signin = (TextView) findViewById(R.id.txtSignin);
 
         myDb = new DatabaseHelper(this);
-        database = FirebaseDatabase.getInstance().getReference("Users");
+        database = FirebaseDatabase.getInstance().getReference("users");
         firebaseAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -147,11 +152,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void saveToDatabase(String name, String email, String password){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        User _user;
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        final User _user;
 
         //firebase is connected
         if (user != null) {
+            UserProfileChangeRequest profileUpdates =new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name).build();
+            user.updateProfile(profileUpdates);
+
             _user = new User(user.getUid(), email, password, name);
             Log.d(TAG, "Current user is: " + user.getUid());
         }
@@ -161,21 +170,27 @@ public class RegisterActivity extends AppCompatActivity {
             Log.d(TAG, "User is null");
         }
 
-        database.child(user.getUid()).setValue(_user);
+        //save to firebase
+        database.child(user.getUid()).setValue(_user)
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Success! Welcome, " + _user.getName());
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Failed! Check database handling");
+                    }
+                });
 
         //save to local database
         long id = myDb.registerUser(_user);
 
         if(id!=-1){
-            Log.d(TAG,"Data inserted: " + _user);
             startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
-        } else {
-            Log.e(TAG,"Error inserting data");
         }
-
-
-        //TODO: Sleep data table
-        //id(parent) -> sleep_id(parent) -> details(child)
     }
 
     public void onClick_signin(View v){

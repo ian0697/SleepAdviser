@@ -76,7 +76,7 @@ public class User {
     public void setDateRegistered() {
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = SleepSession.SLEEP_DATE_FORMAT;
         dateRegistered = dateFormat.format(date);
 
     }
