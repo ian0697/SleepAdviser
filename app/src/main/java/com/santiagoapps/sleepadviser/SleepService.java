@@ -9,12 +9,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
 
 import static java.lang.Math.sqrt;
 

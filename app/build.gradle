@@ -26,6 +26,9 @@ dependencies {
     })
 
     //add library
+    
+
+    //MPAndroidChart
     compile 'com.android.support:design:26.+'
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -36,11 +39,10 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:support-v13:26.+'
-    testCompile 'junit:junit:4.12'
-
-    //MPAndroidChart
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    testCompile 'junit:junit:4.12'
 }
+
 
 
 

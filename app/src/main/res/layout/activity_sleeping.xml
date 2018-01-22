@@ -9,7 +9,6 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppBarOverlay">
@@ -30,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        tools:context="com.santiagoapps.sleepadviser.main_activity.SleepingActivity">
+        tools:context="com.santiagoapps.sleepadviser.activities.SleepingActivity">
 
         <LinearLayout
             android:id="@+id/linear"
@@ -91,7 +90,7 @@
             android:background="@drawable/button_outline"
             android:backgroundTint="@color/app_color"
             android:elevation="0dp"
-            android:onClick="wakeUp"
+            android:onClick="btnSleep_onClick"
             android:text="START SLEEPING"
             android:textColor="@color/white" />
 

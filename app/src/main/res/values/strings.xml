@@ -7,18 +7,12 @@
     <string name="prompt_password">Password</string>
     <string name="btn_register">REGISTER</string>
     <string name="sign_in">SIGN-IN</string>
-    <string name="sign_up">SIGN UP</string>
     <string name="skip">SKIP FOR NOW</string>
     <string name="new_account">No Account? Register here.</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
 
     <!-- registration -->
     <string name="confirm_password">Confirm Password</string>
     <string name="already_registered">Already Registered? Sign in here.</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
 
     <!-- menu -->
@@ -42,8 +36,6 @@
 
     <string name="title_activity_main">Sleep Adviser</string>
     <string name="title_activity_settings">Settings</string>
-
-    <string name="action_settings">Sleep Adviser</string>
 
 
     <!-- Dormie -->

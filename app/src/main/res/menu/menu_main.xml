@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.santiagoapps.sleepadviser.nav_section.DashboardSection">
+    tools:context=".fragments.nav.DashboardSection">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="1"
@@ -13,7 +13,6 @@
         android:title="@string/second_option_menu" />
 
     <item
-        android:id="@+id/about_settings"
         android:orderInCategory="3"
         android:title="@string/third_option_menu"/>
 </menu>

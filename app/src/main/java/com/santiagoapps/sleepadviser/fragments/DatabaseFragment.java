@@ -24,15 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.class_library.DatabaseHelper;
-import com.santiagoapps.sleepadviser.class_library.User;
-import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
+import com.santiagoapps.sleepadviser.data.repo.UserRepo;
+import com.santiagoapps.sleepadviser.helpers.DBHelper;
+import com.santiagoapps.sleepadviser.data.model.User;
 
 
     public class DatabaseFragment extends Fragment{
 
     private final static String TAG = "Dormie (" + DatabaseFragment.class.getSimpleName() + ") ";
-    private DatabaseHelper myDb;
+    private DBHelper myDb;
     private Context context;
     private View rootView;
     private Button btnView, btnViewUser;
@@ -42,6 +42,7 @@ import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
     private DatabaseReference tbl_user;
     private FirebaseUser user;
     private User current_user;
+    private UserRepo userRepo;
 
     private TextView tvWelcome, tvRecords;
 
@@ -57,7 +58,9 @@ import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
         etUserId = rootView.findViewById(R.id.txtUserId);
 
         //Database
-        myDb = new DatabaseHelper(context);
+        userRepo = new UserRepo();
+        myDb = new DBHelper(context);
+
         user =  FirebaseAuth.getInstance().getCurrentUser();
         tbl_user = FirebaseDatabase.getInstance().getReference("Users");
         tbl_user.addValueEventListener(new ValueEventListener() {
@@ -80,14 +83,15 @@ import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
             }
         });
 
-        tvRecords.setText(myDb.getUserCount() + " records found!");
+        tvRecords.setText(userRepo.getUserCount() + " records found!");
 
         btnView = (Button)rootView.findViewById(R.id.btnView);
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Cursor res = myDb.getAllData();
+//                userRepo = new UserRepo();
+                Cursor res = userRepo.getAllData();
                 if(res.getCount() == 0){
                     Log.d(TAG,"Database is empty!");
                     showMessage("Error", "No entry!");
@@ -113,9 +117,10 @@ import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
             @Override
             public void onClick(View view) {
 
+//                userRepo = new UserRepo();
                 long userid = Long.parseLong(etUserId.getText().toString());
-                Log.d(TAG,myDb.getUser(userid).toString());
-                showMessage("USER TYPED" , "Name: " + myDb.getUser(userid).getName());
+                Log.d(TAG, userRepo.getUser(userid).toString());
+                showMessage("USER TYPED" , "Name: " + userRepo.getUser(userid).getName());
 
             }
         });
@@ -124,14 +129,14 @@ import com.santiagoapps.sleepadviser.main_activity.RegisterActivity;
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDb.resetUserTable();
 
+//                userRepo = new UserRepo();
+                userRepo.resetUserTable();
 
-                tvRecords.setText(myDb.getUserCount() + " records found!");
+                tvRecords.setText(userRepo.getUserCount() + " records found!");
                 showMessage("Record Deletion" , "ALL RECORDS DELETED");
             }
         });
-
 
 
         return rootView;

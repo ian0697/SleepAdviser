@@ -3,13 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.santiagoapps.sleepadviser.main_activity.NavigationMain">
+    tools:context="com.santiagoapps.sleepadviser.activities.NavigationMain">
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppBarOverlay">
@@ -24,8 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
     <include
-        layout="@layout/content_main"
-        android:id="@+id/include" />
+        layout="@layout/content_main" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

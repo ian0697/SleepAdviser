@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.santiagoapps.sleepadviser.nav_section.DashboardSection">
+    tools:context=".fragments.nav.DashboardSection">
 
     <ListView
         android:layout_width="match_parent"
