@@ -38,7 +38,7 @@ public class SessionRepo {
                         "%s TEXT, " +   //KEY_SLEEP_RATING
                         "%s TEXT, " +   //KEY_SLEEP_DURATION
                         "%s DATETIME)", //KEY_CREATED_AT
-                Session.TABLE_DATA, DBHelper.KEY_ID, KEY_SLEEP_DATE, KEY_WAKE_DATE,
+                Session.TABLE, DBHelper.KEY_ID, KEY_SLEEP_DATE, KEY_WAKE_DATE,
                 Session.KEY_SLEEP_RATING, Session.KEY_SLEEP_DURATION, DBHelper.KEY_CREATED_AT);
     }
 
@@ -62,7 +62,7 @@ public class SessionRepo {
         values.put(KEY_SLEEP_DURATION, session.getSleep_duration());
         values.put(KEY_SLEEP_RATING, session.getSleep_rating());
 
-        long result = db.insert(TABLE_DATA, null, values);
+        long result = db.insert(TABLE, null, values);
 
         if(result!=-1){
 
@@ -84,7 +84,7 @@ public class SessionRepo {
         List<Session> session_list = new ArrayList<>();
 
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
-        String query = "SELECT * FROM " + TABLE_DATA;
+        String query = "SELECT * FROM " + TABLE;
         Log.e(TAG, query);
 
         Cursor res = db.rawQuery(query,null);
@@ -112,7 +112,7 @@ public class SessionRepo {
      */
     public int getSessionCount(){
         SQLiteDatabase x = DatabaseManager.getInstance().openDatabase();
-        Cursor res = x.rawQuery("select * from " + TABLE_DATA, null);
+        Cursor res = x.rawQuery("select * from " + TABLE, null);
         int count = res.getCount();
         res.close();
         return count;
@@ -128,8 +128,8 @@ public class SessionRepo {
      */
     public boolean resetSessionTable(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        int rowsAffected = db.delete(TABLE_DATA,"1",null);
-        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_DATA});
+        int rowsAffected = db.delete(TABLE,"1",null);
+        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE});
 
         Log.d(TAG, "All sessions deleted! Rows affected: " + rowsAffected);
         return rowsAffected > 0;

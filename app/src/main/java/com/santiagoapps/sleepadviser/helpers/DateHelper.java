@@ -1,5 +1,7 @@
 package com.santiagoapps.sleepadviser.helpers;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -35,6 +37,7 @@ public class DateHelper {
         }
     }
 
+
     public static String getMonthDay(Date date){
         sdf = new SimpleDateFormat("E M/dd");
 
@@ -55,6 +58,7 @@ public class DateHelper {
         }
     }
 
+
     public String getHourFormat(Date date){
         sdf = new SimpleDateFormat("h:mm a");
         if(date!=null) return sdf.format(date);
@@ -62,10 +66,7 @@ public class DateHelper {
             Log.d(TAG, LOG_TEXT);
             return null;
         }
-
     }
-
-
 
     public static Date stringToDate(String date){
         sdf = new SimpleDateFormat("yyyy-MM-dd h:mm a");

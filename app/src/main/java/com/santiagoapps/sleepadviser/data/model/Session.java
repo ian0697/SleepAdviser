@@ -32,7 +32,7 @@ public class Session {
     public static final String KEY_SLEEP_RATING = "SLEEP_RATING";
     public static final String KEY_SLEEP_DURATION = "SLEEP_DURATION";
 
-    public static final String TABLE_DATA ="tbl_data";
+    public static final String TABLE ="tbl_data";
 
     private Calendar sleep_date;
     private Calendar wake_date;

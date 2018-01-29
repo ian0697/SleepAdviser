@@ -28,12 +28,10 @@
         android:largeHeap="true"
         android:roundIcon="@drawable/dormie_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/colorBackgroundTwitter">
 
         <!-- list all activities -->
-        <activity
-            android:name=".activities.Splashscreen"
-            android:label="@string/app_name" />
+        <activity android:name=".activities.Splashscreen" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.RegisterActivity">
             <intent-filter>
@@ -42,13 +40,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.NavigationMain"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activities.NavigationMain" />
         <activity android:name=".activities.SleepingActivity" />
         <activity android:name=".activities.CreateRecord" />
         <activity android:name=".activities.MotionSensorActivity" />
+        <activity android:name=".activities.DormieActivity" />
 
         <!-- services -->
         <service
@@ -58,7 +54,6 @@
         <!-- receiver -->
         <receiver android:name=".AlarmNotificationReceiver" />
 
-        <activity android:name=".activities.DormieActivity"></activity>
     </application>
 
 </manifest>

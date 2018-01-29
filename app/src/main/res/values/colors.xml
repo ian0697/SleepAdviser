@@ -5,9 +5,11 @@
     <color name="colorPrimaryDark">#2f333f</color>
     <color name="white">#ffffff</color>
 
-
     <color name="app_color">#0084b4</color>
-
     <color name="blue_dark1">#006387</color>
+    <color name="primary_material_dark_1">#1b2737</color>
+    <color name="background_material_dark_1">#1b2836</color>
+    <color name="primary_material_dark">#243447</color>
+    <color name="accent_material_dark">#5b8fb4</color>
 
 </resources>

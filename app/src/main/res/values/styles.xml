@@ -11,4 +11,8 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="colorBackgroundTwitter" parent="Theme.AppCompat.NoActionBar" >
+        <item name="android:colorBackground">@color/background_material_dark_1</item>
+    </style>
+
 </resources>

@@ -159,38 +159,30 @@ public class CreateRecord extends AppCompatActivity {
         mDatePicker = new DatePickerDialog(CreateRecord.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                try {
+                String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
+                String date2 = year + "-" + (month+1) + "-" + day + " " + wake_time;
+                Log.d(TAG, "Sleep time: " + date1 + "\nWake up time: " + date2);
 
-                    String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
-                    String date2 = year + "-" + (month+1) + "-" + day + " " + wake_time;
+                Calendar temp = Calendar.getInstance();
+                temp.setTime(DateHelper.stringToDate(date1));
 
-                    Log.d(TAG, "Sleep time: " + date1 + "\nWake up time: " + date2);
-
-                    Calendar temp = Calendar.getInstance();
-                    temp.setTime(sdf.parse(date1));
-
-                    // If sleeping time is PM = treat
-                    // it as the day before waking time
-                    if((temp.get(Calendar.AM_PM)) == Calendar.PM){
-                        temp.add(Calendar.DAY_OF_YEAR, -1);
-                        date1 = year + "-" + (month+1) + "-" + (day-1) + " " + sleep_time;
-                    }
-
-                    Date date = DateHelper.stringToDate(date1);
-
-                    session.setSleep_date(DateHelper.stringToDate(date1));
-                    session.setWake_date(DateHelper.stringToDate(date2));
-                    session.setSleep_duration(session.getSleep_duration());
-
-
-                    tvDuration.setText(session.getSleep_duration());
-                    tvWakeDate.setText(DateHelper.getMonthDay(session.getWake_date()));
-
-//                    tvWakeDate.setText(inputFormat.format(session.getWake_date().getTime()));
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                // If sleeping time is PM = treat
+                // it as the day before waking time
+                if((temp.get(Calendar.AM_PM)) == Calendar.PM){
+                    temp.add(Calendar.DAY_OF_YEAR, -1);
+                    date1 = year + "-" + (month+1) + "-" + (day-1) + " " + sleep_time;
                 }
+
+
+                session.setSleep_date(DateHelper.stringToDate(date1));
+                session.setWake_date(DateHelper.stringToDate(date2));
+                session.setSleep_duration(session.getSleep_duration());
+
+
+                tvDuration.setText(session.getSleep_duration());
+                tvWakeDate.setText(DateHelper.getMonthDay(session.getWake_date()));
+
+
             }
         }, year, month, day);
 
