@@ -45,9 +45,9 @@ public class MusicSection extends Fragment {
         musicArrayList = new ArrayList<>();
         musicArrayList.add(new Music("Piano Meditation", "Piano Music", R.raw.piano_music));
         musicArrayList.add(new Music("Piano Meditation 2", "Piano Music", R.raw.piano_music_2));
-        musicArrayList.add(new Music("Clair de Lune", "Classical piano music", R.raw.clairdelune));
-        musicArrayList.add(new Music("Wisps of Whorls", "Meditation/Sleep relief music", R.raw.wispofwhorls));
-        musicArrayList.add(new Music("Sleep Music", "Meditation/Sleep relief music", R.raw.sleepmusic));
+        musicArrayList.add(new Music("Clair de Lune", "Classical piano ic_music", R.raw.clairdelune));
+        musicArrayList.add(new Music("Wisps of Whorls", "Meditation/Sleep relief ic_music", R.raw.wispofwhorls));
+        musicArrayList.add(new Music("Sleep Music", "Meditation/Sleep relief ic_music", R.raw.sleepmusic));
 
         musicAdapter = new MusicAdapter(context, R.layout.music_view, musicArrayList);
         songList.setAdapter(musicAdapter);

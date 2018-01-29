@@ -23,10 +23,10 @@
     <application
         android:name=".app.App"
         android:allowBackup="true"
-        android:icon="@drawable/dormie_logo"
+        android:icon="@drawable/logo_dormie"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/dormie_logo"
+        android:roundIcon="@drawable/logo_dormie"
         android:supportsRtl="true"
         android:theme="@style/colorBackgroundTwitter">
 

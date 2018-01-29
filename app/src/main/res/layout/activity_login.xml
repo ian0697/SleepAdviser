@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"
             android:layout_weight="1.57"
-            app:srcCompat="@drawable/icon" />
+            app:srcCompat="@drawable/logo_dormie" />
 
         <TextView
             android:layout_width="match_parent"

@@ -25,7 +25,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    //add library
+    //ic_add library
     
 
     //MPAndroidChart

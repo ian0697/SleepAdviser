@@ -42,9 +42,9 @@ public class DashboardSection extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(mViewPager);
-                tabLayout.getTabAt(0).setIcon(R.drawable.logo_home);
-                tabLayout.getTabAt(1).setIcon(R.drawable.logo_information);
-                tabLayout.getTabAt(2).setIcon(R.drawable.logo_videos);
+                tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+                tabLayout.getTabAt(1).setIcon(R.drawable.ic_info);
+                tabLayout.getTabAt(2).setIcon(R.drawable.ic_video);
 
 //                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
 //                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);

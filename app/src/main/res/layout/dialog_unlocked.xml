@@ -98,7 +98,7 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/flashlight"
+                android:src="@drawable/ic_flashlight"
                 android:tint="@color/white" />
 
             <TextView

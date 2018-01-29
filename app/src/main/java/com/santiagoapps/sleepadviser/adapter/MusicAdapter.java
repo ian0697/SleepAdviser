@@ -99,7 +99,7 @@ public class MusicAdapter extends BaseAdapter {
 //            @Override
 //            public void onClick(View view) {
 //               if(isPaused){
-//                    player= MediaPlayer.create(context, music.getSong());
+//                    player= MediaPlayer.create(context, ic_music.getSong());
 //                    isPaused = false;
 //                    currentPos = position;
 //                    currentView = view;
@@ -110,16 +110,16 @@ public class MusicAdapter extends BaseAdapter {
 //                if(player.isPlaying()){
 //
 //                    if(currentPos!=position && currentView!=view){
-//                        player.stop();
+//                        player.ic_stop();
 //                        player.release();
-//                        player = MediaPlayer.create(context, music.getSong());
+//                        player = MediaPlayer.create(context, ic_music.getSong());
 //                        currentPos = position;
 //                        player.start();
 //
 //
 //                    }
 //                    else{
-//                        player.pause();
+//                        player.ic_pause();
 //                        PAUSE_VALUE = player.getCurrentPosition();
 //                        isPaused=true;
 //
@@ -137,7 +137,7 @@ public class MusicAdapter extends BaseAdapter {
 //                    player.start();
 //                    Toast.makeText(context, "you reached this context", Toast.LENGTH_SHORT).show();
 //
-//                    viewHolder.ivPlay.setImageResource(R.drawable.pause);
+//                    viewHolder.ivPlay.setImageResource(R.drawable.ic_pause);
 //                }
 //
 //
@@ -181,7 +181,7 @@ public class MusicAdapter extends BaseAdapter {
                     player.start();
                     Toast.makeText(context, "you reached this context", Toast.LENGTH_SHORT).show();
 
-                    viewHolder.ivPlay.setImageResource(R.drawable.pause);
+                    viewHolder.ivPlay.setImageResource(R.drawable.ic_pause);
                 }
             }
         });

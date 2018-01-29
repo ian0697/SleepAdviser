@@ -87,7 +87,7 @@
             android:layout_below="@+id/tvDescription"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="72dp"
-            android:background="@drawable/button_outline"
+            android:background="@drawable/btn_outline_1"
             android:backgroundTint="@color/app_color"
             android:elevation="0dp"
             android:onClick="btnSleep_onClick"

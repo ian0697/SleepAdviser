@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
+    android:paddingRight="50dp"
+    android:paddingLeft="50dp"
     android:layout_height="match_parent"
     tools:context="com.santiagoapps.sleepadviser.activities.Splashscreen">
 
@@ -13,5 +15,5 @@
         android:layout_height="350dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/logo_dormie" />
 </RelativeLayout>
