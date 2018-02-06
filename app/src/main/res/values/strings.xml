@@ -6,7 +6,7 @@
     <string name="prompt_email">Email Address</string>
     <string name="prompt_password">Password</string>
     <string name="btn_register">REGISTER</string>
-    <string name="sign_in">SIGN-IN</string>
+    <string name="sign_in">SIGN-IN TO DORMIE</string>
     <string name="skip">SKIP FOR NOW</string>
     <string name="new_account">No Account? Register here.</string>
 

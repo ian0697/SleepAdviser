@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -144,7 +145,9 @@ public class RegisterActivity extends AppCompatActivity {
                             saveToDatabase(name,email,password);
 
                         }else{
-                            Log.e(TAG,"REGISTRATION FAILED");
+                            Toast.makeText(RegisterActivity.this, "Email already exist!", Toast.LENGTH_SHORT).show();
+                            txtEmail.setError("Email already exist!");
+                            txtEmail.requestFocus();
                             mDialog.dismiss();
                         }
                     }

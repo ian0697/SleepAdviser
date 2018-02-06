@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"
             android:layout_weight="1.57"
-            app:srcCompat="@drawable/logo_dormie" />
+            app:srcCompat="@drawable/logo_dormie_happy" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,28 +30,43 @@
             android:layout_gravity="center"
             android:text="@string/sign_in"
             android:textSize="24sp"
+            android:textColor="@color/white"
             android:layout_marginTop="30dp"
             android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/txtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/txtPassword"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:hint="@string/prompt_password"
-            android:inputType="textPassword" />
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"
@@ -60,6 +75,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="@string/sign_in"
+            android:background="@drawable/btn_outline_1"
+            android:backgroundTint="@color/app_color"
             android:onClick="onClick_signin"/>
 
         <TextView

@@ -19,8 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dormie"
-        android:textSize="24dp"
+        android:text="Dormie - Sleep Assistant"
         android:textColor="@color/white"
         />
 
@@ -28,51 +27,61 @@
         android:id="@+id/imageView"
         android:layout_width="72dp"
         android:layout_height="64dp"
+        android:layout_gravity="left"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/logo_dormie" />
+        android:src="@drawable/logo_dormie_happy" />
 
-    <android.support.v7.widget.CardView
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:cardBackgroundColor="@color/app_color"-->
+        <!--app:cardCornerRadius="25dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="16dp">-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:text="Hi, Ian Santiago! I'm Dormie. Your personal sleep assistant."/>-->
+
+        <!--</LinearLayout>-->
+    <!--</android.support.v7.widget.CardView>-->
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:cardBackgroundColor="@color/app_color"-->
+        <!--app:cardCornerRadius="25dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="16dp">-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:text=-->
+                    <!--"I will guide you how to use this app. I wish you'll have a goodnight sleep!"/>-->
+
+        <!--</LinearLayout>-->
+    <!--</android.support.v7.widget.CardView>-->
+
+    <ListView
+        android:id="@+id/list_chat"
+        android:clickable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/app_color"
-        app:cardCornerRadius="25dp"
-        android:layout_marginBottom="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="Hi, Ian Santiago! I'm Dormie. Your personal sleep assistant."/>
+        android:layout_marginBottom="10dp">
 
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/app_color"
-        app:cardCornerRadius="25dp"
-        android:layout_marginBottom="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text=
-                    "I will guide you how to use this app. I wish you'll have a goodnight sleep!"/>
-
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </ListView>
 
 
     <RelativeLayout
@@ -89,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="Proceed"
                 android:textColor="@color/white"
-                android:id="@+id/btnProceed"
+                android:id="@+id/choice_1"
                 android:background="@drawable/btn_outline_2"
                 android:textSize="14dp"
                 android:layout_marginRight="5dp"
@@ -98,6 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/choice_2"
                 android:text="What can you do?"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_outline_2"
