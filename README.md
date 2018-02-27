@@ -25,3 +25,6 @@ Dormie also has other functions:
 
 ### License
 This project is licensed under the Apache 2.0 License - see the [LICENSE.md](https://github.com/ian0697/SleepAdviser/blob/master/LICENSE.MD) file for details
+
+### Contact
+Having trouble with github pages?
