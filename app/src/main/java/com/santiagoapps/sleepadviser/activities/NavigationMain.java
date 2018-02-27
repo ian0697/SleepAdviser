@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
+import com.santiagoapps.sleepadviser.data.repo.UserRepo;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
 import com.santiagoapps.sleepadviser.data.model.User;
 import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
@@ -170,11 +172,18 @@ public class NavigationMain extends AppCompatActivity {
 
                     case R.id.nav_log_out:
                         finish();
+
+                        //reset account
+                        UserRepo userRepo = new UserRepo();
+                        userRepo.resetUserTable();
+                        SessionRepo sessionRepo = new SessionRepo();
+                        sessionRepo.resetSessionTable();
+
+                        //firebase sign-out
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(NavigationMain.this, LoginActivity.class));
+
                         break;
-
-
                 }
 
                 drawer.closeDrawer(GravityCompat.START);

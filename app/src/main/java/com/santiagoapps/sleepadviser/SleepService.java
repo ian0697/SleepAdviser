@@ -65,11 +65,11 @@ public class SleepService extends Service implements SensorEventListener {
         //Register listener
         sensorManager = (SensorManager)getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(this,sensor,sensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         mAccel = 0.0f;
-        mAccelCurrent = sensorManager.GRAVITY_EARTH;
-        mAccelLast = sensorManager.GRAVITY_EARTH;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
 
 
         return START_STICKY;

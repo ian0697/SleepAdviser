@@ -10,13 +10,11 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature
-        android:name="android.hardware.camera.flash"
+    <uses-feature android:name="android.hardware.camera.flash"
         android:required="false" />
     <uses-feature android:name="android.hardware.camera" />
 
-    <permission
-        android:name="android.permission.FLASHLIGHT"
+    <permission android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
@@ -53,6 +51,9 @@
 
         <!-- receiver -->
         <receiver android:name=".AlarmNotificationReceiver" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

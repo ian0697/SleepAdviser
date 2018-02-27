@@ -1,5 +1,7 @@
 package com.santiagoapps.sleepadviser.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santiagoapps.sleepadviser.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
@@ -29,7 +32,9 @@ import com.santiagoapps.sleepadviser.data.repo.UserRepo;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
 import com.santiagoapps.sleepadviser.data.model.User;
 import com.santiagoapps.sleepadviser.activities.DormieActivity;
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -63,14 +68,39 @@ public class ProfileFragment extends Fragment {
 
         initDatabase();
         setTextView();
-
+        setSleepReminder();
 
         return rootView;
     }
 
+    private void setSleepReminder(){
+        AlarmManager manager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = DateHelper.stringToCalendar("10:00 pm");
+
+
+        int interval = 10000;
+        Intent alarmIntent = new Intent(context, AlarmNotificationReceiver.class);
+        PendingIntent pendingIntent= PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        //manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+
+        DateHelper dh = new DateHelper(calendar);
+        Toast.makeText(context, dh.dateToString(), Toast.LENGTH_SHORT).show();
+
+        boolean isWorking = (PendingIntent.getBroadcast(getActivity(), 1001, alarmIntent, PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
+        Log.d(TAG, "alarm is " + (isWorking ? "" : "not") + " working...");
+
+
+
+        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 10000, pendingIntent);
+        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+    }
+
     private void initDatabase(){
         /* database set-up */
-
         sessionRepo = new SessionRepo();
         user =  FirebaseAuth.getInstance().getCurrentUser();
         tbl_user = FirebaseDatabase.getInstance().getReference("users");
@@ -94,8 +124,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
-
 
     public void setTextView(){
         UserRepo userRepo = new UserRepo();

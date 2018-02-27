@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SleepAdviser</string>
+    <string name="app_name">Dormie</string>
 
     <!-- Strings related to login -->
     <string name="prompt_name">Full Name</string>
@@ -28,7 +28,8 @@
     <string name="nav_stat">Sleep Data</string>
     <string name="nav_music">Sleeping Music Library</string>
     <string name="nav_sleep">Sleep now</string>
-    <string name="nav_log_out">Log-out</string>
+    <string name="nav_change_acct">Change Account</string>
+    <string name="nav_log_out">Reset Account</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

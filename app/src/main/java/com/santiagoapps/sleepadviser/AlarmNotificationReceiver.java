@@ -15,7 +15,6 @@ import android.util.Log;
 /**
  * Created by Ian on 1/20/2018.
  */
-
 public class AlarmNotificationReceiver extends BroadcastReceiver {
     public final String TAG = "Dormie (" + AlarmNotificationReceiver.class.getSimpleName() + ")" ;
 
@@ -25,19 +24,17 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
         Log.d(TAG,"Broadcast recieved!");
 
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-//
-//        builder.setAutoCancel(true)
-//                .setDefaults(Notification.DEFAULT_ALL)
-//                .setSmallIcon(R.drawable.dormie_happy)
-//                .setContentTitle("Alarm is active!")
-//                .setContentText("This is my alarm")
-//                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
-//                .setContentInfo("Info");
-//
-//
-//        NotificationManager notificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.notify(1,builder.build());
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.logo_dormie_happy)
+                .setContentTitle("Dormie Reminder")
+                .setContentText("How are you? It's sleeping time! - update")
+                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                .setContentInfo("Info");
+
+        NotificationManager notificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1,builder.build());
 
         //For alarm:
 //        MediaPlayer mediaPlayer = MediaPlayer.create(context,

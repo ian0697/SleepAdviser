@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.hardware.Camera;
-import android.icu.util.Calendar;
+import java.util.Calendar;
 import android.os.SystemClock;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +24,7 @@ import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.SleepService;
 import com.santiagoapps.sleepadviser.adapter.MessageAdapter;
 import com.santiagoapps.sleepadviser.data.model.Message;
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 public class SleepingActivity extends AppCompatActivity {
 
@@ -155,11 +156,16 @@ public class SleepingActivity extends AppCompatActivity {
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         Intent myIntent = new Intent(SleepingActivity.this, AlarmNotificationReceiver.class);
-        Bundle b = new Bundle();
-        b.putString("key" ,"Hello World");
-        myIntent.putExtras(b);
+//        Bundle b = new Bundle();
+//        b.putString("key" ,"Hello World");
+//        myIntent.putExtras(b);
+
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,myIntent,0);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+5000, pendingIntent);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+
+        Toast.makeText(context, DateHelper.dateToString(calendar), Toast.LENGTH_SHORT).show();
 
     }
 
