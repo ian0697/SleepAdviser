@@ -10,11 +10,13 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera.flash"
+    <uses-feature
+        android:name="android.hardware.camera.flash"
         android:required="false" />
     <uses-feature android:name="android.hardware.camera" />
 
-    <permission android:name="android.permission.FLASHLIGHT"
+    <permission
+        android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
@@ -31,14 +33,8 @@
         <!-- list all activities -->
         <activity android:name=".activities.Splashscreen" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.RegisterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.NavigationMain" />
+        <activity android:name=".activities.RegisterActivity"></activity>
+        <activity android:name=".activities.NavigationActivity" />
         <activity android:name=".activities.SleepingActivity" />
         <activity android:name=".activities.CreateRecord" />
         <activity android:name=".activities.MotionSensorActivity" />
@@ -50,11 +46,19 @@
             android:exported="false" />
 
         <!-- receiver -->
-        <receiver android:name=".AlarmNotificationReceiver" />
+        <receiver android:name=".receivers.AlarmNotificationReceiver" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".IntroSliderActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

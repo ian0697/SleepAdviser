@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.hardware.Camera;
 import java.util.Calendar;
-import android.os.SystemClock;
+
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +19,20 @@ import android.view.View;
 import android.widget.*;
 import android.widget.TimePicker;
 
-import com.santiagoapps.sleepadviser.AlarmNotificationReceiver;
+import com.santiagoapps.sleepadviser.receivers.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.SleepService;
 import com.santiagoapps.sleepadviser.adapter.MessageAdapter;
 import com.santiagoapps.sleepadviser.data.model.Message;
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
+
+/**
+ * SleepingActivity
+ *
+ * This activity handles the ui
+ * when the sleep now fab(button) is pressed
+ *
+ */
 
 public class SleepingActivity extends AppCompatActivity {
 

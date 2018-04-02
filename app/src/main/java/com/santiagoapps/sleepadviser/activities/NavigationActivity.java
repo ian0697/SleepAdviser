@@ -1,6 +1,7 @@
 package com.santiagoapps.sleepadviser.activities;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -33,8 +34,21 @@ import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.fragments.nav.MusicSection;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.fragments.nav.StatisticSection;
+import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
 
-public class NavigationMain extends AppCompatActivity {
+/**
+ * NavigationActivity
+ * ---------------------
+ * This class handles the initialization
+ * of Navigation fragments
+ *   - Profile
+ *   - Music Section
+ *   - Motion sensor activity
+ *   - Statistics
+ *
+ */
+
+public class NavigationActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener{
 
 
     private Toolbar toolbar;
@@ -51,6 +65,8 @@ public class NavigationMain extends AppCompatActivity {
     private User current_user;
 
     private FloatingActionButton fab;
+
+    private NetworkStateReceiver networkStateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +88,18 @@ public class NavigationMain extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NavigationMain.this, SleepingActivity.class));
+                startActivity(new Intent(NavigationActivity.this, SleepingActivity.class));
             }
         });
 
         initDatabase();
+
+
+        //init receiver for network connection
+        networkStateReceiver = new NetworkStateReceiver();
+        networkStateReceiver.addListener(this);
+        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
 
     }
 
@@ -92,8 +115,6 @@ public class NavigationMain extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-//            Intent i = new Intent(this,SettingsActivity.class);
-//            startActivity(i);
 
             return true;
         }
@@ -103,6 +124,13 @@ public class NavigationMain extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        networkStateReceiver.removeListener(this);
+        this.unregisterReceiver(networkStateReceiver);
     }
 
     public void initDatabase(){
@@ -159,15 +187,15 @@ public class NavigationMain extends AppCompatActivity {
                         break;
 
                     case R.id.nav_sleep:
-                        startActivity(new Intent(NavigationMain.this,SleepingActivity.class));
+                        startActivity(new Intent(NavigationActivity.this,SleepingActivity.class));
                         break;
 
                     case R.id.nav_item_create:
-                        startActivity(new Intent(NavigationMain.this , CreateRecord.class));
+                        startActivity(new Intent(NavigationActivity.this , CreateRecord.class));
                         break;
 
                     case R.id.nav_motion_sensor:
-                        startActivity(new Intent(NavigationMain.this , MotionSensorActivity.class));
+                        startActivity(new Intent(NavigationActivity.this , MotionSensorActivity.class));
                         break;
 
                     case R.id.nav_log_out:
@@ -181,7 +209,7 @@ public class NavigationMain extends AppCompatActivity {
 
                         //firebase sign-out
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(NavigationMain.this, LoginActivity.class));
+                        startActivity(new Intent(NavigationActivity.this, LoginActivity.class));
 
                         break;
                 }
@@ -206,5 +234,15 @@ public class NavigationMain extends AppCompatActivity {
             ft.commit();
         }
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void networkAvailable() {
+        Toast.makeText(this, "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void networkUnavailable() {
+        Toast.makeText(this, "Oops disconnected", Toast.LENGTH_SHORT).show();
     }
 }

@@ -61,8 +61,6 @@ public class MotionSensorTestFragment extends Fragment implements SensorEventLis
         mAccel = 0.0f;
         mAccelCurrent = sensorManager.GRAVITY_EARTH;
         mAccelLast = sensorManager.GRAVITY_EARTH;
-
-
     }
 
 

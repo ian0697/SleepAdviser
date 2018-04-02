@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/singleMessage"
                 android:text=
                     "Hi"/>

@@ -43,7 +43,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="08:00"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:textSize="100dp"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="62dp" />
@@ -57,7 +57,7 @@
 
                 android:text="AM"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:textSize="30dp"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="62dp" />
@@ -90,7 +90,7 @@
             android:elevation="0dp"
             android:onClick="btnSleep_onClick"
             android:text="START SLEEPING"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorWhite" />
 
 
     </RelativeLayout>

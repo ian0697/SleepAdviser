@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:title="@string/title_activity_main"
-    tools:context="com.santiagoapps.sleepadviser.activities.NavigationMain"
+    tools:context="com.santiagoapps.sleepadviser.activities.NavigationActivity"
     tools:openDrawer="start">
 
     <include

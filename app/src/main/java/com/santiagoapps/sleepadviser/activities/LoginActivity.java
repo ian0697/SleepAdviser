@@ -16,6 +16,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.santiagoapps.sleepadviser.R;
 
+/**
+ * This activity handles
+ * the login form of the app
+ *
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -43,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (mAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(LoginActivity.this, NavigationMain.class));
+                    startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                 } else {
 
                 }
@@ -97,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClick_skip(View v){
-        startActivity(new Intent(this, NavigationMain.class));
+        startActivity(new Intent(this, NavigationActivity.class));
     }
 
     public void onClick_signin(View v){

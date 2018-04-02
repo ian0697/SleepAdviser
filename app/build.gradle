@@ -26,7 +26,6 @@ dependencies {
     })
 
     //ic_add library
-    
 
     //MPAndroidChart
     compile 'com.android.support:support-compat:26.1.0'
@@ -43,6 +42,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

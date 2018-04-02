@@ -17,7 +17,7 @@
         android:text="Registration"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textSize="38sp" />
 
     <TextView
@@ -122,7 +122,7 @@
             android:fontFamily="@font/didact_gothic"
             android:onClick="onClick_btnEnter"
             android:text="@string/btn_register"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/txtSignin"

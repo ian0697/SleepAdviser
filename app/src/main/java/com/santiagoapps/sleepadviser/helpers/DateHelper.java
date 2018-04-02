@@ -10,7 +10,12 @@ import java.util.Date;
 
 
 /**
- * Created by Ian on 1/23/2018.
+ * DateHelper
+ *
+ * All functions in this class are static
+ * and are used all throughout the app
+ * to parseDate and convertDate to string etc.
+ *
  */
 
 public class DateHelper {

@@ -1,19 +1,18 @@
-package com.santiagoapps.sleepadviser;
+package com.santiagoapps.sleepadviser.receivers;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.santiagoapps.sleepadviser.R;
+
 /**
- * Created by Ian on 1/20/2018.
+ * This receiver handle the Notification
+ * builder and alarm notifications
  */
 public class AlarmNotificationReceiver extends BroadcastReceiver {
     public final String TAG = "Dormie (" + AlarmNotificationReceiver.class.getSimpleName() + ")" ;

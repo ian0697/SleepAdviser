@@ -18,7 +18,12 @@ import com.santiagoapps.sleepadviser.data.model.Music;
 import java.util.ArrayList;
 
 /**
- * Created by Ian on 10/23/2017.
+ * MusicAdapter
+ *
+ * This class handles all the function
+ * used in adding music files to the
+ * listview of MusicSection class/fragment
+ *
  */
 
 public class MusicAdapter extends BaseAdapter {

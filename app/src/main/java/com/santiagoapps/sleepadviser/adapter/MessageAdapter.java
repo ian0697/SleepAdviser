@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IAN on 2/7/2018.
+ * MessageAdapter
+ *
+ * this class handle the functions
+ * that are used in adding messages
+ * to the Dormie's conversation
  */
 
 public class MessageAdapter extends ArrayAdapter<Message> {
@@ -83,4 +87,5 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         chat_text.setLayoutParams(params);
         return convertView;
     }
+
 }

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/nav_name"
         android:text="Michael Ian Santiago"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textStyle="bold"
         android:layout_marginTop="15dp"/>
     <TextView
@@ -25,6 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="iansantiago0697@gmail.com"
-        android:textColor="@color/white"/>
+        android:textColor="@color/colorWhite"/>
 
 </LinearLayout>

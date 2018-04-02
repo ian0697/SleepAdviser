@@ -28,12 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/carrois_gothic_sc"
-            android:text="@string/sign_in"
-            android:textSize="24sp"
-            android:textColor="@color/white"
             android:layout_marginTop="30dp"
-            android:textAlignment="center" />
+            android:fontFamily="@font/montserrat"
+            android:text="@string/sign_in"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -62,6 +62,7 @@
                 android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="10dp"
@@ -73,14 +74,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="@string/sign_in"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_outline_1"
-            android:fontFamily="@font/carrois_gothic_sc"
             android:backgroundTint="@color/app_color"
-            android:onClick="onClick_signin"/>
+            android:fontFamily="@font/montserrat"
+            android:onClick="onClick_signin"
+            android:text="@string/sign_in" />
 
         <TextView
             android:layout_width="match_parent"

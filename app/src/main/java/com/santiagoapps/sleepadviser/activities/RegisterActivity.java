@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
+                    startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
                 }
             }
         };
@@ -193,7 +193,7 @@ public class RegisterActivity extends AppCompatActivity {
         long id = userRepo.registerUser(userObject);
 
         if(id!=-1){
-            startActivity(new Intent(RegisterActivity.this, NavigationMain.class));
+            startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
         }
     }
 

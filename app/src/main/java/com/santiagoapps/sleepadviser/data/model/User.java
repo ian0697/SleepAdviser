@@ -1,9 +1,12 @@
 package com.santiagoapps.sleepadviser.data.model;
 
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * User Model class
  * Created by Ian on 9/26/2017.
  */
 
@@ -27,7 +30,6 @@ public class User {
     private String firebaseId;
 
     /**
-     *
      * Default Constructor
      */
     public User(){
@@ -35,10 +37,9 @@ public class User {
     }
 
     /**
-     *
-     * @param email
-     * @param password
-     * @param name
+     * @param email - accepts input with @ and valid email
+     * @param password - accepts 7 characters
+     * @param name - User's full name
      */
     public User(String email, String password, String name){
         this.email= email;
@@ -48,10 +49,10 @@ public class User {
     }
 
     /**
-     * @param firebaseId
-     * @param email
-     * @param password
-     * @param name
+     * @param firebaseId - firebase key
+     * @param email - accepts input with @ and valid email
+     * @param password - accepts 7 characters
+     * @param name - User's full name
      */
     public User(String firebaseId, String email, String password, String name){
         this.firebaseId = firebaseId;
@@ -60,7 +61,6 @@ public class User {
         this.name=name;
         setDateRegistered();
     }
-
 
     public String getFirebaseId() {
         return firebaseId;
@@ -82,12 +82,10 @@ public class User {
         return dateRegistered;
     }
 
-    public void setDateRegistered() {
-
+    private void setDateRegistered() {
+        //now date
         Date date = new Date();
-        SimpleDateFormat dateFormat = Session.SLEEP_DATE_FORMAT;
-        dateRegistered = dateFormat.format(date);
-
+        dateRegistered = DateHelper.dateToString(date);
     }
 
     public void setDateRegistered(String dateRegistered){
@@ -126,6 +124,5 @@ public class User {
                 "\nPassword: " + password +
                 "\nGender: " + gender +
                 "\nDate Registered: " + dateRegistered +"\n";
-
     }
 }

@@ -40,11 +40,6 @@ public class Session {
     private int session_id;
     private String sleep_duration;
 
-    public static final SimpleDateFormat SLEEP_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd h:mm a");
-    public static final SimpleDateFormat SLEEP_TIME_FORMAT = new SimpleDateFormat("HH:mm a");
-
-
-
 //    Required empty Constructor
     public Session(){
         sleep_rating = 0;

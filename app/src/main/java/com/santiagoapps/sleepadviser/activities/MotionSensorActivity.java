@@ -15,6 +15,14 @@ import com.santiagoapps.sleepadviser.R;
 
 import static java.lang.Math.sqrt;
 
+/**
+ * Register Activity
+ * -------------------------
+ * this activity serves as a
+ * tester of the motion sensor
+ * of the app
+ */
+
 public class MotionSensorActivity extends AppCompatActivity implements SensorEventListener {
 
     private Sensor sensor;

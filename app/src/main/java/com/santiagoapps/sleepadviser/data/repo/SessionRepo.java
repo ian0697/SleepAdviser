@@ -8,6 +8,7 @@ import android.util.Log;
 import com.santiagoapps.sleepadviser.data.DatabaseManager;
 import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,14 +23,6 @@ import static com.santiagoapps.sleepadviser.data.model.Session.*;
 
 public class SessionRepo {
 
-
-
-    private Session session;
-
-    public SessionRepo(){
-        session = new Session();
-    }
-
     public static String createTable(){
         return String.format("CREATE TABLE %s " +
                         "(%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -42,6 +35,9 @@ public class SessionRepo {
                 Session.KEY_SLEEP_RATING, Session.KEY_SLEEP_DURATION, DBHelper.KEY_CREATED_AT);
     }
 
+
+    public SessionRepo(){}
+
     /************** INSERT METHODS ******************/
 
 
@@ -53,12 +49,11 @@ public class SessionRepo {
      */
     public long insertSession(Session session){
 
-        SimpleDateFormat sdf = Session.SLEEP_DATE_FORMAT;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_SLEEP_DATE, sdf.format(session.getSleep_date().getTime()));
-        values.put(KEY_WAKE_DATE, sdf.format(session.getWake_date().getTime()));
+        values.put(KEY_SLEEP_DATE, DateHelper.dateToString(session.getSleep_date().getTime()));
+        values.put(KEY_WAKE_DATE, DateHelper.dateToString(session.getWake_date().getTime()));
         values.put(KEY_SLEEP_DURATION, session.getSleep_duration());
         values.put(KEY_SLEEP_RATING, session.getSleep_rating());
 
@@ -80,7 +75,7 @@ public class SessionRepo {
     /**************** FETCH METHODS ******************/
 
     public List<Session> getAllSession(){
-        SimpleDateFormat sdf = Session.SLEEP_DATE_FORMAT;
+
         List<Session> session_list = new ArrayList<>();
 
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
@@ -92,14 +87,8 @@ public class SessionRepo {
         while(res.moveToNext()){
             Session session = new Session();
             session.setSession_id(Integer.parseInt(res.getString(res.getColumnIndex(DBHelper.KEY_ID))));
-            Log.d(TAG,res.getString(res.getColumnIndex(KEY_SLEEP_DATE)));
-            try {
-                session.setSleep_date(sdf.parse(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
-                session.setWake_date(sdf.parse(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
-            } catch(ParseException e){
-                e.printStackTrace();
-            }
-
+            session.setSleep_date(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+            session.setWake_date(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
             session_list.add(session);
         }
 
@@ -119,7 +108,6 @@ public class SessionRepo {
     }
 
 
-
     /************* DELETE METHODS *****************/
 
     /**
@@ -134,10 +122,4 @@ public class SessionRepo {
         Log.d(TAG, "All sessions deleted! Rows affected: " + rowsAffected);
         return rowsAffected > 0;
     }
-
-
-
-
-
-
 }

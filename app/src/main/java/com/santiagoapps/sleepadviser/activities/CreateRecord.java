@@ -17,15 +17,19 @@ import android.widget.*;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
-import com.santiagoapps.sleepadviser.helpers.DBHelper;
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.Calendar;
 
+/**
+ * CreateRecord
+ *
+ * This class handles all the function
+ * used in the MANUAL RECORDING of sleep data
+ *
+ */
 
 public class CreateRecord extends AppCompatActivity {
 
@@ -35,17 +39,16 @@ public class CreateRecord extends AppCompatActivity {
 
     //components
     private TextView tvSleepTime,tvWakeTime, tvWakeDate ,tvDuration;
-    private Button btnCancel, btnAdd;
     private TimePickerDialog mTimePicker;
-    private DatePickerDialog mDatePicker;
     private CardView card1, card2, card3;
 
     private Session session;
     private SessionRepo sessionRepo;
+
+    private int sleep_hour;
+    private int sleep_minute;
     private String sleep_time;
     private String wake_time;
-
-    SimpleDateFormat sdf = Session.SLEEP_DATE_FORMAT;
 
 
 
@@ -55,11 +58,12 @@ public class CreateRecord extends AppCompatActivity {
         setContentView(R.layout.activity_create_record);
         setToolbar();
 
+        // initializations
         session = new Session();
         sessionRepo = new SessionRepo();
 
         //textView for sleeping time
-        tvSleepTime = (TextView)findViewById(R.id.tvSleepTime);
+        tvSleepTime = findViewById(R.id.tvSleepTime);
         tvSleepTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +73,7 @@ public class CreateRecord extends AppCompatActivity {
 
 
         //textView for waking time
-        tvWakeTime = (TextView)findViewById(R.id.tvWakeupTime);
+        tvWakeTime = findViewById(R.id.tvWakeupTime);
         tvWakeTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +83,7 @@ public class CreateRecord extends AppCompatActivity {
 
 
         //textView for sleep session date
-        tvWakeDate = (TextView)findViewById(R.id.tvWakeDate);
+        tvWakeDate = findViewById(R.id.tvWakeDate);
         Date now = new Date();
         tvWakeDate.setText(DateHelper.getMonthDay(now));
         tvWakeDate.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +93,10 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
-
-        tvDuration = (TextView) findViewById(R.id.tvDuration);
+        tvDuration = findViewById(R.id.tvDuration);
 
         //Buttons
-        btnAdd = (Button) findViewById(R.id.btnAdd);
+        Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,11 +104,10 @@ public class CreateRecord extends AppCompatActivity {
             }
         });
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
+        Button btnCancel = (Button) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sessionRepo.resetSessionTable();
                 backToDashboard();
             }
@@ -157,7 +159,7 @@ public class CreateRecord extends AppCompatActivity {
         int month = mCurrent.get(Calendar.MONTH);
         int day = mCurrent.get(Calendar.DAY_OF_MONTH);
 
-        mDatePicker = new DatePickerDialog(CreateRecord.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog mDatePicker = new DatePickerDialog(CreateRecord.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
@@ -191,11 +193,7 @@ public class CreateRecord extends AppCompatActivity {
         mDatePicker.show();
     }
 
-
     private void setSleepingTime(){
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = 0;
         mTimePicker = new TimePickerDialog(CreateRecord.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
@@ -216,21 +214,20 @@ public class CreateRecord extends AppCompatActivity {
                     AM_PM = "PM";
                 }
 
-                tvSleepTime.setText( hour + ":" + minute + " " + AM_PM );
+                tvSleepTime.setText(hour + ":" + minute + " " + AM_PM);
                 sleep_time = hour + ":" + minute + " " + AM_PM;
+
+                sleep_hour = selectedHour;
+                sleep_minute = selectedMinute;
                 setWakeUpTime();
 
             }
-        }, hour, minute, false);
+        }, 22, 0, false);
         mTimePicker.setTitle("Select Sleeping Time");
         mTimePicker.show();
-}
+    }
 
     private void setWakeUpTime(){
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
-
         mTimePicker = new TimePickerDialog(CreateRecord.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
@@ -256,12 +253,11 @@ public class CreateRecord extends AppCompatActivity {
                 setDate();
 
             }
-        }, hour, minute, false);
+        }, (sleep_hour + 8), 0, false);
 
         mTimePicker.setTitle("Select Wake Time");
         mTimePicker.show();
     }
-
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar2);
@@ -281,14 +277,14 @@ public class CreateRecord extends AppCompatActivity {
     }
 
     private void backToDashboard(){
-        startActivity(new Intent(CreateRecord.this, NavigationMain.class));
+        startActivity(new Intent(CreateRecord.this, NavigationActivity.class));
         finish();
     }
 
     private void addOnClick(){
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, DateHelper.dateToString(session.getSleep_date()));
-
+        startActivity(new Intent(CreateRecord.this, NavigationActivity.class));
         sessionRepo.insertSession(session);
+        finish();
     }
 }

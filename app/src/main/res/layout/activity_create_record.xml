@@ -139,7 +139,7 @@
             android:fontFamily="sans-serif-condensed"
             android:text="------"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="32dp" />
 
     </LinearLayout>
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorWhite"
                     android:textSize="24dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Poor"/>
@@ -197,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorWhite"
                     android:textSize="24dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Good"/>
@@ -216,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWhite"
                 android:textSize="24dp"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Excellent"/>

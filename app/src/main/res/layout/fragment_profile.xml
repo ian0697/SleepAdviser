@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:fillViewport="true"
-    tools:context="com.santiagoapps.sleepadviser.activities.NavigationMain">
+    android:orientation="vertical"
+    tools:context="com.santiagoapps.sleepadviser.activities.NavigationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="25dp">
         <!-- profile header -->
         <RelativeLayout
@@ -202,7 +202,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/didact_gothic"
                             android:text="Dormie's recommended sleep time is:"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/colorWhite" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -270,7 +270,7 @@
                             android:fontFamily="@font/didact_gothic"
                             android:text="If you can, avoid eating large meals for two to three hours before bedtime. Avoid alcohol, cigarettes, and heavy meals in the evening. Alcohol, cigarettes and caffeine can disrupt sleep. "
                             android:textAlignment="center"
-                            android:textColor="@color/white"
+                            android:textColor="@color/colorWhite"
                             android:textSize="14dp" />
 
 
