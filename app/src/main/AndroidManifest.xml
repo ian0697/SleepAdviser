@@ -15,11 +15,6 @@
         android:required="false" />
     <uses-feature android:name="android.hardware.camera" />
 
-    <permission
-        android:name="android.permission.FLASHLIGHT"
-        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-        android:protectionLevel="normal" />
-
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -33,7 +28,7 @@
         <!-- list all activities -->
         <activity android:name=".activities.Splashscreen" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.RegisterActivity"></activity>
+        <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.NavigationActivity" />
         <activity android:name=".activities.SleepingActivity" />
         <activity android:name=".activities.CreateRecord" />
@@ -59,6 +54,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfilingActivity_age" />
+        <activity android:name=".ProfilingActivity_occupation" />
+        <activity android:name=".ProfilingActivity_name" />
+        <activity android:name=".ProfilingActivity_sleep" />
+        <activity android:name=".FaqActivity"></activity>
     </application>
 
 </manifest>

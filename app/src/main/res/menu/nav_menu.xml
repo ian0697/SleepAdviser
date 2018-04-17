@@ -50,8 +50,13 @@
                     android:icon="@drawable/ic_music"
                     android:title="@string/nav_music"/>
                 <item
-                    android:id="@+id/nav_motion_sensor"
+                    android:id="@+id/nav_faq"
                     android:orderInCategory="3"
+                    android:icon="@drawable/ic_datas"
+                    android:title="FAQs"/>
+                <item
+                    android:id="@+id/nav_motion_sensor"
+                    android:orderInCategory="4"
                     android:icon="@drawable/smartphone_01"
                     android:title="@string/nav_motion_sensor"/>
 

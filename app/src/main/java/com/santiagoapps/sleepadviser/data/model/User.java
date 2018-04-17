@@ -28,6 +28,8 @@ public class User {
     private String gender;
     private String dateRegistered;
     private String firebaseId;
+    private int userId;
+
 
     /**
      * Default Constructor
@@ -68,6 +70,14 @@ public class User {
 
     public void setFirebaseId(String id){
         firebaseId = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {

@@ -3,6 +3,7 @@ package com.santiagoapps.sleepadviser.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.*;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
@@ -47,8 +54,13 @@ public class CreateRecord extends AppCompatActivity {
 
     private int sleep_hour;
     private int sleep_minute;
+    private int sleep_quality;
     private String sleep_time;
     private String wake_time;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference database;
 
 
 
@@ -126,6 +138,7 @@ public class CreateRecord extends AppCompatActivity {
                 card2.setCardBackgroundColor(getResources().getColor(R.color.app_color));
                 card3.setCardBackgroundColor(getResources().getColor(R.color.app_color));
                 card1.setCardBackgroundColor(getResources().getColor(R.color.blue_dark1));
+                sleep_quality = 1;
 
             }
         });
@@ -137,6 +150,7 @@ public class CreateRecord extends AppCompatActivity {
                 card2.setCardBackgroundColor(getResources().getColor(R.color.blue_dark1));
                 card1.setCardBackgroundColor(getResources().getColor(R.color.app_color));
                 card3.setCardBackgroundColor(getResources().getColor(R.color.app_color));
+                sleep_quality = 2;
 
             }
         });
@@ -148,7 +162,7 @@ public class CreateRecord extends AppCompatActivity {
                 card3.setCardBackgroundColor(getResources().getColor(R.color.blue_dark1));
                 card2.setCardBackgroundColor(getResources().getColor(R.color.app_color));
                 card1.setCardBackgroundColor(getResources().getColor(R.color.app_color));
-
+                sleep_quality = 3;
             }
         });
     }
@@ -177,13 +191,13 @@ public class CreateRecord extends AppCompatActivity {
                 }
 
 
-                session.setSleep_date(DateHelper.stringToDate(date1));
-                session.setWake_date(DateHelper.stringToDate(date2));
-                session.setSleep_duration(session.getSleep_duration());
+                session.setSleepDate(DateHelper.stringToDate(date1));
+                session.setWakeDate(DateHelper.stringToDate(date2));
+                session.setSleepDuration(session.getSleep_duration());
 
 
                 tvDuration.setText(session.getSleep_duration());
-                tvWakeDate.setText(DateHelper.getMonthDay(session.getWake_date()));
+                tvWakeDate.setText(DateHelper.getMonthDay(session.getWakeDate()));
 
 
             }
@@ -284,7 +298,32 @@ public class CreateRecord extends AppCompatActivity {
     private void addOnClick(){
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(CreateRecord.this, NavigationActivity.class));
+        session.setSleepQuality(sleep_quality);
         sessionRepo.insertSession(session);
+
+        database = FirebaseDatabase.getInstance().getReference("sessions");
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        //save to firebase
+         database.child(user.getUid()).push().setValue(session)
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Success! ");
+                        Toast.makeText(CreateRecord.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Failed! ");
+                        Toast.makeText(CreateRecord.this, "FAILED", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
         finish();
     }
 }

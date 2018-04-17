@@ -1,7 +1,9 @@
 package com.santiagoapps.sleepadviser.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,9 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santiagoapps.sleepadviser.FaqActivity;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
 import com.santiagoapps.sleepadviser.data.repo.UserRepo;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
@@ -50,56 +55,86 @@ import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
 
 public class NavigationActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener{
 
+    private static final String TAG = "SleepAdviser";
 
+    // components
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private View headerView;
-
     private TextView tvUser;
     private TextView tvEmail;
 
-    private DBHelper myDb;
-    private DatabaseReference tbl_user;
+    // database
     private FirebaseUser user;
     private User current_user;
-
-    private FloatingActionButton fab;
-
     private NetworkStateReceiver networkStateReceiver;
+    private SharedPreferences ref;
+
+    // other datas
+    private String gender, occupation, name, sleep, msg;
+    private int age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_main);
 
-        drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
         //header_layout
-        headerView = navigationView.getHeaderView(0);
-        tvUser = (TextView)headerView.findViewById(R.id.nav_name);
-        tvEmail = (TextView)headerView.findViewById(R.id.nav_email);
+        View headerView = navigationView.getHeaderView(0);
+        tvUser = headerView.findViewById(R.id.nav_name);
+        tvEmail = headerView.findViewById(R.id.nav_email);
 
         //initialization
         setNavigation();
         setFragment(new ProfileFragment());
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(NavigationActivity.this, SleepingActivity.class));
-            }
-        });
-
         initDatabase();
+
+        ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+
+        //Intent values
+        Intent intent = getIntent();
+        if(intent.getExtras() != null){
+            Bundle bd = intent.getExtras();
+            gender = (String) bd.get("SESSION_GENDER");
+            name = (String) bd.get("SESSION_NAME");
+            occupation = (String) bd.get("SESSION_OCCUPATION");
+            age = (int) bd.get("SESSION_AGE");
+            sleep = (String) bd.get("SESSION_SLEEP_GOAL");
+
+
+            SharedPreferences.Editor editor = ref.edit();
+            editor.putString("name", name);
+            editor.putString("gender", gender);
+            editor.putString("occupation", occupation);
+            editor.putInt("age", age);
+            editor.putString("sleep", sleep);
+            editor.apply();
+
+            msg = String.format("User profile: \nName: %s \nGender: %s \nAge: %d \nOccupation: %s\nSleeping time goal: %s", name, gender, age, occupation, sleep);
+            Log.d(TAG, msg);
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SHARED PREFERENCE: \n")
+                .append(ref.getString("name", ""))
+                .append("\n")
+                .append(ref.getString("gender",""))
+                .append("\n")
+                .append(ref.getString("sleep", ""));
+        Log.d(TAG, sb.toString());
+
+        Toast.makeText(this, sb, Toast.LENGTH_SHORT).show();
+        tvUser.setText(ref.getString("name",""));
 
 
         //init receiver for network connection
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-
 
     }
 
@@ -133,11 +168,11 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         this.unregisterReceiver(networkStateReceiver);
     }
 
+    /** database set-up */
     public void initDatabase(){
-        /* database set-up */
-        myDb = new DBHelper(this);
+        DBHelper myDb = new DBHelper(this);
         user =  FirebaseAuth.getInstance().getCurrentUser();
-        tbl_user = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference tbl_user = FirebaseDatabase.getInstance().getReference("Users");
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -161,6 +196,7 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
 
     }
 
+    /** handles navigation fragments and activities */
     public void setNavigation(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dashboard");
@@ -196,6 +232,10 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
 
                     case R.id.nav_motion_sensor:
                         startActivity(new Intent(NavigationActivity.this , MotionSensorActivity.class));
+                        break;
+
+                    case R.id.nav_faq:
+                        startActivity(new Intent(NavigationActivity.this , FaqActivity.class));
                         break;
 
                     case R.id.nav_log_out:
@@ -236,13 +276,15 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         drawer.closeDrawer(GravityCompat.START);
     }
 
+    /** function when internet is turned on */
     @Override
     public void networkAvailable() {
-        Toast.makeText(this, "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
     }
 
+    /** function when internet is unavailable or turned off */
     @Override
     public void networkUnavailable() {
-        Toast.makeText(this, "Oops disconnected", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Oops disconnected", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfilingActivity_occupation"
+    android:background="@drawable/slider_bg">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linear1"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:fontFamily="@font/didact_gothic"
+        android:text="Sleep patterns can also be affected due to demanding work schedules. Same with students who always feel stressed worrying over deadlines and frustrations."
+        />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/logo_dormie_happy" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:fontFamily="@font/carrois_gothic_sc"
+            android:textColor="#fff"
+            android:layout_gravity="center_vertical"
+            android:text="WHAT IS YOUR OCCUPATION?"/>
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/occ_choice1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="245dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_outline_1"
+        android:backgroundTint="@color/app_color"
+        android:text="I AM A STUDENT"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/occ_choice2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/occ_choice1"
+        android:background="@drawable/btn_outline_1"
+        android:backgroundTint="@color/app_color"
+        android:text="I AM AN EMPLOYEE"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/occ_choice3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/occ_choice2"
+        android:background="@drawable/btn_outline_1"
+        android:backgroundTint="@color/blue_dark1"
+        android:text="none from the above"
+        android:textSize="18dp" />
+
+</RelativeLayout>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/bowlby_one_sc</item>
+        <item>@font/bubbler_one</item>
         <item>@font/carrois_gothic_sc</item>
+        <item>@font/carter_one</item>
+        <item>@font/contrail_one</item>
         <item>@font/didact_gothic</item>
         <item>@font/montserrat</item>
+        <item>@font/sigmar_one</item>
     </array>
 </resources>

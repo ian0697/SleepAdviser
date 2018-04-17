@@ -1,17 +1,22 @@
 package com.santiagoapps.sleepadviser;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.santiagoapps.sleepadviser.activities.NavigationActivity;
+import com.santiagoapps.sleepadviser.activities.RegisterActivity;
 import com.santiagoapps.sleepadviser.adapter.SliderAdapter;
 
-public class IntroSliderActivity extends AppCompatActivity {
+public class IntroSliderActivity extends AppCompatActivity implements IOnStartup{
 
     private ViewPager viewPager;
     private LinearLayout mDotLayout;
@@ -27,18 +32,31 @@ public class IntroSliderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_slider);
 
-        viewPager = findViewById(R.id.slider);
-        mDotLayout = (LinearLayout)findViewById(R.id.dotLayout);
 
-        nextBtn = (Button)findViewById(R.id.nextBtn);
+        // if app already started previously
+        if(!isFirstStart()){
+            startNextActivity();
+            finish();
+        }
+
+        viewPager = findViewById(R.id.slider);
+        mDotLayout = findViewById(R.id.dotLayout);
+
+
+        nextBtn = findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mCurrentPage+1 == sliderAdapter.getCount()){
+                    startNextActivity();
+                }
+
                 viewPager.setCurrentItem(mCurrentPage + 1);
+
             }
         });
 
-        previousBtn = (Button)findViewById(R.id.previousBtn);
+        previousBtn = findViewById(R.id.previousBtn);
         previousBtn.setVisibility(View.INVISIBLE);
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +70,11 @@ public class IntroSliderActivity extends AppCompatActivity {
 
         addDotsIndicator(mCurrentPage);
         viewPager.addOnPageChangeListener(viewListener);
+
+
     }
 
-    protected void addDotsIndicator(int position){
+    private void addDotsIndicator(int position){
         mDots = new TextView[sliderAdapter.getCount()];
         mDotLayout.removeAllViews();
 
@@ -64,7 +84,6 @@ public class IntroSliderActivity extends AppCompatActivity {
             mDots[i].setTextSize(24);
             mDots[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             mDots[i].setTextColor(getResources().getColor(R.color.colorTransparentWhite));
-
             mDotLayout.addView(mDots[i]);
         }
 
@@ -74,9 +93,30 @@ public class IntroSliderActivity extends AppCompatActivity {
 
     }
 
+    public boolean isFirstStart(){
+        SharedPreferences ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+        return ref.getBoolean("FirstTimeStartFlag", true);
+    }
+
+    public void setFirstTimeStatus(boolean flag){
+        SharedPreferences ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = ref.edit();
+        editor.putBoolean("FirstTimeStartFlag", flag);
+        editor.commit();
+    }
+
+    private void startNextActivity(){
+        setFirstTimeStatus(false);
+        startActivity(new Intent(IntroSliderActivity.this, ProfilingActivity_name.class));
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        finish();
+    }
+
+
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
 
         }
 

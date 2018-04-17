@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:layout_gravity="center"
+
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+
+    android:paddingBottom="40dp">
+
+    <TextView
+        android:id="@+id/txtClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:background="@drawable/circle_outline"
+        android:gravity="center"
+        android:text="X"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_dormie_happy"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/bubbler_one"
+            android:text="Create an account"
+
+            android:textColor="@color/colorWhite"
+            android:textSize="30dp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Since you have an internet access, registering online is recommended. Your data will be backed-up through the app's cloud database."
+        android:textColor="@color/colorWhite"
+        android:textSize="18dp" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btnRegister"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/btn_outline_1"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Register Now"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnSkip"
+
+        android:background="@drawable/btn_outline_1"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Skip for now"/>
+
+
+
+
+</LinearLayout>

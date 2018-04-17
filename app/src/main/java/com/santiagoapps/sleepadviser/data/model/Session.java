@@ -4,11 +4,8 @@ import android.util.Log;
 
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Session class
@@ -27,6 +24,7 @@ public class Session {
     public static final String TAG = "Dormie (" + Session.class.getSimpleName()+ ")";
 
     //Database
+    public static final String KEY_USER_ID = "USER_ID";
     public static final String KEY_SLEEP_DATE = "SLEEP_TIME";
     public static final String KEY_WAKE_DATE = "WAKE_TIME";
     public static final String KEY_SLEEP_RATING = "SLEEP_RATING";
@@ -36,13 +34,16 @@ public class Session {
 
     private Calendar sleep_date;
     private Calendar wake_date;
-    private int sleep_rating;
-    private int session_id;
+    private int sleepQuality;
+    private String userId;
+    private String sleepQualityDesc;
+    private String strSleepDate;
+    private String strWakeDate;
     private String sleep_duration;
 
 //    Required empty Constructor
     public Session(){
-        sleep_rating = 0;
+        sleepQuality = 0;
         sleep_date = Calendar.getInstance();
         wake_date = Calendar.getInstance();
     }
@@ -53,7 +54,7 @@ public class Session {
      * @param wake_date accepts wake date as Calendar object
      */
     public Session(Calendar sleep_date, Calendar wake_date){
-        sleep_rating = 0;
+        sleepQuality = 0;
         this.sleep_date = sleep_date;
         this.wake_date = wake_date;
     }
@@ -66,7 +67,7 @@ public class Session {
      * @param sleep_rating Describes how the user feels as they woke up
      */
     public Session(Calendar sleep_date, Calendar wake_date, int sleep_rating){
-        this.sleep_rating = sleep_rating;
+        this.sleepQuality = sleep_rating;
         this.sleep_date = sleep_date;
         this.wake_date = wake_date;
     }
@@ -76,7 +77,7 @@ public class Session {
      * Return the sleep_date
      * as a Calendar object
      */
-    public Calendar getSleep_date(){
+    public Calendar getSleepDate(){
         return sleep_date;
     }
 
@@ -87,15 +88,16 @@ public class Session {
      * parsed date through the formats defined
      * in this class
      */
-    public void setSleep_date(Date parseDate){
+    public void setSleepDate(Date parseDate){
         sleep_date.setTime(parseDate);
+        strSleepDate = DateHelper.dateToString(parseDate);
     }
 
     /**
      * Return the wake_date
      * as a Calendar object
      */
-    public Calendar getWake_date(){
+    public Calendar getWakeDate(){
         return wake_date;
     }
 
@@ -105,9 +107,28 @@ public class Session {
      * parsed date through the formats defined
      * in this class
      */
-    public void setWake_date(Date parseDate){
+    public void setWakeDate(Date parseDate){
         wake_date.setTime(parseDate);
+        strWakeDate = DateHelper.dateToString(parseDate);
     }
+
+
+    public String getStrSleepDate() {
+        return strSleepDate;
+    }
+
+    public void setStrSleepDate(String strSleepDate) {
+        this.strSleepDate = strSleepDate;
+    }
+
+    public String getStrWakeDate() {
+        return strWakeDate;
+    }
+
+    public void setStrWakeDate(String strWakeDate) {
+        this.strWakeDate = strWakeDate;
+    }
+
 
 
     /**
@@ -124,33 +145,49 @@ public class Session {
         return sleep_duration;
     }
 
-    public void setSleep_duration(String sleep_duration){
+    public void setSleepDuration(String sleep_duration){
         this.sleep_duration = sleep_duration;
     }
 
-    public int getSession_id() {
-        return session_id;
+    public int getSleepQuality() {
+        return sleepQuality;
     }
 
-    public void setSession_id(int session_id) {
-        this.session_id = session_id;
+    public void setSleepQuality(int sleep_rating) {
+        this.sleepQuality = sleep_rating;
+
+        switch(sleepQuality) {
+            case 1: sleepQualityDesc = "Poor"; break;
+            case 2: sleepQualityDesc = "Good"; break;
+            case 3: sleepQualityDesc = "Excellent"; break;
+            default: sleepQualityDesc = "not defined"; break;
+        }
+
     }
 
-    public int getSleep_rating() {
-        return sleep_rating;
+    public String getSleepQualityDesc() {
+        return sleepQualityDesc;
     }
 
-    public void setSleep_quality(int sleep_rating) {
-        this.sleep_rating = sleep_rating;
+    public void setSleepQualityDesc(String sleepQualityDesc) {
+        this.sleepQualityDesc = sleepQualityDesc;
+    }
+
+    public void setUserId(String user_id) {
+        this.userId = user_id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Sleep id: " + session_id);
         sb.append("\nSleep date: " + DateHelper.dateToString(sleep_date.getTime()));
         sb.append("\nWake date: " + DateHelper.dateToString(wake_date.getTime()));
         sb.append("\nSleep duration: " + getSleep_duration());
+        sb.append("\nSleep Quality: " + sleepQualityDesc);
 
         Log.d(TAG, sb.toString());
         return sb.toString();
