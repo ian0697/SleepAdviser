@@ -1,4 +1,4 @@
-package com.santiagoapps.sleepadviser;
+package com.santiagoapps.sleepadviser.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +12,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.santiagoapps.sleepadviser.activities.NavigationActivity;
-import com.santiagoapps.sleepadviser.activities.RegisterActivity;
+import com.santiagoapps.sleepadviser.app.IOnStartup;
+import com.santiagoapps.sleepadviser.R;
+import com.santiagoapps.sleepadviser.activities.profile.ProfilingActivity_name;
 import com.santiagoapps.sleepadviser.adapter.SliderAdapter;
 
-public class IntroSliderActivity extends AppCompatActivity implements IOnStartup{
+public class IntroSliderActivity extends AppCompatActivity implements IOnStartup {
 
     private ViewPager viewPager;
     private LinearLayout mDotLayout;

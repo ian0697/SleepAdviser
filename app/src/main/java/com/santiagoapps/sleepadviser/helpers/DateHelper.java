@@ -62,6 +62,10 @@ public class DateHelper {
         }
     }
 
+    public String timeNow(){
+        Calendar cal = Calendar.getInstance();
+        return DateHelper.dateToString(cal);
+    }
 
     public String getHourFormat(Date date){
         sdf = new SimpleDateFormat("h:mm a");
@@ -83,6 +87,7 @@ public class DateHelper {
         return null;
     }
 
+    // may accept time
     public static Calendar stringToCalendar(String string){
         Calendar calNow = Calendar.getInstance();
 
@@ -124,6 +129,30 @@ public class DateHelper {
             Log.d(TAG, LOG_TEXT);
             return null;
         }
+    }
+
+    public static String getTimeFormat(int hour, int min){
+        String format = "";
+        StringBuilder sb;
+        if (hour == 0) {
+            hour += 12;
+            format = "AM";
+        } else if (hour == 12) {
+            format = "PM";
+        } else if (hour > 12) {
+            hour -= 12;
+            format = "PM";
+        } else {
+            format = "AM";
+        }
+
+        sb = new StringBuilder().append(hour).append(":");
+        if(min < 10){
+            sb.append("0");
+        }
+
+        sb.append(min).append(" ").append(format);
+        return sb.toString();
     }
 
     public static String dateToString(Calendar date){

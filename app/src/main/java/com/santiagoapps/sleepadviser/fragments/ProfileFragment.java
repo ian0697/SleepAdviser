@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.activities.RegisterActivity;
+import com.santiagoapps.sleepadviser.activities.SleepingActivity;
 import com.santiagoapps.sleepadviser.receivers.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.data.model.Session;
@@ -70,9 +72,11 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
 
     /* components */
     private TextView tvName, tvUserRecords, tvSessions, tvSleepGoal;
+    private Button btnSync;
     private LinearLayout llUsers;
     private FloatingActionButton fab;
 
+    private SharedPreferences ref;
     private static final int SELECT_PICTURE = 100;
 
 
@@ -83,18 +87,37 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         context = getActivity();
 
         myDialog = new Dialog(getContext());
+        ref = context.getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
 
         initDatabase();
         setTextView();
-        setSleepReminder();
+        setSleepReminder(DateHelper.stringToCalendar(ref.getString("sleep",null)));
+
+        btnSync = rootView.findViewById(R.id.btnSync);
+        btnSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRegisterDialog();
+            }
+        });
 
         fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlarmDialog();
+                startActivity(new Intent(getContext(), SleepingActivity.class));
             }
         });
+
+        TextView txtChange = rootView.findViewById(R.id.txtChange);
+        txtChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog();
+            }
+        });
+
+
 
         ImageView profileImage = rootView.findViewById(R.id.ProfileImage);
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -107,30 +130,19 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         return rootView;
     }
 
-    private void setSleepReminder(){
+    private void setSleepReminder(Calendar cal){
         AlarmManager manager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-        Calendar calendar = DateHelper.stringToCalendar("10:00 pm");
+        Calendar calendar = cal;
 
+        if(ref.contains("sleep")){
+            String strTime = ref.getString("sleep",null);
+            Log.d(TAG, DateHelper.dateToString(calendar));
+        }
 
-        int interval = 10000;
         Intent alarmIntent = new Intent(context, AlarmNotificationReceiver.class);
         PendingIntent pendingIntent= PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        //manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-
-        DateHelper dh = new DateHelper(calendar);
-        Toast.makeText(context, dh.dateToString(), Toast.LENGTH_SHORT).show();
-
-        boolean isWorking = (PendingIntent.getBroadcast(getActivity(), 1001, alarmIntent, PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
-        Log.d(TAG, "alarm is " + (isWorking ? "" : "not") + " working...");
-
-
-
-        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 10000, pendingIntent);
-        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
     }
 
     private void initDatabase(){
@@ -166,23 +178,6 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // Get the path from the Uri
-                    String path = getPathFromURI(selectedImageUri);
-                    Log.i(TAG, "Image Path : " + path);
-                    // Set the image in ImageView
-                    ((ImageView) rootView.findViewById(R.id.ProfileImage)).setImageURI(selectedImageUri);
-                }
-            }
-        }
-    }
-
     public String getPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -208,7 +203,6 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
                 startActivity(new Intent(context, DormieActivity.class));
             }
         });
-
 
         tvSleepGoal = rootView.findViewById(R.id.txtSleepGoal);
         tvSleepGoal.setText(prefs.getString("sleep", ""));
@@ -239,16 +233,8 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
 
     }
 
-    public void showMessage(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
-    }
-    public void showAlarmDialog(){
-
-
+    /** dialog for registering user */
+    public void showRegisterDialog(){
         TextView txtClose;
         myDialog.setContentView(R.layout.dialog_prompt);
 
@@ -256,9 +242,15 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), RegisterActivity.class));
+                SharedPreferences ref = context.getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);;
+                Intent intent = new Intent(getContext(), RegisterActivity.class);
+                intent.putExtra("SESSION_SLEEP_GOAL", ref.getString("sleep", ""));
+                intent.putExtra("SESSION_AGE", ref.getInt("age", 0));
+                intent.putExtra("SESSION_GENDER", ref.getString("gender", ""));
+                intent.putExtra("SESSION_NAME",ref.getString("name", ""));
+                intent.putExtra("SESSION_OCCUPATION", ref.getString("occupation", ""));
+                startActivity(intent);
             }
-
         });
 
         Button btnSkip = myDialog.findViewById(R.id.btnSkip);
@@ -280,16 +272,77 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         myDialog.show();
     }
 
+    /** dialog for edit sleeping goal */
+    public void showEditDialog(){
 
-    /** function when internet is turned on */
-    @Override
-    public void networkAvailable() {
-        Toast.makeText(context, "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
+        TextView txtClose;
+        myDialog.setContentView(R.layout.dialog_edit_goal);
+
+
+        Button btnEnter = myDialog.findViewById(R.id.btnEnter);
+        btnEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                TimePicker timePicker = myDialog.findViewById(R.id.timePicker);
+                int hr = timePicker.getHour();
+                int min = timePicker.getMinute();
+
+                SharedPreferences.Editor editor = ref.edit();
+                editor.putString("sleep", DateHelper.getTimeFormat(hr,min));
+                editor.apply();
+                myDialog.dismiss();
+                setTextView();
+                setSleepReminder(DateHelper.stringToCalendar(ref.getString("sleep",null)));
+
+            }
+        });
+
+        txtClose = myDialog.findViewById(R.id.txtClose);
+        txtClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.show();
+
     }
 
-    /** function when internet is unavailable or turned off */
+    public void showMessage(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
+    }
+
+    @Override
+    public void networkAvailable() {
+        Toast.makeText(context.getApplicationContext(), "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Internet is available - ProfileFragment");
+    }
+
     @Override
     public void networkUnavailable() {
-//        Toast.makeText(this, "Oops disconnected", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // Get the path from the Uri
+                    String path = getPathFromURI(selectedImageUri);
+                    Log.i(TAG, "Image Path : " + path);
+                    // Set the image in ImageView
+                    ((ImageView) rootView.findViewById(R.id.ProfileImage)).setImageURI(selectedImageUri);
+                }
+            }
+        }
     }
 }

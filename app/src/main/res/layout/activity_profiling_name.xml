@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/slider_bg"
-    tools:context=".ProfilingActivity_name">
+    tools:context=".activities.profile.ProfilingActivity_name">
 
     <TextView
         android:layout_width="match_parent"

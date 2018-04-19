@@ -52,7 +52,7 @@
                 <item
                     android:id="@+id/nav_faq"
                     android:orderInCategory="3"
-                    android:icon="@drawable/ic_datas"
+                    android:icon="@drawable/ic_question"
                     android:title="FAQs"/>
                 <item
                     android:id="@+id/nav_motion_sensor"

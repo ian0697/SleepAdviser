@@ -1,7 +1,9 @@
 package com.santiagoapps.sleepadviser.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     private DBHelper myDb;
     private final static String TAG = "Dormie (" + RegisterActivity.class.getSimpleName() + ") ";
 
+    String gender, name, occupation, sleep;
+    int age;
 
 
 
@@ -72,6 +76,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         };
+
+
+        Intent intent = getIntent();
+        if(intent.getExtras() != null){
+            Bundle bd = intent.getExtras();
+            gender = (String) bd.get("SESSION_GENDER");
+            name = (String) bd.get("SESSION_NAME");
+            occupation = (String) bd.get("SESSION_OCCUPATION");
+            age = (int) bd.get("SESSION_AGE");
+            sleep = (String) bd.get("SESSION_SLEEP_GOAL");
+            txtName.setText(name);
+        }
 
     }
 
@@ -195,6 +211,12 @@ public class RegisterActivity extends AppCompatActivity {
         if(id!=-1){
             startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
         }
+
+
+        SharedPreferences ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = ref.edit();
+        editor.putString("email", email);
+
     }
 
     public void onClick_signin(View v){

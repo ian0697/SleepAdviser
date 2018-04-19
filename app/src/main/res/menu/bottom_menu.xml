@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_faq"
+        android:enabled="true"
+        android:icon="@drawable/ic_question"
+        android:title="Back to FAQ"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_star"
+        android:title="Add to favorites"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        app:showAsAction="ifRoom"
+        />
+
+
+</menu>

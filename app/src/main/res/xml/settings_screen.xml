@@ -15,6 +15,6 @@
         android:title="Repeat alarm"/>
     <MultiSelectListPreference
         android:icon="@android:drawable/ic_menu_compass"
-
         android:title="MultiSelect preference" />
+
 </PreferenceScreen>

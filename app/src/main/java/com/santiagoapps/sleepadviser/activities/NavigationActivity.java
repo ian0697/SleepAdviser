@@ -1,18 +1,18 @@
 package com.santiagoapps.sleepadviser.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.santiagoapps.sleepadviser.FaqActivity;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
 import com.santiagoapps.sleepadviser.data.repo.UserRepo;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
@@ -39,7 +38,14 @@ import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.fragments.nav.MusicSection;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.fragments.nav.StatisticSection;
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
+import com.santiagoapps.sleepadviser.receivers.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import static android.content.SharedPreferences.*;
 
 /**
  * NavigationActivity
@@ -70,7 +76,10 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     private NetworkStateReceiver networkStateReceiver;
     private SharedPreferences ref;
 
-    // other datas
+    // for
+    Intent sleepIntent;
+
+    // sharedPreferences data
     private String gender, occupation, name, sleep, msg;
     private int age;
 
@@ -93,6 +102,7 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         initDatabase();
 
         ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+        Editor editor = ref.edit();
 
         //Intent values
         Intent intent = getIntent();
@@ -105,7 +115,6 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
             sleep = (String) bd.get("SESSION_SLEEP_GOAL");
 
 
-            SharedPreferences.Editor editor = ref.edit();
             editor.putString("name", name);
             editor.putString("gender", gender);
             editor.putString("occupation", occupation);
@@ -113,25 +122,19 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
             editor.putString("sleep", sleep);
             editor.apply();
 
-            msg = String.format("User profile: \nName: %s \nGender: %s \nAge: %d \nOccupation: %s\nSleeping time goal: %s", name, gender, age, occupation, sleep);
-            Log.d(TAG, msg);
         }
 
+        user =  FirebaseAuth.getInstance().getCurrentUser();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("SHARED PREFERENCE: \n")
-                .append(ref.getString("name", ""))
-                .append("\n")
-                .append(ref.getString("gender",""))
-                .append("\n")
-                .append(ref.getString("sleep", ""));
-        Log.d(TAG, sb.toString());
+        if( user == null ){
+            tvUser.setText(ref.getString("name",""));
+        }
 
-        Toast.makeText(this, sb, Toast.LENGTH_SHORT).show();
-        tvUser.setText(ref.getString("name",""));
+        if(ref.contains("email")){
+            tvEmail.setText(ref.getString("email",null));
+        }
 
-
-        //init receiver for network connection
+        // init receiver for network connection
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
@@ -279,12 +282,11 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     /** function when internet is turned on */
     @Override
     public void networkAvailable() {
-//        Toast.makeText(this, "INTERNET IS AVAILABLE BOOYAH!", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Internet is available - NavigationActivity");
     }
 
     /** function when internet is unavailable or turned off */
     @Override
     public void networkUnavailable() {
-//        Toast.makeText(this, "Oops disconnected", Toast.LENGTH_SHORT).show();
     }
 }

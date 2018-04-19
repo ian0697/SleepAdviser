@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.QuestionAndAnswerActivity"
+    android:background="@drawable/slider_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/didact_gothic"
+            android:text="What’s your definition of sleep and what is sleep cycle?"/>
+
+        <ImageView
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="100dp"
+            android:src="@drawable/logo_dormie_happy"/>
+
+        <TextView
+            android:id="@+id/tvAnswer"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:fontFamily="@font/didact_gothic"
+            android:textColor="@color/colorWhite"
+            android:text="Sleep is a state of altered consciousness which is required by the body for rest and restorative functions. Sleep cycle is an alternate of NREM (non-rapid eye movement) and REM (rapid eye movement) which are different states of sleep."/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="0dp"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/app_color"
+            app:itemIconTint="@color/colorWhite"
+            app:itemTextColor="@color/colorWhite"
+            app:menu="@menu/bottom_menu" />
+    </RelativeLayout>
+</LinearLayout>

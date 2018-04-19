@@ -47,18 +47,19 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".IntroSliderActivity">
+        <activity android:name=".activities.IntroSliderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfilingActivity_age" />
-        <activity android:name=".ProfilingActivity_occupation" />
-        <activity android:name=".ProfilingActivity_name" />
-        <activity android:name=".ProfilingActivity_sleep" />
-        <activity android:name=".FaqActivity"></activity>
+        <activity android:name=".activities.profile.ProfilingActivity_age" />
+        <activity android:name=".activities.profile.ProfilingActivity_occupation" />
+        <activity android:name=".activities.profile.ProfilingActivity_name" />
+        <activity android:name=".activities.profile.ProfilingActivity_sleep" />
+        <activity android:name=".activities.FaqActivity" />
+        <activity android:name=".activities.QuestionAndAnswerActivity"></activity>
     </application>
 
 </manifest>

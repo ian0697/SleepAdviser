@@ -1,4 +1,4 @@
-package com.santiagoapps.sleepadviser;
+package com.santiagoapps.sleepadviser.app;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;

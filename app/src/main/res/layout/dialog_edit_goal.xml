@@ -9,7 +9,7 @@
 
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-
+    android:paddingTop="10dp"
     android:paddingBottom="40dp">
 
     <TextView
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/didact_gothic"
             android:textStyle="bold"
-            android:text="You need an account"
+            android:text="Edit Sleep time goal"
             android:textColor="@color/colorWhite"
             android:textSize="28dp" />
 
@@ -51,28 +51,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="To sync your data to the cloud, you need to register first to the app. After registration, your data will be backed-up through the app's cloud database."
-        android:textColor="@color/colorWhite"
-        android:textSize="18dp" />
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:fontFamily="@font/didact_gothic"
+        android:text="Sleeping time is also one of the factor that affects our sleeping behavior. Sleeping late at night will negatively affect your health."
+        />
 
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:timePickerMode="spinner">
+    </TimePicker>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:id="@+id/btnRegister"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_outline_1"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Register Now"/>
-
-    <Button
+        android:id="@+id/btnEnter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/btnSkip"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/btn_outline_1"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Skip for now"/>
+        android:backgroundTint="@color/app_color"
+        android:text="ENTER"
+        android:textSize="18dp" />
 
 
 </LinearLayout>

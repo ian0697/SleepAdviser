@@ -164,14 +164,8 @@ public class SleepingActivity extends AppCompatActivity {
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         Intent myIntent = new Intent(SleepingActivity.this, AlarmNotificationReceiver.class);
-//        Bundle b = new Bundle();
-//        b.putString("key" ,"Hello World");
-//        myIntent.putExtras(b);
-
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,myIntent,0);
         manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
 
         Toast.makeText(context, DateHelper.dateToString(calendar), Toast.LENGTH_SHORT).show();
 
@@ -233,7 +227,6 @@ public class SleepingActivity extends AppCompatActivity {
         wake_time = hour + ":" + minuteStr + " " + AM_PM;
         tvDescription.setText("Wake me up at " + wake_time);
     }
-
 
     public void btnSleep_onClick(View v){
         //TODO: for time record (Sleep time)

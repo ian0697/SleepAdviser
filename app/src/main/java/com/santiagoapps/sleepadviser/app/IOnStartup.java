@@ -1,4 +1,4 @@
-package com.santiagoapps.sleepadviser;
+package com.santiagoapps.sleepadviser.app;
 
 public interface IOnStartup {
     void setFirstTimeStatus(boolean flag);
