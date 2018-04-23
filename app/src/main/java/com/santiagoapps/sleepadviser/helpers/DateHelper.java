@@ -24,23 +24,13 @@ public class DateHelper {
     private static String LOG_TEXT = "Date must not be null";
 
     private static SimpleDateFormat sdf;
-    private Date date;
     private Calendar calendar;
 
     public DateHelper(Calendar calendar) {
         this.calendar = calendar;
     }
 
-    public String getDay() {
-        sdf = new SimpleDateFormat("dd");
-        if (date != null) {
-            return sdf.format(date);
-        } else{
-            Log.d(TAG, LOG_TEXT);
-            return null;
-        }
-    }
-
+    /*********** CONVERT CALENDAR TO STRING ***********/
 
     public static String getMonthDay(Date date){
         sdf = new SimpleDateFormat("E M/dd");
@@ -62,52 +52,14 @@ public class DateHelper {
         }
     }
 
-    public String timeNow(){
-        Calendar cal = Calendar.getInstance();
-        return DateHelper.dateToString(cal);
-    }
+    public static String dateToString(Calendar date){
+        sdf = new SimpleDateFormat("yyyy-MM-dd h:mm a");
 
-    public String getHourFormat(Date date){
-        sdf = new SimpleDateFormat("h:mm a");
-        if(date!=null) return sdf.format(date);
-        else {
+        if(date!=null) return sdf.format(date.getTime());
+        else{
             Log.d(TAG, LOG_TEXT);
             return null;
         }
-    }
-
-    public static Date stringToDate(String date){
-        sdf = new SimpleDateFormat("yyyy-MM-dd h:mm a");
-        try{
-            return sdf.parse(date);
-        } catch(ParseException e){
-            Log.e(TAG, e.getMessage());
-        }
-
-        return null;
-    }
-
-    // may accept time
-    public static Calendar stringToCalendar(String string){
-        Calendar calNow = Calendar.getInstance();
-
-
-        Date date1;
-        sdf = new SimpleDateFormat("h:mm a");
-        try{
-            date1 = sdf.parse(string);
-            Calendar calendar = (Calendar) calNow.clone();
-
-            calendar.set(Calendar.HOUR, date1.getHours());
-            calendar.set(Calendar.MINUTE , date1.getMinutes());
-
-            return calendar;
-
-        } catch(ParseException e){
-            Log.e(TAG, e.getMessage());
-        }
-
-        return null;
     }
 
     public static String dateToString(Date date){
@@ -120,15 +72,27 @@ public class DateHelper {
         }
     }
 
-    public String dateToString(){
-        Date date = calendar.getTime();
-        sdf = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+    public static String dateToTime(Calendar date){
+        sdf = new SimpleDateFormat("h:mm a");
+        return sdf.format(date.getTime());
+    }
 
-        if(date!=null) return sdf.format(date);
-        else{
-            Log.d(TAG, LOG_TEXT);
-            return null;
-        }
+    public static String dateToDayMonth(Calendar date) {
+        sdf = new SimpleDateFormat("E, MM-dd");
+        return sdf.format(date.getTime());
+    }
+
+    public static int getMonth(Calendar date){
+        return date.getTime().getMonth();
+    }
+
+    public static String getCurrentTime(){
+        Calendar cal = Calendar.getInstance();
+        return DateHelper.dateToString(cal);
+    }
+
+    public static int getCurrentMonth(){
+        return Calendar.getInstance().getTime().getMonth();
     }
 
     public static String getTimeFormat(int hour, int min){
@@ -154,14 +118,45 @@ public class DateHelper {
         sb.append(min).append(" ").append(format);
         return sb.toString();
     }
+    /*****************************************************/
 
-    public static String dateToString(Calendar date){
+
+    /********* CONVERT STRING TO DATE/CALENDAR **********/
+
+    public static Date stringToDate(String date){
         sdf = new SimpleDateFormat("yyyy-MM-dd h:mm a");
-
-        if(date!=null) return sdf.format(date.getTime());
-        else{
-            Log.d(TAG, LOG_TEXT);
-            return null;
+        try{
+            return sdf.parse(date);
+        } catch(ParseException e){
+            Log.e(TAG, e.getMessage());
         }
+
+        return null;
     }
+
+    public static Calendar stringToCalendar(String string){
+        Calendar calNow = Calendar.getInstance();
+
+
+        Date date1;
+        sdf = new SimpleDateFormat("h:mm a");
+        try{
+            date1 = sdf.parse(string);
+            Calendar calendar = (Calendar) calNow.clone();
+
+            calendar.set(Calendar.HOUR, date1.getHours());
+            calendar.set(Calendar.MINUTE , date1.getMinutes());
+
+            return calendar;
+
+        } catch(ParseException e){
+            Log.e(TAG, e.getMessage());
+        }
+
+        return null;
+    }
+
+
+
+
 }

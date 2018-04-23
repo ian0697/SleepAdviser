@@ -24,7 +24,7 @@
         android:id="@+id/nav_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="iansantiago0697@gmail.com"
+        android:text="- - -"
         android:textColor="@color/colorWhite"/>
 
 </LinearLayout>

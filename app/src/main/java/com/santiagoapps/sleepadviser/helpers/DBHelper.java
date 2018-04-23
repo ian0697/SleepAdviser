@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private final static String TAG = "Dormie (" + DBHelper.class.getSimpleName() + ") ";
 
     //Db version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     //Db name:
     private static final String DATABASE_NAME = "SleepAdviserDB.db";

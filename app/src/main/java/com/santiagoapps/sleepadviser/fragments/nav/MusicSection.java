@@ -28,7 +28,8 @@ public class MusicSection extends Fragment {
                              Bundle savedInstanceState) {
         context= this.getContext();
         rootView = inflater.inflate(R.layout.fragment_playlist, container, false);
-        songList = (ListView) rootView.findViewById(R.id.songList);
+
+        songList = rootView.findViewById(R.id.songList);
         songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

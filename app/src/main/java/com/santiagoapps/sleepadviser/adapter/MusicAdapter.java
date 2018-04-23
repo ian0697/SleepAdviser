@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class MusicAdapter extends BaseAdapter {
 
     private Context context;
-
     private int layout;
     private ArrayList<Music> arraylist;
     private MediaPlayer player;
@@ -40,8 +39,8 @@ public class MusicAdapter extends BaseAdapter {
 
 
 
-    Boolean isPaused = true;
-    int PAUSE_VALUE = 0;
+    private Boolean isPaused = true;
+    private int PAUSE_VALUE = 0;
 
     public MusicAdapter(Context context, int layout, ArrayList<Music> arraylist) {
         this.context = context;

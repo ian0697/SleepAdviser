@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_margin="10dp"
+        android:padding="15dp"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -15,7 +16,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="fitXY"
-            android:src="@drawable/icon_piano"
             />
 
         <LinearLayout
@@ -23,7 +23,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_toRightOf="@id/musicIcon"
             android:layout_alignBottom="@+id/musicIcon"
             android:id="@+id/linearLayout">
 

@@ -11,7 +11,8 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 import static java.lang.Math.sqrt;
 
@@ -48,8 +49,7 @@ public class SleepService extends Service implements SensorEventListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Service is destroyed!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Sleep service destroyed");
+        Log.d(TAG, "Sleep service destroyed - " + DateHelper.getCurrentTime());
 
         //Unregister listener when service destroyed
         sensorManager.unregisterListener(this,sensor);
@@ -59,8 +59,7 @@ public class SleepService extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent,  int flags, int startId) {
 
-        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Sleep service started");
+        Log.d(TAG, "Sleep service started" + DateHelper.getCurrentTime());
 
         //Register listener
         sensorManager = (SensorManager)getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
@@ -70,7 +69,6 @@ public class SleepService extends Service implements SensorEventListener {
         mAccel = 0.0f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
-
 
         return START_STICKY;
     }
@@ -95,13 +93,10 @@ public class SleepService extends Service implements SensorEventListener {
         float zAbs = Math.abs(myGravity[2]);
         float mAbs = Math.abs(mAccel);
 
-//        Log.d(TAG, "Update|| X: " + xAbs + " | " + "Y: " + yAbs + " | " + "Z: " + zAbs);
 
         if (mAbs > 2   &&  (yAbs > 4 || xAbs >4) ) {
             Log.d(TAG, "You picked your phone - Accel: " + mAbs);
-            Toast.makeText(this, "moved", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

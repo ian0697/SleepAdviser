@@ -274,7 +274,6 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
 
     /** dialog for edit sleeping goal */
     public void showEditDialog(){
-
         TextView txtClose;
         myDialog.setContentView(R.layout.dialog_edit_goal);
 

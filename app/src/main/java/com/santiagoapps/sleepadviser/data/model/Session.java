@@ -141,8 +141,12 @@ public class Session {
         int hours = (int) (mills/(1000 * 60 * 60));
         int mins = (int) (mills/(1000 * 60)) % 60;
 
-        sleep_duration = hours + " hours " + mins + " minutes";
+        sleep_duration = hours + " h " + mins + " min";
         return sleep_duration;
+    }
+
+    public long getDurationInMills(){
+        return wake_date.getTimeInMillis() - sleep_date.getTimeInMillis();
     }
 
     public void setSleepDuration(String sleep_duration){

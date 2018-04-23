@@ -59,7 +59,8 @@
         <activity android:name=".activities.profile.ProfilingActivity_name" />
         <activity android:name=".activities.profile.ProfilingActivity_sleep" />
         <activity android:name=".activities.FaqActivity" />
-        <activity android:name=".activities.QuestionAndAnswerActivity"></activity>
+        <activity android:name=".activities.QuestionAndAnswerActivity" />
+        <activity android:name=".activities.StatisticsActivity"></activity>
     </application>
 
 </manifest>

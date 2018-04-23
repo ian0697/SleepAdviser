@@ -1,7 +1,5 @@
 package com.santiagoapps.sleepadviser.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,15 +35,7 @@ import com.santiagoapps.sleepadviser.data.model.User;
 import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.fragments.nav.MusicSection;
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.fragments.nav.StatisticSection;
-import com.santiagoapps.sleepadviser.helpers.DateHelper;
-import com.santiagoapps.sleepadviser.receivers.AlarmNotificationReceiver;
 import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
-
-import java.util.Calendar;
-import java.util.Date;
-
-import static android.content.SharedPreferences.*;
 
 /**
  * NavigationActivity
@@ -74,7 +64,6 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     private FirebaseUser user;
     private User current_user;
     private NetworkStateReceiver networkStateReceiver;
-    private SharedPreferences ref;
 
     // for
     Intent sleepIntent;
@@ -82,6 +71,8 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     // sharedPreferences data
     private String gender, occupation, name, sleep, msg;
     private int age;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +87,13 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         tvUser = headerView.findViewById(R.id.nav_name);
         tvEmail = headerView.findViewById(R.id.nav_email);
 
+        ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
+        editor = ref.edit();
+
         //initialization
         setNavigation();
         setFragment(new ProfileFragment());
         initDatabase();
-
-        ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
-        Editor editor = ref.edit();
 
         //Intent values
         Intent intent = getIntent();
@@ -113,7 +104,6 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
             occupation = (String) bd.get("SESSION_OCCUPATION");
             age = (int) bd.get("SESSION_AGE");
             sleep = (String) bd.get("SESSION_SLEEP_GOAL");
-
 
             editor.putString("name", name);
             editor.putString("gender", gender);
@@ -127,7 +117,7 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         user =  FirebaseAuth.getInstance().getCurrentUser();
 
         if( user == null ){
-            tvUser.setText(ref.getString("name",""));
+            tvUser.setText(ref.getString("name",null));
         }
 
         if(ref.contains("email")){
@@ -143,7 +133,6 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -175,15 +164,31 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     public void initDatabase(){
         DBHelper myDb = new DBHelper(this);
         user =  FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference tbl_user = FirebaseDatabase.getInstance().getReference("Users");
+
+        if(user!=null){
+            editor.putString("email", user.getEmail());
+            editor.apply();
+
+            tvEmail.setText(ref.getString("email",null));
+            tvUser.setText(ref.getString("name",null));
+        }
+
+
+        DatabaseReference tbl_user = FirebaseDatabase.getInstance().getReference("users");
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(user.getUid()).exists()) {
                     current_user = dataSnapshot.child(user.getUid()).getValue(User.class);
+
                     try {
-                        tvUser.setText(current_user.getName());
-                        tvEmail.setText(current_user.getEmail());
+                        editor.putString("name", current_user.getName());
+                        editor.putString("email", user.getEmail());
+                        editor.apply();
+
+                        Log.d(TAG, "Info updated - email: " + user.getEmail());
+                        tvUser.setText(ref.getString("name",null));
+                        tvEmail.setText(ref.getString("email",null));
                     }
                     catch (Exception e){
                         Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -196,7 +201,6 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
 
             }
         });
-
     }
 
     /** handles navigation fragments and activities */
@@ -216,8 +220,10 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
                         break;
 
                     case R.id.nav_statistic:
-                        setFragment(new StatisticSection());
-                        toolbar.setTitle("Statistics");
+//                        setFragment(new StatisticSection());
+//                        toolbar.setTitle("Statistics");
+
+                        startActivity(new Intent(NavigationActivity.this, StatisticsActivity.class));
                         break;
 
                     case R.id.nav_sleep_aid:

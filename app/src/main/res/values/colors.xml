@@ -14,4 +14,6 @@
 
     <color name="colorTransparentWhite">#cccccc</color>
 
+    <color name="colorRed">#990000</color>
+    <color name="colorGreen">#009900</color>
 </resources>

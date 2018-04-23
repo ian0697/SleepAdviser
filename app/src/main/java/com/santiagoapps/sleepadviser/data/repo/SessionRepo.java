@@ -26,7 +26,7 @@ public class SessionRepo {
         return String.format("CREATE TABLE %s " +
                         "(%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "%s INTEGER," + //KEY_USER_FIREBASE_ID
-                        "%s TEXT, " +   //KEY_SLEEP_DATE
+                        "%s DATETIME, " +   //KEY_SLEEP_DATE
                         "%s TEXT, " +   //KEY_WAKE_DATE
                         "%s INT, " +   //KEY_SLEEP_RATING
                         "%s TEXT, " +   //KEY_SLEEP_DURATION
@@ -77,7 +77,7 @@ public class SessionRepo {
         List<Session> session_list = new ArrayList<>();
 
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
-        String query = "SELECT * FROM " + TABLE;
+        String query = "SELECT * FROM " + TABLE + " ORDER BY datetime(" + KEY_SLEEP_DATE + ")";
         Log.e(TAG, query);
 
         Cursor res = db.rawQuery(query,null);
@@ -94,6 +94,33 @@ public class SessionRepo {
         }
 
         return session_list;
+    }
+
+    public List<Session> getSessionByMonth(int month){
+        List<Session> matchedList = new ArrayList<>();
+
+        SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
+        String query = "SELECT * FROM " + TABLE;
+        Log.e(TAG, query);
+
+        Cursor res = db.rawQuery(query,null);
+
+        while(res.moveToNext()){
+            Session session = new Session();
+//            session.setSessionId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
+            session.setUserId((res.getString(res.getColumnIndex(KEY_USER_ID))));
+            session.setSleepDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+            session.setWakeDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
+            session.setSleepDuration(res.getString(res.getColumnIndex(KEY_SLEEP_DURATION)));
+            session.setSleepQuality(Integer.parseInt(res.getString(res.getColumnIndex(KEY_SLEEP_RATING))));
+
+            if(DateHelper.getMonth(session.getSleepDate()) == month){
+                matchedList.add(session);
+            }
+
+        }
+
+        return matchedList;
     }
 
     public List<Session> getUserSession(User user){
@@ -114,8 +141,6 @@ public class SessionRepo {
             session.setSleepQuality(Integer.parseInt(res.getString(res.getColumnIndex(KEY_SLEEP_RATING))));
             sessionList.add(session);
         }
-
-
 
         return sessionList;
     }

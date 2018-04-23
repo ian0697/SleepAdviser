@@ -44,6 +44,8 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         NotificationManager notificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1,builder.build());
 
+
+
         //For alarm:
 //        MediaPlayer mediaPlayer = MediaPlayer.create(context,
 //                Settings.System.DEFAULT_RINGTONE_URI);
