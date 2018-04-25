@@ -1,167 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.santiagoapps.sleepadviser.activities.CreateRecord">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:navigationIcon="@drawable/drawer_shadow"
-            android:title="Create sleep record"
-            app:popupTheme="@style/PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+    android:background="@drawable/slider_bg"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="vertical"
+        tools:context="com.santiagoapps.sleepadviser.activities.CreateRecord">
+
+        <!-- toolbar -->
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:theme="@style/AppBarOverlay">-->
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--android:navigationIcon="@drawable/drawer_shadow"-->
+                <!--android:title="Create sleep record"-->
+                <!--app:popupTheme="@style/PopupOverlay" />-->
+
+        <!--</android.support.design.widget.AppBarLayout>-->
 
         <LinearLayout
+            android:layout_marginTop="20dp"
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
 
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:src="@drawable/logo_dormie_happy"/>
+
+            <Button
+                android:background="#0000"
+                android:id="@+id/btnCancel"
+                android:textAlignment="center"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_width="0sp"
+                android:textAllCaps="false"
                 android:layout_height="wrap_content"
-                android:text="SLEEP TIME"
-                android:paddingRight="20dp"
-                android:textAlignment="center" />
+                android:textSize="28sp"
+                android:text="Cancel"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <!-- question 1 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
+            android:fontFamily="@font/atma_light"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="Hi, Ian Santiago! What time did you sleep during the night of April 21, 2018 to April 22, 2018?"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvSleepTime"
+                android:textColor="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingRight="20dp"
+                android:focusable="true"
                 android:clickable="true"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:text="11:00PM"
+                android:text="11:00 pm"
                 android:textAlignment="center"
-                android:textSize="24dp"
-                android:textStyle="bold"
+                android:textSize="38sp"
                 tools:drawableRight="@android:drawable/arrow_down_float" />
 
 
+            <TextView
+                android:layout_marginTop="5sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click to edit"
+                android:textColor="@color/app_color"
+                android:textStyle="bold"
+                android:textSize="18sp"
+
+                android:textAlignment="center" />
+
+
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="50dp"
-            android:background="#898989"
-            />
+        <!-- question 2 -->
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/atma_light"
+            android:text="What time did you approximately woke up?"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvWakeTime"
+                android:textColor="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="WAKE-UP TIME"
-                android:paddingLeft="20dp"
-                android:textAlignment="center" />
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:clickable="true"
+                android:text="8:00 am"
+                android:textAlignment="center"
+                android:textSize="38sp"
+                tools:drawableRight="@android:drawable/arrow_down_float" />
+
 
             <TextView
-                android:id="@+id/tvWakeupTime"
+                android:layout_marginTop="5sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:paddingLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:text="6:00AM"
-                android:textAlignment="center"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tvWakeDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:text="Tue 1/16"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:text="Click to edit"
+                android:textColor="@color/app_color"
+                android:textStyle="bold"
+                android:textSize="18sp"
+
+                android:textAlignment="center" />
 
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical">
-
+        <!-- question 3 -->
         <TextView
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:text="SLEEP DURATION: " />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/atma_light"
+            android:text="How was your sleep?"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tvDuration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:fontFamily="sans-serif-condensed"
-            android:text="------"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="32dp" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:text="SLEEP QUALITY: " />
-
+        <!-- sleep quality -->
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="3"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             >
 
             <android.support.v7.widget.CardView
@@ -202,60 +225,91 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="Good"/>
 
-            </android.support.v7.widget.CardView><android.support.v7.widget.CardView
-            android:layout_width="0dp"
-            app:cardCornerRadius="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/card3"
-            app:cardBackgroundColor="@color/app_color"
-            android:layout_height="100dp"
-            android:layout_weight="1">
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/card3"
+                app:cardBackgroundColor="@color/app_color"
+                android:layout_height="100dp"
+                android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="24dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Excellent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Excellent"/>
 
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue_dark1"
+                    android:text="Continue"/>
+
+        </RelativeLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
+</ScrollView>
 
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@color/app_color"
-                android:layout_marginRight="5dp"
-                android:text="CANCEL"/>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:orientation="vertical">-->
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="0dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@color/app_color"
-                android:text="ADD"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_vertical_margin"-->
+            <!--android:text="SLEEP DURATION: " />-->
 
-        </LinearLayout>
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tvDuration"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--android:text="&#45;&#45;&#45;&#45;&#45;&#45;"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="32dp" />-->
 
-</LinearLayout>
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_vertical_margin"-->
+            <!--android:text="SLEEP QUALITY: " />-->
+
+
+    <!--</LinearLayout>-->
+
+
+

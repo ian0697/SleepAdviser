@@ -28,8 +28,9 @@ public class User {
     private String gender;
     private String dateRegistered;
     private String firebaseId;
-    private int userId;
 
+    private String sleepGoal;
+    private int age;
 
     /**
      * Default Constructor
@@ -39,9 +40,9 @@ public class User {
     }
 
     /**
-     * @param email - accepts input with @ and valid email
-     * @param password - accepts 7 characters
-     * @param name - User's full name
+     * @param email
+     * @param password
+     * @param name
      */
     public User(String email, String password, String name){
         this.email= email;
@@ -51,10 +52,10 @@ public class User {
     }
 
     /**
-     * @param firebaseId - firebase key
-     * @param email - accepts input with @ and valid email
-     * @param password - accepts 7 characters
-     * @param name - User's full name
+     * @param firebaseId
+     * @param email
+     * @param password
+     * @param name
      */
     public User(String firebaseId, String email, String password, String name){
         this.firebaseId = firebaseId;
@@ -70,14 +71,6 @@ public class User {
 
     public void setFirebaseId(String id){
         firebaseId = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getName() {
@@ -125,6 +118,23 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getSleepGoal() {
+        return sleepGoal;
+    }
+
+    public void setSleepGoal(String sleepGoal) {
+        this.sleepGoal = sleepGoal;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
 
     @Override
     public String toString() {

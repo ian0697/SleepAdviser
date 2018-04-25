@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slider_bg"
+    android:orientation="vertical"
+    tools:context=".MusicActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:background="@drawable/sleep_bg"
+            android:layout_width="match_parent"
+            android:layout_height="166dp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat"
+            android:text="SLEEP MUSIC"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="48dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!--<ImageView-->
+                <!--android:layout_height="145dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/nature" />-->
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="145dp"
+                android:background="@drawable/nature"
+                android:text="NATURE"
+                android:textSize="30dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/carrois_gothic_sc"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_height="145dp"
+                android:layout_width="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:text="GUITAR"
+                android:textSize="30dp"
+                android:fontFamily="@font/carrois_gothic_sc"
+                android:textStyle="bold"
+                android:background="@drawable/guitar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:layout_height="145dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:textSize="30dp"
+                android:fontFamily="@font/bowlby_one_sc"
+                android:textStyle="bold"
+                android:text="PIANO"
+                android:background="@drawable/piano_image" />
+
+            <Button
+                android:layout_height="145dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="MEDITATE"
+                android:textSize="30dp"
+                android:fontFamily="@font/carrois_gothic_sc"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/meditate" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_outline_1"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/app_color"
+            android:text="PLAY ALL"
+            android:textSize="18dp"/>
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

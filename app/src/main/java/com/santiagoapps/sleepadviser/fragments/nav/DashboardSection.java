@@ -1,5 +1,7 @@
 package com.santiagoapps.sleepadviser.fragments.nav;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
@@ -8,61 +10,74 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.santiagoapps.sleepadviser.R;
+import com.santiagoapps.sleepadviser.activities.SleepHistoryFragment;
 import com.santiagoapps.sleepadviser.fragments.*;
 
 
 public class DashboardSection extends Fragment {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private View view;
-    private Boolean exit = false;
-    TabLayout tabLayout;
+    private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationView;
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.sample, container, false);
 
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        View view = inflater.inflate(R.layout.sample, container, false);
+
+        toolbar = container.findViewById(R.id.toolbar);
+
+        mViewPager = view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(new SectionsPagerAdapter(getChildFragmentManager()));
 
-        tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-        setUpTabIcons();
+        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_profile:
+                        mViewPager.setCurrentItem(0);
+                        break;
+                    case R.id.action_sessions:
+                        mViewPager.setCurrentItem(1);
+                        break;
+                    case R.id.action_settings:
+                        mViewPager.setCurrentItem(2);
+                        break;
+                    default:
+                        break;
+                }
+
+                return false;
+            }
+        });
+
 
         return view;
     }
 
-    private void setUpTabIcons(){
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(mViewPager);
-                tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
-                tabLayout.getTabAt(1).setIcon(R.drawable.ic_info);
-                tabLayout.getTabAt(2).setIcon(R.drawable.ic_video);
-
-//                int tabIconColor = ContextCompat.getColor(getActivity(), R.color.app_color);
-//                tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-//                tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-//                tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-//                tabLayout.getTabAt(3).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-
-            }
-        });
-    }
-
-
-
+//    private void setUpTabIcons(){
+//        tabLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                tabLayout.setupWithViewPager(mViewPager);
+//                tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+//                tabLayout.getTabAt(1).setIcon(R.drawable.ic_info);
+//                tabLayout.getTabAt(2).setIcon(R.drawable.ic_video);
+//
+//            }
+//        });
+//    }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -71,15 +86,14 @@ public class DashboardSection extends Fragment {
 
             switch (position){
                 case 0:
-                    ProfileFragment page1 = new ProfileFragment();
-                    return page1;
+                    return new ProfileFragment();
+                case 1:
+                    return new SleepHistoryFragment();
                 case 2:
-                    MusicSection page4 = new MusicSection();
-                    return page4;
+                    return new MusicSection();
                 default:
                     return null;
             }
-
         }
 
         @Override

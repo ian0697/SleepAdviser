@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.hardware.Camera;
 import java.util.Calendar;
@@ -36,7 +37,7 @@ import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 public class SleepingActivity extends AppCompatActivity {
 
-    private static final String TAG = "SleepAdviser";
+    private static final String TAG = "Dormie (" + SleepingActivity.class.getSimpleName() + ")";
 
     /* components */
     private Dialog myDialog;
@@ -70,9 +71,8 @@ public class SleepingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sleeping);
 
         initComponents();
-        setUpToolbar();
-
         setUpBottomsheet();
+
     }
 
     public void setUpBottomsheet(){
@@ -85,8 +85,9 @@ public class SleepingActivity extends AppCompatActivity {
         chat_list.setAdapter(mAdapter);
         chat_list.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
-        mAdapter.add(new Message(true, "Hi! I recommend that you wake up between 6am - 8am."));
-        mAdapter.add(new Message(true, "Set the alarm to 6am?"));
+        String time = "5:00 am";
+        mAdapter.add(new Message(true, String.format("Hi! I recommend that you wake up at %s. So you'll have 8 hours of sleep", time)));
+        mAdapter.add(new Message(true, String.format("Set the alarm to %s?", time)));
 
         TextView choice_1 = bottomsheet.findViewById(R.id.choice_1);
         choice_1.setText("Yes please!");
@@ -94,6 +95,8 @@ public class SleepingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO
+                setAlarm(5,0);
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
             }
         });
@@ -121,11 +124,11 @@ public class SleepingActivity extends AppCompatActivity {
     }
 
     public void initComponents(){
-        bottomsheet = (LinearLayout)findViewById(R.id.bottomsheet);
+        bottomsheet = findViewById(R.id.bottomsheet);
         calendar = Calendar.getInstance();
         myDialog = new Dialog(SleepingActivity.this);
 
-        txtTime = (TextView)findViewById(R.id.txtTime);
+        txtTime = findViewById(R.id.txtTime);
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,31 +136,40 @@ public class SleepingActivity extends AppCompatActivity {
             }
         });
 
-        txtAm = (TextView)findViewById(R.id.txtAm);
-        tvDescription = (TextView) findViewById(R.id.tvDescription);
-        btnSleep = (Button) findViewById(R.id.btnStartSleep);
-    }
-
-    public void setUpToolbar(){
-        toolbar = (Toolbar)findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setTitle("Sleep now");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        Button btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        Button btnStart = findViewById(R.id.btnStartSleep);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: for time record (Sleep time)
+                startSleeping();
+            }
+        });
+
+        TextView tvEdit = findViewById(R.id.tvEdit);
+        tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlarmDialog();
+            }
+        });
+
+        txtAm = findViewById(R.id.txtAm);
+        tvDescription = findViewById(R.id.tvDescription);
+        btnSleep = findViewById(R.id.btnStartSleep);
     }
 
     public void startSleeping(){
         sleep_service = new Intent(SleepingActivity.this, SleepService.class);
-        startAlarm();
-        startService(sleep_service);
+//        startAlarm();
+//        startService(sleep_service);
     }
 
     public void startAlarm(){
@@ -197,6 +209,38 @@ public class SleepingActivity extends AppCompatActivity {
         myDialog.show();
     }
 
+    /** dialog for registering user */
+    public void showRegisterDialog(){
+        TextView txtClose;
+        myDialog.setContentView(R.layout.dialog_prompt);
+
+        Button btnRegister = myDialog.findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        Button btnSkip = myDialog.findViewById(R.id.btnSkip);
+        btnSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        txtClose = myDialog.findViewById(R.id.txtClose);
+        txtClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.show();
+    }
+
     public void setAlarm(int hr, int minute){
         //Get time
         String AM_PM;
@@ -204,16 +248,16 @@ public class SleepingActivity extends AppCompatActivity {
         int min = minute;
 
         String minuteStr;
-        if(timePicker.getMinute() < 10){
-            minuteStr = "0" + timePicker.getMinute();
+        if(minute < 10){
+            minuteStr = "0" + minute;
         } else {
-            minuteStr = "" + timePicker.getMinute();
+            minuteStr = "" + minute;
         }
 
         if(hour < 12){
             AM_PM = "AM";
         } else{
-            hour = timePicker.getHour() - 12;
+            hour = hour - 12;
             AM_PM = "PM";
         }
 
@@ -225,13 +269,10 @@ public class SleepingActivity extends AppCompatActivity {
 
 
         wake_time = hour + ":" + minuteStr + " " + AM_PM;
-        tvDescription.setText("Wake me up at " + wake_time);
+
     }
 
-    public void btnSleep_onClick(View v){
-        //TODO: for time record (Sleep time)
-        startSleeping();
-
+    public void showDialog(){
         //DialogBox set-up
         TextView txtClose;
         final TextView flashDesc;
@@ -239,10 +280,10 @@ public class SleepingActivity extends AppCompatActivity {
         CardView btnFlash;
         myDialog.setContentView(R.layout.dialog_unlocked);
 
-        txtClose = (TextView) myDialog.findViewById(R.id.txtClose);
         flashDesc = (TextView) myDialog.findViewById(R.id.flashDesc);
         btnFlash = (CardView) myDialog.findViewById(R.id.btnFlash);
 
+        txtClose = (TextView) myDialog.findViewById(R.id.txtClose);
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -273,7 +314,6 @@ public class SleepingActivity extends AppCompatActivity {
         btnFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(!isOpen){
                     cam = Camera.open();
                     Camera.Parameters p = cam.getParameters();
@@ -300,7 +340,5 @@ public class SleepingActivity extends AppCompatActivity {
         });
 
         myDialog.show();
-
-
     }
 }

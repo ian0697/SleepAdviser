@@ -35,6 +35,8 @@ public class Session {
     private Calendar sleep_date;
     private Calendar wake_date;
     private int sleepQuality;
+    private int id;
+    private long durationInMills;
     private String userId;
     private String sleepQualityDesc;
     private String strSleepDate;
@@ -129,7 +131,13 @@ public class Session {
         this.strWakeDate = strWakeDate;
     }
 
+    public int getid(){
+        return id;
+    }
 
+    public void setId(int id){
+        this.id = id;
+    }
 
     /**
      * return the sleep duration between
@@ -145,8 +153,31 @@ public class Session {
         return sleep_duration;
     }
 
+    public void setDurationInMills(long mills){
+        this.durationInMills = mills;
+    }
+
     public long getDurationInMills(){
         return wake_date.getTimeInMillis() - sleep_date.getTimeInMillis();
+    }
+
+    public Date getCalendarDuration(){
+        Date date = new Date();
+        date.setTime(getDurationInMills());
+        return date;
+    }
+
+    public double getDurationInDecimal(){
+        double decimal;
+        double hr = getCalendarDuration().getHours();
+        if(hr > 12){
+            hr = hr - 12;
+        }
+
+        double min = getCalendarDuration().getMinutes() / 60;
+
+        decimal = hr + min;
+        return decimal;
     }
 
     public void setSleepDuration(String sleep_duration){
@@ -188,10 +219,12 @@ public class Session {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("\nId: " + getid());
         sb.append("\nSleep date: " + DateHelper.dateToString(sleep_date.getTime()));
         sb.append("\nWake date: " + DateHelper.dateToString(wake_date.getTime()));
         sb.append("\nSleep duration: " + getSleep_duration());
         sb.append("\nSleep Quality: " + sleepQualityDesc);
+        sb.append("\nUser id: " + getUserId());
 
         Log.d(TAG, sb.toString());
         return sb.toString();

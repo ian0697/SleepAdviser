@@ -8,28 +8,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppBarOverlay">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppBarOverlay">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:navigationIcon="@drawable/drawer_shadow"
-            android:title="Create sleep record"
-            app:popupTheme="@style/PopupOverlay" />
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--android:navigationIcon="@drawable/drawer_shadow"-->
+            <!--android:title="Create sleep record"-->
+            <!--app:popupTheme="@style/PopupOverlay" />-->
 
-    </android.support.design.widget.AppBarLayout>
-    <RelativeLayout
+    <!--</android.support.design.widget.AppBarLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+        <!---->
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="80dp" -->
+            <!--android:src="@drawable/logo_dormie_happy"-->
+            <!--android:textAlignment="center"/>-->
+        <!---->
+    <!--</LinearLayout>-->
+    <!---->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:orientation="vertical"
         tools:context="com.santiagoapps.sleepadviser.activities.SleepingActivity">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_dormie_happy" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/didact_gothic"
+            android:text="I will wake you up at"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp" />
+
         <LinearLayout
+            android:layout_marginTop="-20dp"
             android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,9 +76,7 @@
                 android:text="08:00"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="100dp"
-                tools:layout_editor_absoluteX="162dp"
-                tools:layout_editor_absoluteY="62dp" />
+                android:textSize="100dp" />
 
             <TextView
                 android:id="@+id/txtAm"
@@ -54,46 +84,60 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-condensed"
-
                 android:text="AM"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="30dp"
-                tools:layout_editor_absoluteX="162dp"
-                tools:layout_editor_absoluteY="62dp" />
+                android:textSize="42dp" />
 
 
         </LinearLayout>
 
-
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linear"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="Wake me up at 8:00am"
+            android:fontFamily="@font/didact_gothic"
+            android:layout_marginTop="-15dp"
+            android:text="tap to edit"
             android:textAlignment="center"
+            android:textColor="@color/app_color"
             android:textSize="20dp" />
 
         <Button
             android:id="@+id/btnStartSleep"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/tvDescription"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/btn_outline_1"
             android:backgroundTint="@color/app_color"
-            android:elevation="0dp"
-            android:onClick="btnSleep_onClick"
             android:text="START SLEEPING"
             android:textColor="@color/colorWhite" />
 
 
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0sp"
+        android:padding="0sp">
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/blue_dark1"
+            android:fontFamily="@font/assistant_extralight"
+            android:text="CANCEL"
+            android:id="@+id/btnCancel"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
     </RelativeLayout>
+
     <include layout="@layout/bottomsheet"/>
 
 </android.support.design.widget.CoordinatorLayout>

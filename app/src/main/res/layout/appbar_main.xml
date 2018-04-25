@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="?android:actionBarSize"
             android:layout_marginRight="20dp"
             android:clickable="true"
             android:scaleType="fitXY"

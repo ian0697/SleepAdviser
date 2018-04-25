@@ -84,7 +84,7 @@ public class SessionRepo {
 
         while(res.moveToNext()){
             Session session = new Session();
-//            session.setSessionId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
+            session.setId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
             session.setUserId((res.getString(res.getColumnIndex(KEY_USER_ID))));
             session.setSleepDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
             session.setWakeDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
@@ -152,6 +152,16 @@ public class SessionRepo {
         int count = res.getCount();
         res.close();
         return count;
+    }
+
+    public int getLastInsertedId(){
+        SQLiteDatabase x = DatabaseManager.getInstance().openDatabase();
+        Cursor res = x.rawQuery("select * from " + TABLE, null);
+        res.moveToLast();
+
+        int id = res.getInt(res.getColumnIndex(KEY_ID));
+
+        return id;
     }
 
 

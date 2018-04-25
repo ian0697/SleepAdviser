@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.santiagoapps.sleepadviser"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,13 +22,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     //MPAndroidChart
     compile 'com.android.support:support-compat:26.1.0'
+
+    //circle progress
+    compile 'com.github.lzyzsd:circleprogress:1.2.1'
+
+    //fit
+    compile 'com.github.javiersantos:FitChart:1.1'
 
     // support library
     compile 'com.android.support:design:26.+'
@@ -34,13 +41,11 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:support-v13:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     // firebase library
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'com.google.firebase:firebase-database:10.0.1'
-
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'

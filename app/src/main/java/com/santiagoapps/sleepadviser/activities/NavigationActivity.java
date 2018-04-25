@@ -28,11 +28,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santiagoapps.sleepadviser.activities.profile.ProfilingActivity_name;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
 import com.santiagoapps.sleepadviser.data.repo.UserRepo;
+import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
+import com.santiagoapps.sleepadviser.fragments.nav.DashboardSection;
 import com.santiagoapps.sleepadviser.helpers.DBHelper;
 import com.santiagoapps.sleepadviser.data.model.User;
-import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.fragments.nav.MusicSection;
 import com.santiagoapps.sleepadviser.R;
 import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
@@ -51,7 +53,7 @@ import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
 
 public class NavigationActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener{
 
-    private static final String TAG = "SleepAdviser";
+    private static final String TAG = "Dormie (" + NavigationActivity.class.getSimpleName() + ") ";
 
     // components
     private Toolbar toolbar;
@@ -65,12 +67,8 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
     private User current_user;
     private NetworkStateReceiver networkStateReceiver;
 
-    // for
-    Intent sleepIntent;
 
     // sharedPreferences data
-    private String gender, occupation, name, sleep, msg;
-    private int age;
     private SharedPreferences.Editor editor;
     private SharedPreferences ref;
 
@@ -79,31 +77,27 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_main);
 
-        drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-
-        //header_layout
-        View headerView = navigationView.getHeaderView(0);
-        tvUser = headerView.findViewById(R.id.nav_name);
-        tvEmail = headerView.findViewById(R.id.nav_email);
-
         ref = getApplicationContext().getSharedPreferences("Dormie", Context.MODE_PRIVATE);
         editor = ref.edit();
 
         //initialization
         setNavigation();
-        setFragment(new ProfileFragment());
-        initDatabase();
+        setNavigationHeader();
+        setDatabase();
+        setNetworkReceiver();
+        firstRunOfApp();
+    }
 
+    public void firstRunOfApp(){
         //Intent values
         Intent intent = getIntent();
         if(intent.getExtras() != null){
             Bundle bd = intent.getExtras();
-            gender = (String) bd.get("SESSION_GENDER");
-            name = (String) bd.get("SESSION_NAME");
-            occupation = (String) bd.get("SESSION_OCCUPATION");
-            age = (int) bd.get("SESSION_AGE");
-            sleep = (String) bd.get("SESSION_SLEEP_GOAL");
+            String gender = (String) bd.get("SESSION_GENDER");
+            String name = (String) bd.get("SESSION_NAME");
+            String occupation = (String) bd.get("SESSION_OCCUPATION");
+            int age = (int) bd.get("SESSION_AGE");
+            String sleep = (String) bd.get("SESSION_SLEEP_GOAL");
 
             editor.putString("name", name);
             editor.putString("gender", gender);
@@ -111,60 +105,34 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
             editor.putInt("age", age);
             editor.putString("sleep", sleep);
             editor.apply();
-
         }
 
-        user =  FirebaseAuth.getInstance().getCurrentUser();
+    }
 
+    public void setNavigationHeader(){
+        // header_layout
+        View headerView = navigationView.getHeaderView(0);
+        tvUser = headerView.findViewById(R.id.nav_name);
+        tvEmail = headerView.findViewById(R.id.nav_email);
+
+        // if user is null
+        // set the values of textView
+        // with current values of sharedPreference
+        user =  FirebaseAuth.getInstance().getCurrentUser();
         if( user == null ){
             tvUser.setText(ref.getString("name",null));
         }
-
         if(ref.contains("email")){
             tvEmail.setText(ref.getString("email",null));
         }
-
-        // init receiver for network connection
-        networkStateReceiver = new NetworkStateReceiver();
-        networkStateReceiver.addListener(this);
-        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
-        if (id == R.id.log_out){
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        networkStateReceiver.removeListener(this);
-        this.unregisterReceiver(networkStateReceiver);
-    }
-
-    /** database set-up */
-    public void initDatabase(){
-        DBHelper myDb = new DBHelper(this);
+    public void setDatabase(){
         user =  FirebaseAuth.getInstance().getCurrentUser();
 
+        // if user is not null
+        // save FireBase email to sharedPreference
+        // & set all textView to values of sharedPreference
         if(user!=null){
             editor.putString("email", user.getEmail());
             editor.apply();
@@ -173,8 +141,9 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
             tvUser.setText(ref.getString("name",null));
         }
 
-
         DatabaseReference tbl_user = FirebaseDatabase.getInstance().getReference("users");
+
+        // real-time database changes
         tbl_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -203,11 +172,22 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         });
     }
 
-    /** handles navigation fragments and activities */
-    public void setNavigation(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Dashboard");
+    public void setNetworkReceiver(){
+        // init receiver for network connection
+        networkStateReceiver = new NetworkStateReceiver();
+        networkStateReceiver.addListener(this);
+        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
+    }
+
+    public void setNavigation(){
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Profile");
+
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        setFragment(new DashboardSection());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -215,14 +195,11 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
 
                 switch(id) {
                     case R.id.nav_dashboard:
-                        setFragment(new ProfileFragment());
+                        setFragment(new DashboardSection());
                         toolbar.setTitle("Profile");
                         break;
 
                     case R.id.nav_statistic:
-//                        setFragment(new StatisticSection());
-//                        toolbar.setTitle("Statistics");
-
                         startActivity(new Intent(NavigationActivity.this, StatisticsActivity.class));
                         break;
 
@@ -251,15 +228,20 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
                         finish();
 
                         //reset account
-                        UserRepo userRepo = new UserRepo();
-                        userRepo.resetUserTable();
-                        SessionRepo sessionRepo = new SessionRepo();
-                        sessionRepo.resetSessionTable();
+                        new UserRepo().resetUserTable();
+                        new SessionRepo().resetSessionTable();
 
                         //firebase sign-out
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(NavigationActivity.this, LoginActivity.class));
+                        startActivity(new Intent(NavigationActivity.this, ProfilingActivity_name.class));
 
+                        break;
+
+                    case R.id.nav_change_acct:
+                        finish();
+                        new UserRepo().resetUserTable();
+                        new SessionRepo().resetSessionTable();
+                        startActivity(new Intent(NavigationActivity.this , LoginActivity.class));
                         break;
                 }
 
@@ -285,13 +267,18 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    /** function when internet is turned on */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        networkStateReceiver.removeListener(this);
+        this.unregisterReceiver(networkStateReceiver);
+    }
+
     @Override
     public void networkAvailable() {
         Log.d(TAG, "Internet is available - NavigationActivity");
     }
 
-    /** function when internet is unavailable or turned off */
     @Override
     public void networkUnavailable() {
     }

@@ -85,7 +85,7 @@ public class CreateRecord extends AppCompatActivity {
 
 
         //textView for waking time
-        tvWakeTime = findViewById(R.id.tvWakeupTime);
+        tvWakeTime = findViewById(R.id.tvWakeTime);
         tvWakeTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,17 +95,17 @@ public class CreateRecord extends AppCompatActivity {
 
 
         //textView for sleep session date
-        tvWakeDate = findViewById(R.id.tvWakeDate);
-        Date now = new Date();
-        tvWakeDate.setText(DateHelper.getMonthDay(now));
-        tvWakeDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDate();
-            }
-        });
+//        tvWakeDate = findViewById(R.id.tvWakeDate);
+//        Date now = new Date();
+//        tvWakeDate.setText(DateHelper.getMonthDay(now));
+//        tvWakeDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setDate();
+//            }
+//        });
 
-        tvDuration = findViewById(R.id.tvDuration);
+//        tvDuration = findViewById(R.id.tvDuration);
 
         //Buttons
         Button btnAdd = findViewById(R.id.btnAdd);
@@ -120,12 +120,12 @@ public class CreateRecord extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sessionRepo.resetSessionTable();
+
                 backToDashboard();
             }
         });
 
-        setSleepingTime();
+//        setDate();
         setSleepQuality();
 
     }
@@ -196,47 +196,31 @@ public class CreateRecord extends AppCompatActivity {
                 session.setSleepDuration(session.getSleep_duration());
 
 
-                tvDuration.setText(session.getSleep_duration());
-                tvWakeDate.setText(DateHelper.getMonthDay(session.getWakeDate()));
+//                tvDuration.setText(session.getSleep_duration());
+//                tvWakeDate.setText(DateHelper.getMonthDay(session.getWakeDate()));
 
 
             }
         }, year, month, day);
 
-        mDatePicker.setTitle("Select sleep date");
+        mDatePicker.setTitle("What is the date of your sleep session?");
         mDatePicker.show();
     }
 
     private void setSleepingTime(){
+        Calendar cal = Calendar.getInstance();
         mTimePicker = new TimePickerDialog(CreateRecord.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String AM_PM;
-                String minute;
-                int hour = selectedHour;
-
-                if(selectedMinute < 10){
-                    minute = "0" + selectedMinute;
-                } else {
-                    minute = "" + selectedMinute;
-                }
-
-                if(selectedHour < 12){
-                    AM_PM = "AM";
-                } else{
-                    hour = selectedHour - 12;
-                    AM_PM = "PM";
-                }
-
-                tvSleepTime.setText(hour + ":" + minute + " " + AM_PM);
-                sleep_time = hour + ":" + minute + " " + AM_PM;
+                String time = DateHelper.getTimeFormat(selectedHour, selectedMinute);
+                tvSleepTime.setText(time);
+                sleep_time = time;
 
                 sleep_hour = selectedHour;
                 sleep_minute = selectedMinute;
-                setWakeUpTime();
 
             }
-        }, 22, 0, false);
+        }, cal.getTime().getHours(), 0, false);
         mTimePicker.setTitle("Select Sleeping Time");
         mTimePicker.show();
     }
@@ -245,36 +229,20 @@ public class CreateRecord extends AppCompatActivity {
         mTimePicker = new TimePickerDialog(CreateRecord.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String AM_PM;
-                String minute;
-                int hour = selectedHour;
-
-                if(selectedMinute < 10){
-                    minute = "0" + selectedMinute;
-                } else {
-                    minute = "" + selectedMinute;
-                }
-
-                if(selectedHour < 12){
-                    AM_PM = "AM";
-                } else{
-                    hour = selectedHour - 12;
-                    AM_PM = "PM";
-                }
-
-                tvWakeTime.setText( hour + ":" + minute + " " + AM_PM );
-                wake_time = hour + ":" + minute + " " + AM_PM;
+                String time = DateHelper.getTimeFormat(selectedHour, selectedMinute);
+                tvWakeTime.setText(time);
+                wake_time = time.toString();
                 setDate();
 
             }
-        }, (sleep_hour + 8), 0, false);
+        }, (sleep_hour + 8) - 24, 0, false);
 
         mTimePicker.setTitle("Select Wake Time");
         mTimePicker.show();
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar)findViewById(R.id.toolbar2);
+        toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Create sleep record");
@@ -300,26 +268,25 @@ public class CreateRecord extends AppCompatActivity {
         startActivity(new Intent(CreateRecord.this, NavigationActivity.class));
         session.setSleepQuality(sleep_quality);
         sessionRepo.insertSession(session);
+        session.setId(sessionRepo.getLastInsertedId());
 
         database = FirebaseDatabase.getInstance().getReference("sessions");
         firebaseAuth = FirebaseAuth.getInstance();
 
         final FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        //save to firebase
-         database.child(user.getUid()).push().setValue(session)
+        //save to FireBase
+         database.child(user.getUid()).child(session.getid()+"").setValue(session)
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "Success! ");
-                        Toast.makeText(CreateRecord.this, "SUCCESS", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "Failed! ");
-                        Toast.makeText(CreateRecord.this, "FAILED", Toast.LENGTH_SHORT).show();
                     }
                 });
 

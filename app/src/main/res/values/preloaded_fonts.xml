@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/assistant_extralight</item>
+        <item>@font/atma_light</item>
         <item>@font/bowlby_one_sc</item>
         <item>@font/bubbler_one</item>
         <item>@font/carrois_gothic_sc</item>
         <item>@font/carter_one</item>
         <item>@font/contrail_one</item>
+        <item>@font/dancing_script</item>
         <item>@font/didact_gothic</item>
         <item>@font/montserrat</item>
+        <item>@font/petit_formal_script</item>
+        <item>@font/salsa</item>
         <item>@font/sigmar_one</item>
     </array>
 </resources>

@@ -24,7 +24,7 @@ import com.santiagoapps.sleepadviser.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "Dormie (" + LoginActivity.class.getSimpleName() + ") ";
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText txtEmail;
