@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,9 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.santiagoapps.sleepadviser.activities.profile.ProfilingActivity_name;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
 import com.santiagoapps.sleepadviser.data.repo.UserRepo;
-import com.santiagoapps.sleepadviser.fragments.ProfileFragment;
 import com.santiagoapps.sleepadviser.fragments.nav.DashboardSection;
-import com.santiagoapps.sleepadviser.helpers.DBHelper;
+import com.santiagoapps.sleepadviser.fragments.nav.VideoSection;
 import com.santiagoapps.sleepadviser.data.model.User;
 import com.santiagoapps.sleepadviser.fragments.nav.MusicSection;
 import com.santiagoapps.sleepadviser.R;
@@ -217,8 +215,12 @@ public class NavigationActivity extends AppCompatActivity implements NetworkStat
                         break;
 
                     case R.id.nav_motion_sensor:
-                        startActivity(new Intent(NavigationActivity.this , MotionSensorActivity.class));
+//                        startActivity(new Intent(NavigationActivity.this , SleepVideoActivity.class));
+
+                        setFragment(new VideoSection());
+                        toolbar.setTitle("Sleep videos");
                         break;
+
 
                     case R.id.nav_faq:
                         startActivity(new Intent(NavigationActivity.this , FaqActivity.class));

@@ -62,8 +62,9 @@
         <activity android:name=".activities.FaqActivity" />
         <activity android:name=".activities.QuestionAndAnswerActivity" />
         <activity android:name=".activities.StatisticsActivity" />
-        <activity android:name=".MusicActivity" />
-        <activity android:name=".SleepHistoryActivity"></activity>
+        <activity android:name=".activities.MusicActivity" />
+        <activity android:name=".activities.SleepHistoryActivity" />
+        <activity android:name=".activities.SleepVideoActivity"></activity>
     </application>
 
 </manifest>

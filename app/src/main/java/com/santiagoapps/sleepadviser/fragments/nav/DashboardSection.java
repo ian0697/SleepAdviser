@@ -2,7 +2,6 @@ package com.santiagoapps.sleepadviser.fragments.nav;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toolbar;
 
+import com.santiagoapps.sleepadviser.activities.MusicActivity;
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.activities.SleepHistoryFragment;
+import com.santiagoapps.sleepadviser.fragments.SleepHistoryFragment;
 import com.santiagoapps.sleepadviser.fragments.*;
 
 
@@ -90,7 +90,7 @@ public class DashboardSection extends Fragment {
                 case 1:
                     return new SleepHistoryFragment();
                 case 2:
-                    return new MusicSection();
+                    return new MusicActivity();
                 default:
                     return null;
             }

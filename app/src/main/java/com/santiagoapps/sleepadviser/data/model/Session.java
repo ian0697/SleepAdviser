@@ -39,96 +39,30 @@ public class Session {
     private long durationInMills;
     private String userId;
     private String sleepQualityDesc;
-    private String strSleepDate;
-    private String strWakeDate;
     private String sleep_duration;
 
-//    Required empty Constructor
+    /** Required empty Constructor */
     public Session(){
         sleepQuality = 0;
+        durationInMills = 0;
         sleep_date = Calendar.getInstance();
         wake_date = Calendar.getInstance();
     }
 
-    /**
-     * accepts two parameters:
-     * @param sleep_date accepts Sleeping date as Calendar object
-     * @param wake_date accepts wake date as Calendar object
-     */
-    public Session(Calendar sleep_date, Calendar wake_date){
-        sleepQuality = 0;
-        this.sleep_date = sleep_date;
-        this.wake_date = wake_date;
-    }
-
-
-    /**
-     * accepts THREE parameters:
-     * @param sleep_date accepts Sleeping date as Calendar object
-     * @param wake_date accepts wake date as Calendar object
-     * @param sleep_rating Describes how the user feels as they woke up
-     */
-    public Session(Calendar sleep_date, Calendar wake_date, int sleep_rating){
-        this.sleepQuality = sleep_rating;
-        this.sleep_date = sleep_date;
-        this.wake_date = wake_date;
-    }
-
-
-    /**
-     * Return the sleep_date
-     * as a Calendar object
-     */
     public Calendar getSleepDate(){
         return sleep_date;
     }
 
-
-
-    /**
-     * Set the sleep date in by accepting
-     * parsed date through the formats defined
-     * in this class
-     */
     public void setSleepDate(Date parseDate){
         sleep_date.setTime(parseDate);
-        strSleepDate = DateHelper.dateToString(parseDate);
     }
 
-    /**
-     * Return the wake_date
-     * as a Calendar object
-     */
     public Calendar getWakeDate(){
         return wake_date;
     }
 
-
-    /**
-     * Set the wake date in by accepting
-     * parsed date through the formats defined
-     * in this class
-     */
     public void setWakeDate(Date parseDate){
         wake_date.setTime(parseDate);
-        strWakeDate = DateHelper.dateToString(parseDate);
-    }
-
-
-    public String getStrSleepDate() {
-        return strSleepDate;
-    }
-
-    public void setStrSleepDate(String strSleepDate) {
-        this.strSleepDate = strSleepDate;
-    }
-
-    public String getStrWakeDate() {
-        return strWakeDate;
-    }
-
-    public void setStrWakeDate(String strWakeDate) {
-        this.strWakeDate = strWakeDate;
     }
 
     public int getid(){
@@ -139,11 +73,6 @@ public class Session {
         this.id = id;
     }
 
-    /**
-     * return the sleep duration between
-     * the sleeping time and the waking time
-     * by converting it to milliseconds
-     */
     public String getSleep_duration(){
         long mills = wake_date.getTimeInMillis() - sleep_date.getTimeInMillis();
         int hours = (int) (mills/(1000 * 60 * 60));
@@ -153,8 +82,12 @@ public class Session {
         return sleep_duration;
     }
 
-    public void setDurationInMills(long mills){
-        this.durationInMills = mills;
+    public int getDurationHour(){
+        return (int) getDurationInMills()/(1000 * 60 * 60);
+    }
+
+    public int getDurationMin(){
+        return (int) (getDurationInMills()/(1000 * 60)) % 60;
     }
 
     public long getDurationInMills(){
@@ -169,15 +102,24 @@ public class Session {
 
     public double getDurationInDecimal(){
         double decimal;
-        double hr = getCalendarDuration().getHours();
+        double hr = getDurationHour();
         if(hr > 12){
             hr = hr - 12;
         }
 
-        double min = getCalendarDuration().getMinutes() / 60;
+        double min = getDurationMin() / 60;
 
         decimal = hr + min;
         return decimal;
+    }
+
+    public boolean isHealthy(){
+        if(getDurationInDecimal() < 7) {
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     public void setSleepDuration(String sleep_duration){
@@ -220,8 +162,8 @@ public class Session {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\nId: " + getid());
-        sb.append("\nSleep date: " + DateHelper.dateToString(sleep_date.getTime()));
-        sb.append("\nWake date: " + DateHelper.dateToString(wake_date.getTime()));
+        sb.append("\nSleep date: " + DateHelper.dateToStandardString(sleep_date.getTime()));
+        sb.append("\nWake date: " + DateHelper.dateToStandardString(wake_date.getTime()));
         sb.append("\nSleep duration: " + getSleep_duration());
         sb.append("\nSleep Quality: " + sleepQualityDesc);
         sb.append("\nUser id: " + getUserId());

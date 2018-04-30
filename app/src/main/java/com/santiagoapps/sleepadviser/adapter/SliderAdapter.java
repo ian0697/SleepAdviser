@@ -2,7 +2,6 @@ package com.santiagoapps.sleepadviser.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.santiagoapps.sleepadviser.R;
-
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by IAN on 3/29/2018.
@@ -59,7 +56,7 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.slider_layout, container, false);
+        View view = layoutInflater.inflate(R.layout.layout_slider, container, false);
 
         //instantiate the objects from the layout xml
         ImageView sImageView = (ImageView) view.findViewById(R.id.imageSlider);

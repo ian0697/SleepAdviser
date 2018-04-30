@@ -26,9 +26,8 @@ import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.data.repo.SessionRepo;
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
-import java.util.Date;
-
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * CreateRecord
@@ -68,7 +67,7 @@ public class CreateRecord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_record);
-        setToolbar();
+//        setToolbar();
 
         // initializations
         session = new Session();
@@ -108,6 +107,7 @@ public class CreateRecord extends AppCompatActivity {
 //        tvDuration = findViewById(R.id.tvDuration);
 
         //Buttons
+
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,12 +176,13 @@ public class CreateRecord extends AppCompatActivity {
         DatePickerDialog mDatePicker = new DatePickerDialog(CreateRecord.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                day = day+1;
                 String date1 = year + "-" + (month+1) + "-" + day + " " + sleep_time;
                 String date2 = year + "-" + (month+1) + "-" + day + " " + wake_time;
                 Log.d(TAG, "Sleep time: " + date1 + "\nWake up time: " + date2);
 
                 Calendar temp = Calendar.getInstance();
-                temp.setTime(DateHelper.stringToDate(date1));
+                temp.setTime(DateHelper.stringStandardToDate(date1));
 
                 // If sleeping time is PM = treat
                 // it as the day before waking time
@@ -190,9 +191,8 @@ public class CreateRecord extends AppCompatActivity {
                     date1 = year + "-" + (month+1) + "-" + (day-1) + " " + sleep_time;
                 }
 
-
-                session.setSleepDate(DateHelper.stringToDate(date1));
-                session.setWakeDate(DateHelper.stringToDate(date2));
+                session.setSleepDate(DateHelper.stringStandardToDate(date1));
+                session.setWakeDate(DateHelper.stringStandardToDate(date2));
                 session.setSleepDuration(session.getSleep_duration());
 
 
@@ -231,7 +231,7 @@ public class CreateRecord extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String time = DateHelper.getTimeFormat(selectedHour, selectedMinute);
                 tvWakeTime.setText(time);
-                wake_time = time.toString();
+                wake_time = time;
                 setDate();
 
             }

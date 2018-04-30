@@ -2,7 +2,6 @@ package com.santiagoapps.sleepadviser.data.model;
 
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -88,7 +87,7 @@ public class User {
     private void setDateRegistered() {
         //now date
         Date date = new Date();
-        dateRegistered = DateHelper.dateToString(date);
+        dateRegistered = DateHelper.dateToStandardString(date);
     }
 
     public void setDateRegistered(String dateRegistered){

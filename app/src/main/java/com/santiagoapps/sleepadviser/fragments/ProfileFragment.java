@@ -9,13 +9,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +46,6 @@ import com.santiagoapps.sleepadviser.receivers.NetworkStateReceiver;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -91,7 +88,7 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
 
         initDatabase();
         setTextView();
-        setSleepReminder(DateHelper.stringToCalendar(ref.getString("sleep",null)));
+        setSleepReminder(DateHelper.stringTimeToCalendar(ref.getString("sleep",null)));
 
         btnSync = rootView.findViewById(R.id.btnSync);
         btnSync.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +133,7 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
 
         if(ref.contains("sleep")){
             String strTime = ref.getString("sleep",null);
-            Log.d(TAG, DateHelper.dateToString(calendar));
+            Log.d(TAG, DateHelper.dateToStandardString(calendar));
         }
 
         Intent alarmIntent = new Intent(context, AlarmNotificationReceiver.class);
@@ -200,7 +197,8 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context, DormieActivity.class));
+                SessionRepo s = new SessionRepo();
+                s.resetSessionTable();
             }
         });
 
@@ -292,7 +290,7 @@ public class ProfileFragment extends Fragment implements NetworkStateReceiver.Ne
                 editor.apply();
                 myDialog.dismiss();
                 setTextView();
-                setSleepReminder(DateHelper.stringToCalendar(ref.getString("sleep",null)));
+                setSleepReminder(DateHelper.stringTimeToCalendar(ref.getString("sleep",null)));
 
             }
         });

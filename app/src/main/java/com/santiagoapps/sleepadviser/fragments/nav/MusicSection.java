@@ -50,7 +50,7 @@ public class MusicSection extends Fragment {
         musicArrayList.add(new Music("Wisps of Whorls", "Meditation/Sleep relief ic_music", R.raw.wispofwhorls));
         musicArrayList.add(new Music("Sleep Music", "Meditation/Sleep relief ic_music", R.raw.sleepmusic));
 
-        musicAdapter = new MusicAdapter(context, R.layout.music_view, musicArrayList);
+        musicAdapter = new MusicAdapter(context, R.layout.layout_music_view, musicArrayList);
         songList.setAdapter(musicAdapter);
     }
 

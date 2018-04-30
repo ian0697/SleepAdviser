@@ -1,6 +1,5 @@
 package com.santiagoapps.sleepadviser.activities;
 
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetBehavior;
@@ -67,7 +66,7 @@ public class DormieActivity extends AppCompatActivity {
         });
 
 
-        mAdapter = new MessageAdapter(this,R.layout.single_message);
+        mAdapter = new MessageAdapter(this,R.layout.layout_message);
         chat_list = bottomsheet.findViewById(R.id.list_chat);
         chat_list.setAdapter(mAdapter);
         chat_list.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);

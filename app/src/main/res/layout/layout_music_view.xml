@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/musicIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_alignBottom="@+id/musicIcon"
+            android:id="@+id/linearLayout">
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Song Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/txtCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtName"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/musicIcon"
+                android:text="Song Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/linearLayout">
+
+            <ImageView
+                android:id="@+id/play"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/pause"
+                android:tint="#fff"
+                app:srcCompat="@drawable/play" />
+
+            <ImageView
+                android:id="@+id/pause"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:tint="#fff"
+                app:srcCompat="@drawable/ic_stop" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -31,14 +31,6 @@ public class StatisticSection extends Fragment {
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(new SectionsPagerAdapter(getChildFragmentManager()));
 
-//        tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-//        tabLayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                tabLayout.setupWithViewPager(mViewPager);
-//            }
-//        });
-
         return view;
     }
 

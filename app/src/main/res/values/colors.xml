@@ -12,6 +12,9 @@
     <color name="primary_material_dark">#243447</color>
     <color name="accent_material_dark">#5b8fb4</color>
 
+
+
+    <color name="background_material_dark_2">#293c51</color>
     <color name="colorTransparentWhite">#cccccc</color>
 
     <color name="colorRed">#990000</color>

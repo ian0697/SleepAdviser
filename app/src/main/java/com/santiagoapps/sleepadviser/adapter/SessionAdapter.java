@@ -1,24 +1,19 @@
 package com.santiagoapps.sleepadviser.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.santiagoapps.sleepadviser.R;
-import com.santiagoapps.sleepadviser.data.model.Music;
 import com.santiagoapps.sleepadviser.data.model.Session;
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SessionAdapter extends BaseAdapter {
 
@@ -74,8 +69,8 @@ public class SessionAdapter extends BaseAdapter {
         final Session session = arraylist.get(position);
         viewHolder.tvRating.setText(session.getSleepQualityDesc());
         viewHolder.tvDuration.setText(session.getSleep_duration());
-        viewHolder.tvDate.setText(DateHelper.dateToDayMonth(session.getSleepDate()));
-        viewHolder.tvSleep.setText(DateHelper.dateToTime(session.getSleepDate()));
+        viewHolder.tvDate.setText(DateHelper.dateToStringDayMonth(session.getSleepDate()));
+        viewHolder.tvSleep.setText(DateHelper.dateToStringTime(session.getSleepDate()));
 
         if(session.getDurationInMills() > 25200000){
             viewHolder.icCircle.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorGreen));

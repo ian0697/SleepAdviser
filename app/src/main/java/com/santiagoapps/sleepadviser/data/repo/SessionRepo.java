@@ -11,6 +11,7 @@ import com.santiagoapps.sleepadviser.data.model.User;
 import com.santiagoapps.sleepadviser.helpers.DateHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.santiagoapps.sleepadviser.data.model.Session.*;
@@ -51,8 +52,8 @@ public class SessionRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_USER_ID, session.getUserId());
-        values.put(KEY_SLEEP_DATE, DateHelper.dateToString(session.getSleepDate().getTime()));
-        values.put(KEY_WAKE_DATE, DateHelper.dateToString(session.getWakeDate().getTime()));
+        values.put(KEY_SLEEP_DATE, DateHelper.dateToSqlString(session.getSleepDate().getTime()));
+        values.put(KEY_WAKE_DATE, DateHelper.dateToSqlString(session.getWakeDate().getTime()));
         values.put(KEY_SLEEP_DURATION, session.getSleep_duration());
         values.put(KEY_SLEEP_RATING, session.getSleepQuality());
 
@@ -77,7 +78,7 @@ public class SessionRepo {
         List<Session> session_list = new ArrayList<>();
 
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
-        String query = "SELECT * FROM " + TABLE + " ORDER BY datetime(" + KEY_SLEEP_DATE + ")";
+        String query = "SELECT * FROM " + TABLE + " ORDER BY DATE(" + KEY_SLEEP_DATE + ") ASC";
         Log.e(TAG, query);
 
         Cursor res = db.rawQuery(query,null);
@@ -86,8 +87,8 @@ public class SessionRepo {
             Session session = new Session();
             session.setId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
             session.setUserId((res.getString(res.getColumnIndex(KEY_USER_ID))));
-            session.setSleepDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
-            session.setWakeDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
+            session.setSleepDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+            session.setWakeDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
             session.setSleepDuration(res.getString(res.getColumnIndex(KEY_SLEEP_DURATION)));
             session.setSleepQuality(Integer.parseInt(res.getString(res.getColumnIndex(KEY_SLEEP_RATING))));
             session_list.add(session);
@@ -100,17 +101,17 @@ public class SessionRepo {
         List<Session> matchedList = new ArrayList<>();
 
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
-        String query = "SELECT * FROM " + TABLE;
+        String query = "SELECT * FROM " + TABLE + " ORDER BY DATE(" + KEY_SLEEP_DATE + ")";
         Log.e(TAG, query);
 
         Cursor res = db.rawQuery(query,null);
 
         while(res.moveToNext()){
             Session session = new Session();
-//            session.setSessionId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
+            session.setId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
             session.setUserId((res.getString(res.getColumnIndex(KEY_USER_ID))));
-            session.setSleepDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
-            session.setWakeDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
+            session.setSleepDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+            session.setWakeDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
             session.setSleepDuration(res.getString(res.getColumnIndex(KEY_SLEEP_DURATION)));
             session.setSleepQuality(Integer.parseInt(res.getString(res.getColumnIndex(KEY_SLEEP_RATING))));
 
@@ -123,29 +124,34 @@ public class SessionRepo {
         return matchedList;
     }
 
-    public List<Session> getUserSession(User user){
-        List<Session> sessionList = new ArrayList<>();
+    public List<Session> getSessionOfCurrentWeek(){
+        List<Session> matchedList = new ArrayList<>();
+
         SQLiteDatabase db =  DatabaseManager.getInstance().openDatabase();
+        String query = "SELECT * FROM " + TABLE;
+        Log.e(TAG, query);
 
-        String query = String.format("SELECT Id, SLEEP_TIME, WAKE_TIME, SLEEP_RATING, SLEEP_DURATION FROM tbl_data " +
-                "WHERE USER_ID = %s", user.getFirebaseId());
+        Cursor res = db.rawQuery(query,null);
 
-        Cursor res = db.rawQuery(query, null);
         while(res.moveToNext()){
             Session session = new Session();
-//            session.setSessionId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
-            session.setUserId(res.getString(res.getColumnIndex(KEY_USER_ID)));
-            session.setSleepDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
-            session.setWakeDate(DateHelper.stringToDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
+            session.setId(Integer.parseInt(res.getString(res.getColumnIndex(KEY_ID))));
+            session.setUserId((res.getString(res.getColumnIndex(KEY_USER_ID))));
+            session.setSleepDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_SLEEP_DATE))));
+            session.setWakeDate(DateHelper.stringToSqlDate(res.getString(res.getColumnIndex(KEY_WAKE_DATE))));
             session.setSleepDuration(res.getString(res.getColumnIndex(KEY_SLEEP_DURATION)));
             session.setSleepQuality(Integer.parseInt(res.getString(res.getColumnIndex(KEY_SLEEP_RATING))));
-            sessionList.add(session);
+
+            if(session.getSleepDate().get(Calendar.WEEK_OF_YEAR) == DateHelper.getCurrentWeek()){
+                matchedList.add(session);
+            }
         }
 
-        return sessionList;
+        return matchedList;
     }
 
     /** return session count **/
+
     public int getSessionCount(){
         SQLiteDatabase x = DatabaseManager.getInstance().openDatabase();
         Cursor res = x.rawQuery("select * from " + TABLE, null);
@@ -163,6 +169,7 @@ public class SessionRepo {
 
         return id;
     }
+
 
 
     /************** DELETE METHODS *****************/

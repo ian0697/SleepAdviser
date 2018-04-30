@@ -149,5 +149,45 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="subtitle">Ms Els Van Der Helm\'s recommendation</string>
+    <string name="subtitle_2">According to buzzfeed, these are some tips to help you fall asleep easily:</string>
+    <string name="subtitle_3">Ms Els Van Der Helm on sleep deprived teenagers</string>
+    <string name="subtitle_4">6 scientific tricks according to tech insider</string>
+    <string name="subtitle_5">According to Ms. Els Van Der Helm, these are 3 rules on naps.</string>
+    <string name="subtitle_6">What is a sleep debt?</string>
+    <string name="list_1">
+        A sleep expert shares some tips on good sleeping habits and exercises.
+    </string>
+    <string name="list_2">
+        1. Read a book before going to bed or listen to an audiobook\n\n
+        2. Keep your alarm clock out of your line of sight\n\n
+        3. If you feel anxious, you can write down all your thoughts at night.\n\n
+        4. Exercise in the evening.\n\n
+        5. Fall asleep to the sounds of the nature.\n\n
+        6. Make your room a screen-free zone.\n\n
+        7. Keep your alarm clock out of your line of sight\n\n
+        9. Focus on your breathing.\n\n
+        10. Keep your bedroom with a nice scent\n\n
+    </string>
+    <string name="list_3">
+        A sleep expert said, a sleep deprived teenager is not equipped to deal with adolescence.
+    </string>
+    <string name="list_4">
+        1. If you can\'t sleep, go out of bed\n\n
+        2. Turn off your phone\n\n
+        3. Try meditation\n\n
+        4. Try to stay awake - a counter intuitive technique\n\n
+        5. Stick to a routine\n\n
+        6. Do something mindless
+    </string>
+    <string name="list_5">
+        1. Do not nap if you have trouble sleeping \n\n
+        2. Pick a time.\n\n
+        3. No recover nap on Sunday
+    </string>
+    <string name="list_6">
+        According to a sleep researcher/expert, a sleep debt is the difference between how much sleep you need vs how much sleep you are getting
+    </string>
+
 
 </resources>

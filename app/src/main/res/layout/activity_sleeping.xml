@@ -129,7 +129,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/blue_dark1"
-            android:fontFamily="@font/assistant_extralight"
             android:text="CANCEL"
             android:id="@+id/btnCancel"
             android:padding="10dp"
